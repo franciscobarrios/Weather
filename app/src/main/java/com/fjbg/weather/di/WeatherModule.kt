@@ -1,6 +1,7 @@
 package com.fjbg.weather.di
 
 import com.fjbg.weather.data.BASE_URL
+import com.fjbg.weather.data.local.WeatherDao
 import com.fjbg.weather.data.remote.WeatherService
 import com.fjbg.weather.data.repository.WeatherRepositoryImp
 import dagger.Module

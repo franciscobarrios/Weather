@@ -2,12 +2,11 @@ package com.fjbg.weather.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.fjbg.weather.data.model.WeatherResponse
+import com.fjbg.weather.data.remote.WeatherResponse
 import com.fjbg.weather.data.repository.WeatherRepositoryImp
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,9 +20,7 @@ class WeatherViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            repository.getRemoteWeather().collect {
-                _currentWeather.value = it
-            }
+            repository.getRemoteWeather()
         }
     }
 }
