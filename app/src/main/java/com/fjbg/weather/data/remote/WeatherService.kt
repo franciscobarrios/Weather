@@ -5,7 +5,6 @@ import com.fjbg.weather.data.model.WeatherResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 
-
 interface WeatherService {
 
     @GET("weather?q=Bangkok&appid={key}")
