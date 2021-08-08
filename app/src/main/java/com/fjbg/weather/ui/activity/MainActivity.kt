@@ -7,9 +7,6 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.lifecycleScope
 import com.fjbg.weather.ui.theme.WeatherTheme
 import com.fjbg.weather.ui.viewmodel.WeatherViewModel
@@ -27,9 +24,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             WeatherTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
-                    Greeting("Android")
+                    //Greeting("Android")
                 }
             }
         }
@@ -39,18 +35,5 @@ class MainActivity : ComponentActivity() {
                 Log.d(TAG, "onCreate: it: $it")
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    WeatherTheme {
-        Greeting("Android")
     }
 }
