@@ -1,7 +1,7 @@
 package com.fjbg.weather.di
 
 import com.fjbg.weather.data.BASE_URL
-import com.fjbg.weather.data.local.WeatherDao
+import com.fjbg.weather.data.local.WeatherDatabase
 import com.fjbg.weather.data.remote.WeatherService
 import com.fjbg.weather.data.repository.WeatherRepositoryImp
 import dagger.Module
@@ -16,7 +16,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class WeatherModule {
+class NetworkModule {
 
     @Singleton
     @Provides
@@ -44,8 +44,4 @@ class WeatherModule {
     @Provides
     fun providesServices(retrofit: Retrofit): WeatherService =
         retrofit.create(WeatherService::class.java)
-
-    @Singleton
-    @Provides
-    fun providesRepository(service: WeatherService) = WeatherRepositoryImp(service)
 }
