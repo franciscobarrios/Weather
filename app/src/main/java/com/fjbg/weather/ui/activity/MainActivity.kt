@@ -10,6 +10,7 @@ import androidx.compose.material.Surface
 import androidx.lifecycle.lifecycleScope
 import com.fjbg.weather.data.TAG
 import com.fjbg.weather.ui.theme.WeatherTheme
+import com.fjbg.weather.ui.view.MainView
 import com.fjbg.weather.ui.viewmodel.WeatherViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -24,7 +25,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             WeatherTheme {
                 Surface(color = MaterialTheme.colors.background) {
-                    //Greeting("Android")
+                    MainView()
                 }
             }
         }
