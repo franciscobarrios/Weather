@@ -1,9 +1,8 @@
 package com.fjbg.weather.di
 
-import com.fjbg.weather.data.BASE_URL
-import com.fjbg.weather.data.local.WeatherDatabase
-import com.fjbg.weather.data.remote.WeatherService
-import com.fjbg.weather.data.repository.WeatherRepositoryImp
+import com.fjbg.weather.data.WEATHER_BASE_URL
+import com.fjbg.weather.data.aqi.remote.AqiService
+import com.fjbg.weather.data.weather.remote.WeatherService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -34,14 +33,20 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    fun providesRetrofit(client: OkHttpClient): Retrofit = Retrofit.Builder()
-        .addConverterFactory(GsonConverterFactory.create())
-        .baseUrl(BASE_URL)
-        .client(client)
-        .build()
+    fun providesWeatherRetrofit(client: OkHttpClient): Retrofit =
+        Retrofit.Builder()
+            .addConverterFactory(GsonConverterFactory.create())
+            .baseUrl(WEATHER_BASE_URL)
+            .client(client)
+            .build()
 
     @Singleton
     @Provides
-    fun providesServices(retrofit: Retrofit): WeatherService =
+    fun providesWeatherServices(retrofit: Retrofit): WeatherService =
         retrofit.create(WeatherService::class.java)
+
+    @Singleton
+    @Provides
+    fun providesAqiServices(retrofit: Retrofit): AqiService =
+        retrofit.create(AqiService::class.java)
 }

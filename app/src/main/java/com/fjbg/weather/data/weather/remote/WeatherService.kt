@@ -1,4 +1,4 @@
-package com.fjbg.weather.data.remote
+package com.fjbg.weather.data.weather.remote
 
 import com.fjbg.weather.data.WEATHER_KEY
 import retrofit2.http.GET
