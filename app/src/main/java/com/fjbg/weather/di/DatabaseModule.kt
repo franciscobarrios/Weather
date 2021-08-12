@@ -2,9 +2,10 @@ package com.fjbg.weather.di
 
 import android.content.Context
 import androidx.room.Room
+import com.fjbg.weather.data.AppDatabase
 import com.fjbg.weather.data.DB_NAME
-import com.fjbg.weather.data.local.WeatherDao
-import com.fjbg.weather.data.local.WeatherDatabase
+import com.fjbg.weather.data.aqi.local.AqiDao
+import com.fjbg.weather.data.weather.local.WeatherDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,15 +19,20 @@ class DatabaseModule {
 
     @Provides
     @Singleton
-    fun providesDatabase(@ApplicationContext appContext: Context): WeatherDatabase {
-        return Room.databaseBuilder(
-            appContext,
-            WeatherDatabase::class.java,
-            DB_NAME
-        ).build()
+    fun providesDatabase(@ApplicationContext appContext: Context): AppDatabase {
+        return Room
+            .databaseBuilder(
+                appContext,
+                AppDatabase::class.java,
+                DB_NAME
+            )
+            .fallbackToDestructiveMigration()
+            .build()
     }
 
     @Provides
-    fun providesWeatherDao(database: WeatherDatabase): WeatherDao = database.weatherDao()
+    fun providesWeatherDao(database: AppDatabase): WeatherDao = database.weatherDao()
 
+    @Provides
+    fun providesAqiDao(database: AppDatabase): AqiDao = database.aqiDao()
 }
