@@ -1,6 +1,6 @@
-package com.fjbg.weather.data.weather.repository
+package com.fjbg.weather.data.repository
 
-import com.fjbg.weather.data.weather.model.WeatherDto
+import com.fjbg.weather.data.model.WeatherDto
 import kotlinx.coroutines.flow.Flow
 
 interface WeatherRepository {

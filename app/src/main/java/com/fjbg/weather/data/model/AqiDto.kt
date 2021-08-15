@@ -1,4 +1,4 @@
-package com.fjbg.weather.data.aqi.model
+package com.fjbg.weather.data.model
 
 import com.google.gson.JsonObject
 

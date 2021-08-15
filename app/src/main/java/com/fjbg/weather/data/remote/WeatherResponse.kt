@@ -1,4 +1,4 @@
-package com.fjbg.weather.data.weather.remote
+package com.fjbg.weather.data.remote
 
 data class WeatherResponse(
     val coord: Coordinate,

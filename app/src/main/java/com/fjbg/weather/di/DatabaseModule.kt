@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.room.Room
 import com.fjbg.weather.data.AppDatabase
 import com.fjbg.weather.data.DB_NAME
-import com.fjbg.weather.data.aqi.local.AqiDao
-import com.fjbg.weather.data.weather.local.WeatherDao
+import com.fjbg.weather.data.local.AqiDao
+import com.fjbg.weather.data.local.WeatherDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

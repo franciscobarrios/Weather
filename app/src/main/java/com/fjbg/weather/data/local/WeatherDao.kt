@@ -1,4 +1,4 @@
-package com.fjbg.weather.data.weather.local
+package com.fjbg.weather.data.local
 
 import androidx.room.Dao
 import androidx.room.Insert

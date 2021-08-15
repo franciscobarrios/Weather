@@ -2,9 +2,9 @@ package com.fjbg.weather.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.fjbg.weather.data.aqi.repository.AqiRepositoryImp
-import com.fjbg.weather.data.weather.model.WeatherDto
-import com.fjbg.weather.data.weather.repository.WeatherRepositoryImp
+import com.fjbg.weather.data.model.WeatherDto
+import com.fjbg.weather.data.repository.AqiRepositoryImp
+import com.fjbg.weather.data.repository.WeatherRepositoryImp
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

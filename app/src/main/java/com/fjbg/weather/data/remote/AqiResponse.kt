@@ -1,4 +1,4 @@
-package com.fjbg.weather.data.aqi.remote
+package com.fjbg.weather.data.remote
 
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject

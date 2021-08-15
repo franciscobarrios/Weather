@@ -1,4 +1,4 @@
-package com.fjbg.weather.data.aqi.repository
+package com.fjbg.weather.data.repository
 
 interface AqiRepository {
     suspend fun getAqi()

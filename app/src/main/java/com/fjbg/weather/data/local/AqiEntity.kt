@@ -1,4 +1,4 @@
-package com.fjbg.weather.data.aqi.local
+package com.fjbg.weather.data.local
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

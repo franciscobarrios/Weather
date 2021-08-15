@@ -2,8 +2,8 @@ package com.fjbg.weather.di
 
 import com.fjbg.weather.data.AQI_BASE_URL
 import com.fjbg.weather.data.WEATHER_BASE_URL
-import com.fjbg.weather.data.aqi.remote.AqiApi
-import com.fjbg.weather.data.weather.remote.WeatherApi
+import com.fjbg.weather.data.remote.AqiApi
+import com.fjbg.weather.data.remote.WeatherApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

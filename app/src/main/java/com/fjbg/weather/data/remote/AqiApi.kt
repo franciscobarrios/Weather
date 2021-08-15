@@ -1,4 +1,4 @@
-package com.fjbg.weather.data.aqi.remote
+package com.fjbg.weather.data.remote
 
 import com.fjbg.weather.data.AQI_KEY
 import retrofit2.http.GET
