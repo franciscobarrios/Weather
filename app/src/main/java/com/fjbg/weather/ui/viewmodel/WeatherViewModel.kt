@@ -15,7 +15,8 @@ import javax.inject.Inject
 @HiltViewModel
 class WeatherViewModel @Inject constructor(
     private val weatherRepository: WeatherRepositoryImp,
-    private val aqiRepository: AqiRepositoryImp,
+    private val aqiRepository: AqiRepositoryImp
+
 ) : ViewModel() {
 
     private val _currentWeather = MutableStateFlow<WeatherDto?>(null)
@@ -33,7 +34,7 @@ class WeatherViewModel @Inject constructor(
         }
 
         viewModelScope.launch {
-            //aqiRepository.getAqi()
+            aqiRepository.getAqi()
         }
     }
 }

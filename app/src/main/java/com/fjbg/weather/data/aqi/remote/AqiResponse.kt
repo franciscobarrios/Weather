@@ -14,7 +14,6 @@ data class AqiData(
     val city: AqiCity,
     val time: AqiTime,
     val iaqi: Iaqi,
-    val attributions: Attributions,
 )
 
 data class AqiTime(
