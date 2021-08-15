@@ -6,5 +6,5 @@ import retrofit2.http.GET
 interface WeatherApi {
 
     @GET("weather?q=Bangkok&appid=$WEATHER_KEY")
-    suspend fun getWeather(): WeatherResponse
+    suspend fun getWeather(): WeatherResponse?
 }
