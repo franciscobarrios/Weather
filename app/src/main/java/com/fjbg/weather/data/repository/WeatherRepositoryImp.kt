@@ -1,12 +1,10 @@
-package com.fjbg.weather.data.weather.repository
+package com.fjbg.weather.data.repository
 
 import com.fjbg.weather.data.AppDatabase
-import com.fjbg.weather.data.aqi.remote.AqiApi
 import com.fjbg.weather.data.mapper.mapToEntity
 import com.fjbg.weather.data.mapper.mapToModel
-import com.fjbg.weather.data.weather.model.WeatherDto
-import com.fjbg.weather.data.weather.remote.WeatherApi
-import com.fjbg.weather.di.AqiService
+import com.fjbg.weather.data.model.WeatherDto
+import com.fjbg.weather.data.remote.WeatherApi
 import com.fjbg.weather.di.WeatherService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

@@ -1,7 +1,7 @@
-package com.fjbg.weather.data.aqi.repository
+package com.fjbg.weather.data.repository
 
 import com.fjbg.weather.data.AppDatabase
-import com.fjbg.weather.data.aqi.remote.AqiApi
+import com.fjbg.weather.data.remote.AqiApi
 import com.fjbg.weather.di.AqiService
 import javax.inject.Inject
 

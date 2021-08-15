@@ -1,4 +1,4 @@
-package com.fjbg.weather.data.weather.local
+package com.fjbg.weather.data.local
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -24,16 +24,3 @@ data class WeatherEntity(
     val name: String,
     val visibility: Int,
 )
-
-//data class WeatherResponse(
-//    val coord: Coordinate,
-//    val weather: List<Weather>,
-//    val main: MainResponse,
-//    val visibility: Int,
-//    val wind: Wind,
-//    val clouds: Cloud?,
-//    val dt: Int,
-//    val timezone: Int,
-//    val name: String,
-//)
-//

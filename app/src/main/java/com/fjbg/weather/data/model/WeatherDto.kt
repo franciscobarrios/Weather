@@ -1,4 +1,4 @@
-package com.fjbg.weather.data.weather.model
+package com.fjbg.weather.data.model
 
 data class WeatherDto(
     val longitude: Double,

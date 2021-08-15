@@ -1,8 +1,8 @@
 package com.fjbg.weather.data.mapper
 
-import com.fjbg.weather.data.weather.local.WeatherEntity
-import com.fjbg.weather.data.weather.model.WeatherDto
-import com.fjbg.weather.data.weather.remote.WeatherResponse
+import com.fjbg.weather.data.local.WeatherEntity
+import com.fjbg.weather.data.model.WeatherDto
+import com.fjbg.weather.data.remote.WeatherResponse
 
 fun WeatherResponse.mapToEntity(): WeatherEntity {
     val response = this
