@@ -1,6 +1,7 @@
 package com.fjbg.weather.data.remote
 
 import com.fjbg.weather.data.WEATHER_KEY
+import retrofit2.Call
 import retrofit2.http.GET
 
 interface WeatherApi {

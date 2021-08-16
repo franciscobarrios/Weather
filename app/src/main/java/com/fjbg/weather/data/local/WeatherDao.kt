@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 interface WeatherDao {
 
     @Query("SELECT * FROM WeatherEntity")
-    fun getCurrentWeather(): Flow<WeatherEntity>
+    suspend fun getCurrentWeather(): WeatherEntity
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertWeather(entity: WeatherEntity)

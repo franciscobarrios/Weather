@@ -4,6 +4,8 @@ import com.fjbg.weather.data.AQI_BASE_URL
 import com.fjbg.weather.data.WEATHER_BASE_URL
 import com.fjbg.weather.data.remote.AqiApi
 import com.fjbg.weather.data.remote.WeatherApi
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -37,6 +39,13 @@ object NetworkModule {
     @Provides
     @Singleton
     fun providesWeatherBaseUrl(): String = WEATHER_BASE_URL
+
+
+    @Singleton
+    @Provides
+    fun provideGson(): Gson {
+        return GsonBuilder().create()
+    }
 
     @WeatherRetrofit
     @Singleton
