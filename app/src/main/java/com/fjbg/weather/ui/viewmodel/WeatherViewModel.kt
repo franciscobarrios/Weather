@@ -1,9 +1,7 @@
 package com.fjbg.weather.ui.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.fjbg.weather.data.TAG
 import com.fjbg.weather.data.remote.NetworkResponse
 import com.fjbg.weather.data.repository.AqiRepositoryImp
 import com.fjbg.weather.data.repository.WeatherRepositoryImp
@@ -17,8 +15,7 @@ import javax.inject.Inject
 @HiltViewModel
 class WeatherViewModel @Inject constructor(
     private val weatherRepository: WeatherRepositoryImp,
-    private val aqiRepository: AqiRepositoryImp
-
+    private val aqiRepository: AqiRepositoryImp,
 ) : ViewModel() {
 
     private val _fetchWeatherInfo = MutableStateFlow<NetworkResponse<Any>?>(null)
@@ -63,6 +60,36 @@ class WeatherViewModel @Inject constructor(
         val data = MutableStateFlow<Double?>(null)
         viewModelScope.launch {
             weatherRepository.getCurrentTemperature().collect {
+                data.value = it
+            }
+        }
+        return data
+    }
+
+    suspend fun getHumidity(): StateFlow<Double?> {
+        val data = MutableStateFlow<Double?>(null)
+        viewModelScope.launch {
+            weatherRepository.getHumidity().collect {
+                data.value = it
+            }
+        }
+        return data
+    }
+
+    suspend fun getDescription(): StateFlow<String?> {
+        val data = MutableStateFlow<String?>(null)
+        viewModelScope.launch {
+            weatherRepository.getDescription().collect {
+                data.value = it
+            }
+        }
+        return data
+    }
+
+    suspend fun getDescriptionMain(): StateFlow<String?> {
+        val data = MutableStateFlow<String?>(null)
+        viewModelScope.launch {
+            weatherRepository.getDescriptionMain().collect {
                 data.value = it
             }
         }
