@@ -12,7 +12,7 @@ import com.fjbg.weather.data.local.WeatherEntity
         WeatherEntity::class,
         AqiEntity::class,
     ],
-    version = 3,
+    version = 5,
     exportSchema = false,
 )
 abstract class AppDatabase : RoomDatabase() {

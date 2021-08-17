@@ -6,11 +6,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.fjbg.weather.ui.viewmodel.WeatherViewModel
 
 @Composable
-fun MainView() {
+fun MainView(viewModel: WeatherViewModel) {
+
     Box(
         Modifier
             .background(Color.White)
@@ -30,13 +31,10 @@ fun MainView() {
                 date = "Sun 15 Aug",
             )
             WeatherIcon()
-            WeatherInfo()
+            WeatherInfo(
+                temp = "31",
+                description = "Sunny"
+            )
         }
     }
-}
-
-@Preview
-@Composable
-fun MainViewPreview() {
-    MainView()
 }

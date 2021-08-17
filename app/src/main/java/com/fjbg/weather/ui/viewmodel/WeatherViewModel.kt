@@ -1,7 +1,9 @@
 package com.fjbg.weather.ui.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.fjbg.weather.data.TAG
 import com.fjbg.weather.data.remote.NetworkResponse
 import com.fjbg.weather.data.repository.AqiRepositoryImp
 import com.fjbg.weather.data.repository.WeatherRepositoryImp
@@ -29,9 +31,12 @@ class WeatherViewModel @Inject constructor(
         viewModelScope.launch {
             weatherRepository.getRemoteWeather().collect { response ->
                 when (response) {
-                    is NetworkResponse.Loading -> _fetchWeatherInfo.value = NetworkResponse.Loading(true)
-                    is NetworkResponse.Success -> _fetchWeatherInfo.value = NetworkResponse.Success(response.data)
-                    is NetworkResponse.Error -> _fetchWeatherInfo.value = NetworkResponse.Error(response.error)
+                    is NetworkResponse.Loading -> _fetchWeatherInfo.value =
+                        NetworkResponse.Loading(true)
+                    is NetworkResponse.Success -> _fetchWeatherInfo.value =
+                        NetworkResponse.Success(response.data)
+                    is NetworkResponse.Error -> _fetchWeatherInfo.value =
+                        NetworkResponse.Error(response.error)
                 }
             }
         }
@@ -39,9 +44,12 @@ class WeatherViewModel @Inject constructor(
         viewModelScope.launch {
             weatherRepository.getCurrent().collect { state ->
                 when (state) {
-                    is WeatherUiState.Loading -> _currentWeather.value = WeatherUiState.Loading(state.isLoading)
-                    is WeatherUiState.Success -> _currentWeather.value = WeatherUiState.Success(state.data)
-                    is WeatherUiState.Error -> _currentWeather.value = WeatherUiState.Error(state.error)
+                    is WeatherUiState.Loading -> _currentWeather.value =
+                        WeatherUiState.Loading(state.isLoading)
+                    is WeatherUiState.Success -> _currentWeather.value =
+                        WeatherUiState.Success(state.data)
+                    is WeatherUiState.Error -> _currentWeather.value =
+                        WeatherUiState.Error(state.error)
                 }
             }
         }
@@ -49,5 +57,15 @@ class WeatherViewModel @Inject constructor(
         viewModelScope.launch {
             aqiRepository.getAqi()
         }
+    }
+
+    suspend fun getCurrentTemperature(): StateFlow<Double?> {
+        val data = MutableStateFlow<Double?>(null)
+        viewModelScope.launch {
+            weatherRepository.getCurrentTemperature().collect {
+                data.value = it
+            }
+        }
+        return data
     }
 }

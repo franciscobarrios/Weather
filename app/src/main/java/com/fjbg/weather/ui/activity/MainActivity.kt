@@ -27,16 +27,28 @@ class MainActivity : ComponentActivity() {
         setContent {
             WeatherTheme {
                 Surface(color = MaterialTheme.colors.background) {
-                    MainView()
+                    MainView(viewModel)
                 }
+            }
+        }
+
+        lifecycleScope.launchWhenResumed {
+            viewModel.getCurrentTemperature().collect {
+                Log.d(TAG, "getCurrentTemperature: $it")
             }
         }
 
         lifecycleScope.launchWhenCreated {
             viewModel.fetchWeatherInfo.collect {
                 when (it) {
-                    is NetworkResponse.Loading -> Log.d(TAG, "fetchWeatherInfo: Loading: ${it.isLoading}")
-                    is NetworkResponse.Success -> Log.d(TAG, "fetchWeatherInfo: Loading: ${it.data}")
+                    is NetworkResponse.Loading -> Log.d(
+                        TAG,
+                        "fetchWeatherInfo: Loading: ${it.isLoading}"
+                    )
+                    is NetworkResponse.Success -> Log.d(
+                        TAG,
+                        "fetchWeatherInfo: Loading: ${it.data}"
+                    )
                     is NetworkResponse.Error -> Log.d(TAG, "fetchWeatherInfo: Loading: ${it.error}")
                 }
             }
@@ -46,8 +58,14 @@ class MainActivity : ComponentActivity() {
             viewModel.currentWeather.collect {
                 Log.d(TAG, "onCreate: it: $it")
                 when (it) {
-                    is WeatherUiState.Loading -> Log.d(TAG, "currentWeather: Loading: ${it.isLoading}")
-                    is WeatherUiState.Success -> Log.d(TAG, "currentWeather: it - Success: ${it.data}")
+                    is WeatherUiState.Loading -> Log.d(
+                        TAG,
+                        "currentWeather: Loading: ${it.isLoading}"
+                    )
+                    is WeatherUiState.Success -> Log.d(
+                        TAG,
+                        "currentWeather: it - Success: ${it.data}"
+                    )
                     is WeatherUiState.Error -> Log.d(TAG, "currentWeather: Error: ${it.error}")
                 }
             }
