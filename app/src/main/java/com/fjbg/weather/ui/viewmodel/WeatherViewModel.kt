@@ -1,5 +1,7 @@
 package com.fjbg.weather.ui.viewmodel
 
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.fjbg.weather.data.remote.NetworkResponse
@@ -7,7 +9,6 @@ import com.fjbg.weather.data.repository.AqiRepositoryImp
 import com.fjbg.weather.data.repository.WeatherRepositoryImp
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -19,12 +20,25 @@ class WeatherViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _fetchWeatherInfo = MutableStateFlow<NetworkResponse<Any>?>(null)
-    val fetchWeatherInfo: StateFlow<NetworkResponse<Any>?> = _fetchWeatherInfo
-
     private val _currentWeather = MutableStateFlow<WeatherUiState?>(null)
-    val currentWeather: StateFlow<WeatherUiState?> = _currentWeather
+
+    val cityName: MutableState<String?> = mutableStateOf(null)
+    val currentTemperature: MutableState<Int?> = mutableStateOf(null)
+    val description: MutableState<String?> = mutableStateOf(null)
+    val humidity: MutableState<Int?> = mutableStateOf(null)
 
     init {
+        viewModelScope.launch {
+            aqiRepository.getAqi()
+        }
+
+        viewModelScope.launch {
+            getCurrentTemperature()
+            getHumidity()
+            getDescription()
+            getCity()
+        }
+
         viewModelScope.launch {
             weatherRepository.getRemoteWeather().collect { response ->
                 when (response) {
@@ -50,49 +64,41 @@ class WeatherViewModel @Inject constructor(
                 }
             }
         }
+    }
 
+    private suspend fun getCity() {
         viewModelScope.launch {
-            aqiRepository.getAqi()
+            weatherRepository.getCity().collect {
+                cityName.value = it
+            }
         }
     }
 
-    suspend fun getCurrentTemperature(): StateFlow<Double?> {
-        val data = MutableStateFlow<Double?>(null)
+    private suspend fun getCurrentTemperature() {
         viewModelScope.launch {
             weatherRepository.getCurrentTemperature().collect {
-                data.value = it
+                it?.run {
+                    currentTemperature.value = this.toInt() / 10
+                }
             }
         }
-        return data
     }
 
-    suspend fun getHumidity(): StateFlow<Double?> {
-        val data = MutableStateFlow<Double?>(null)
+    private suspend fun getHumidity() {
         viewModelScope.launch {
             weatherRepository.getHumidity().collect {
-                data.value = it
+                it?.run {
+                    humidity.value = this.toInt()
+                }
             }
         }
-        return data
     }
 
-    suspend fun getDescription(): StateFlow<String?> {
-        val data = MutableStateFlow<String?>(null)
+    private suspend fun getDescription() {
         viewModelScope.launch {
             weatherRepository.getDescription().collect {
-                data.value = it
+                description.value = it
             }
         }
-        return data
-    }
-
-    suspend fun getDescriptionMain(): StateFlow<String?> {
-        val data = MutableStateFlow<String?>(null)
-        viewModelScope.launch {
-            weatherRepository.getDescriptionMain().collect {
-                data.value = it
-            }
-        }
-        return data
     }
 }

@@ -9,8 +9,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.fjbg.weather.ui.viewmodel.WeatherViewModel
 
+
 @Composable
 fun MainView(viewModel: WeatherViewModel) {
+
+    val city = viewModel.cityName.value
+    val currentTemp = viewModel.currentTemperature.value
+    val humidity = viewModel.humidity.value
+    val description = viewModel.description.value
 
     Box(
         Modifier
@@ -26,14 +32,15 @@ fun MainView(viewModel: WeatherViewModel) {
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             PlaceName(
-                city = "Bangkok",
+                city = city ?: "",
                 country = "Thailand",
                 date = "Sun 15 Aug",
             )
             WeatherIcon()
             WeatherInfo(
-                temp = "31",
-                description = "Sunny"
+                temp = "$currentTemp°",
+                description = description ?: "",
+                humidity = "$humidity%",
             )
         }
     }

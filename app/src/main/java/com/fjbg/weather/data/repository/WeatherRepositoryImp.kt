@@ -36,25 +36,24 @@ class WeatherRepositoryImp @Inject constructor(
 
     override suspend fun getCurrent(): Flow<WeatherUiState?> {
         val data = MutableStateFlow<WeatherUiState?>(null)
-         weatherDao.getCurrentWeather()?.run {
-             data.value = WeatherUiState.Success(weatherEntityMapToModel(this))
+        weatherDao.getCurrentWeather()?.run {
+            data.value = WeatherUiState.Success(weatherEntityMapToModel(this))
         }
         return data
     }
 
     override suspend fun clearLocal() = weatherDao.clearData()
 
-    override suspend fun getCurrentTemperature(): Flow<Double> =
-        flowOf(weatherDao.getCurrentTemperature())
+    override suspend fun getCurrentTemperature(): Flow<Double?> = flowOf(weatherDao.getCurrentTemperature())
 
-    override suspend fun getDescription(): Flow<String> =
-        flowOf(weatherDao.getDescription())
+    override suspend fun getHumidity(): Flow<Double?> = flowOf(weatherDao.getHumidity())
 
-    override suspend fun getDescriptionMain(): Flow<String> =
-        flowOf(weatherDao.getDescriptionMain())
+    override suspend fun getDescription(): Flow<String> = flowOf(weatherDao.getDescription())
 
-    override suspend fun getHumidity(): Flow<Double> =
-        flowOf(weatherDao.getHumidity())
+    override suspend fun getDescriptionMain(): Flow<String> = flowOf(weatherDao.getDescriptionMain())
+
+    override suspend fun getCity(): Flow<String> = flowOf(weatherDao.getCity())
+
 }
 
 
