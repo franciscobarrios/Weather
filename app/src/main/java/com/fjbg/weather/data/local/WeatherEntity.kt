@@ -24,6 +24,6 @@ data class WeatherEntity(
     val cloud: Int,
     val dt: Int,
     val timezone: Int,
-    val name: String,
+    val cityName: String,
     val visibility: Int,
 )

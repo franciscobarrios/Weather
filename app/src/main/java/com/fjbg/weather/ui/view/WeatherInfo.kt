@@ -15,7 +15,8 @@ import androidx.compose.ui.unit.sp
 @Composable
 fun WeatherInfo(
     temp: String,
-    description: String
+    description: String,
+    humidity: String,
 ) {
     Column(
         modifier = Modifier
@@ -36,6 +37,13 @@ fun WeatherInfo(
             modifier = Modifier.fillMaxWidth(),
             textAlign = TextAlign.Center,
         )
+        Text(
+            text = humidity,
+            fontSize = 18.sp,
+            color = Color.Gray,
+            modifier = Modifier.fillMaxWidth(),
+            textAlign = TextAlign.Center,
+        )
     }
 }
 
@@ -44,6 +52,7 @@ fun WeatherInfo(
 fun WeatherInfoPreview() {
     WeatherInfo(
         temp = "31",
-        description = "Sunny"
+        description = "Sunny",
+        humidity = "98%"
     )
 }

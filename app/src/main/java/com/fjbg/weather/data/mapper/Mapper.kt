@@ -23,7 +23,7 @@ fun weatherResponseToEntity(response: WeatherResponse): WeatherEntity = WeatherE
     windGust = response.wind.gust,
     cloud = if (response.clouds == null) 0 else response.clouds.all,
     timezone = response.timezone,
-    name = response.name,
+    cityName = response.name,
     dt = response.dt,
     visibility = response.visibility
 )
@@ -43,7 +43,7 @@ fun weatherEntityMapToModel(entity: WeatherEntity): WeatherDto {
         windGust = entity.windGust,
         cloud = entity.cloud,
         timezone = entity.timezone,
-        name = entity.name,
+        name = entity.cityName,
         dt = entity.dt,
         visibility = entity.visibility
     )
