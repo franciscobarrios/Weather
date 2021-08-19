@@ -7,7 +7,8 @@ data class WeatherResponse(
     val visibility: Int,
     val wind: Wind,
     val clouds: Cloud?,
-    val dt: Int,
+    val dt: Long,
+    val sys: WeatherSys,
     val timezone: Int,
     val name: String,
 )
@@ -41,5 +42,11 @@ data class Wind(
 
 data class Cloud(
     val all: Int,
+)
+
+data class WeatherSys(
+    val country: String,
+    val sunrise: Long,
+    val sunset: Long,
 )
 

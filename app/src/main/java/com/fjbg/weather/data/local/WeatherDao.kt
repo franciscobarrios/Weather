@@ -15,16 +15,22 @@ interface WeatherDao {
     suspend fun getCurrentTemperature(): Double?
 
     @Query("SELECT weatherMain FROM WeatherEntity")
-    suspend fun getDescriptionMain(): String
+    suspend fun getDescriptionMain(): String?
 
     @Query("SELECT weatherDescription FROM WeatherEntity")
-    suspend fun getDescription(): String
+    suspend fun getDescription(): String?
 
     @Query("SELECT humidity FROM WeatherEntity")
-    suspend fun getHumidity(): Double
+    suspend fun getHumidity(): Double?
 
     @Query("SELECT cityName FROM WeatherEntity")
-    suspend fun getCity(): String
+    suspend fun getCity(): String?
+
+    @Query("SELECT country FROM WeatherEntity")
+    suspend fun getCountry(): String?
+
+    @Query("SELECT dt FROM WeatherEntity")
+    suspend fun getDate(): Long?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertWeather(entity: WeatherEntity)

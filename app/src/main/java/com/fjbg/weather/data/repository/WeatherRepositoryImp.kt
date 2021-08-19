@@ -8,9 +8,11 @@ import com.fjbg.weather.data.remote.WeatherApi
 import com.fjbg.weather.data.remote.WeatherResponse
 import com.fjbg.weather.di.WeatherService
 import com.fjbg.weather.ui.viewmodel.WeatherUiState
+import com.fjbg.weather.util.toDate
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flowOf
+import java.util.*
 import javax.inject.Inject
 
 class WeatherRepositoryImp @Inject constructor(
@@ -44,17 +46,33 @@ class WeatherRepositoryImp @Inject constructor(
 
     override suspend fun clearLocal() = weatherDao.clearData()
 
-    override suspend fun getCurrentTemperature(): Flow<Double?> = flowOf(weatherDao.getCurrentTemperature())
+    override suspend fun getCurrentTemperature(): Flow<Double?> =
+        flowOf(weatherDao.getCurrentTemperature())
 
     override suspend fun getHumidity(): Flow<Double?> = flowOf(weatherDao.getHumidity())
 
-    override suspend fun getDescription(): Flow<String> = flowOf(weatherDao.getDescription())
+    override suspend fun getDescription(): Flow<String?> = flowOf(weatherDao.getDescription())
 
-    override suspend fun getDescriptionMain(): Flow<String> = flowOf(weatherDao.getDescriptionMain())
+    override suspend fun getDescriptionMain(): Flow<String?> =
+        flowOf(weatherDao.getDescriptionMain())
 
-    override suspend fun getCity(): Flow<String> = flowOf(weatherDao.getCity())
+    override suspend fun getCity(): Flow<String?> = flowOf(weatherDao.getCity())
 
+    override suspend fun getCountry(): Flow<String?> {
+        val data = MutableStateFlow("")
+        weatherDao.getCountry()?.let {
+            data.value = Locale("en", it).displayCountry
+        }
+        return data
+    }
+
+    override suspend fun getIcon(): Flow<String?> {
+        return flowOf("")
+    }
+
+    override suspend fun getDate(): Flow<String?> {
+        return flowOf(weatherDao.getDate()?.toDate())
+    }
 }
-
 
 

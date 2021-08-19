@@ -13,7 +13,9 @@ import com.fjbg.weather.ui.viewmodel.WeatherViewModel
 @Composable
 fun MainView(viewModel: WeatherViewModel) {
 
+    val country = viewModel.country.value
     val city = viewModel.cityName.value
+    val date = viewModel.date.value
     val currentTemp = viewModel.currentTemperature.value
     val humidity = viewModel.humidity.value
     val description = viewModel.description.value
@@ -33,8 +35,8 @@ fun MainView(viewModel: WeatherViewModel) {
         ) {
             PlaceName(
                 city = city ?: "",
-                country = "Thailand",
-                date = "Sun 15 Aug",
+                country = country ?: "",
+                date = date ?: "",
             )
             WeatherIcon()
             WeatherInfo(

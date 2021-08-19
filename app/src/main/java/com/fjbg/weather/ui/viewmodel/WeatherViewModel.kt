@@ -22,7 +22,9 @@ class WeatherViewModel @Inject constructor(
     private val _fetchWeatherInfo = MutableStateFlow<NetworkResponse<Any>?>(null)
     private val _currentWeather = MutableStateFlow<WeatherUiState?>(null)
 
+    val country: MutableState<String?> = mutableStateOf(null)
     val cityName: MutableState<String?> = mutableStateOf(null)
+    val date: MutableState<String?> = mutableStateOf(null)
     val currentTemperature: MutableState<Int?> = mutableStateOf(null)
     val description: MutableState<String?> = mutableStateOf(null)
     val humidity: MutableState<Int?> = mutableStateOf(null)
@@ -37,6 +39,8 @@ class WeatherViewModel @Inject constructor(
             getHumidity()
             getDescription()
             getCity()
+            getCountry()
+            getDate()
         }
 
         viewModelScope.launch {
@@ -62,6 +66,22 @@ class WeatherViewModel @Inject constructor(
                     is WeatherUiState.Error -> _currentWeather.value =
                         WeatherUiState.Error(state.error)
                 }
+            }
+        }
+    }
+
+    private fun getDate() {
+        viewModelScope.launch {
+            weatherRepository.getDate().collect {
+                date.value = it
+            }
+        }
+    }
+
+    private fun getCountry() {
+        viewModelScope.launch {
+            weatherRepository.getCountry().collect {
+                country.value = it
             }
         }
     }

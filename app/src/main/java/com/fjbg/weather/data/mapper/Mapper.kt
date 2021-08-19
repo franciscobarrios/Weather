@@ -25,6 +25,9 @@ fun weatherResponseToEntity(response: WeatherResponse): WeatherEntity = WeatherE
     timezone = response.timezone,
     cityName = response.name,
     dt = response.dt,
+    country = response.sys.country,
+    sunrise = response.sys.sunrise,
+    sunset = response.sys.sunset,
     visibility = response.visibility
 )
 
@@ -45,6 +48,9 @@ fun weatherEntityMapToModel(entity: WeatherEntity): WeatherDto {
         timezone = entity.timezone,
         name = entity.cityName,
         dt = entity.dt,
+        country = entity.country,
+        sunrise = entity.sunrise,
+        sunset = entity.sunset,
         visibility = entity.visibility
     )
 }
