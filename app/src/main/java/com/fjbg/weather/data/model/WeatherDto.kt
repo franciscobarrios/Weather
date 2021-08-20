@@ -7,6 +7,7 @@ data class WeatherDto(
     val weatherMain: String? = "",
     val weatherDescription: String? = "",
     val weatherIcon: String? = "",
+    val weatherIconId: Int,
     val feelsLike: Double,
     val pressure: Double,
     val humidity: Double,
