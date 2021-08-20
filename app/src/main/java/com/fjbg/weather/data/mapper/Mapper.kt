@@ -13,6 +13,7 @@ fun weatherResponseToEntity(response: WeatherResponse): WeatherEntity = WeatherE
     weatherDescription = response.weather[0].description,
     weatherMain = response.weather[0].main,
     weatherIcon = response.weather[0].icon,
+    weatherIconId = response.weather[0].id,
     feelsLike = response.main.feels_like,
     tempMax = response.main.temp_max,
     tempMin = response.main.temp_min,
@@ -51,6 +52,10 @@ fun weatherEntityMapToModel(entity: WeatherEntity): WeatherDto {
         country = entity.country,
         sunrise = entity.sunrise,
         sunset = entity.sunset,
-        visibility = entity.visibility
+        visibility = entity.visibility,
+        weatherIcon = entity.weatherIcon,
+        weatherIconId = entity.weatherIconId,
+        weatherMain = entity.weatherMain,
+        weatherDescription = entity.weatherDescription
     )
 }

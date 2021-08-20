@@ -1,6 +1,7 @@
 package com.fjbg.weather.data.repository
 
 import com.fjbg.weather.data.AppDatabase
+import com.fjbg.weather.data.mapper.iconMapper
 import com.fjbg.weather.data.mapper.weatherEntityMapToModel
 import com.fjbg.weather.data.mapper.weatherResponseToEntity
 import com.fjbg.weather.data.remote.NetworkResponse
@@ -67,6 +68,12 @@ class WeatherRepositoryImp @Inject constructor(
     }
 
     override suspend fun getIcon(): Flow<String?> {
+
+        weatherDao.getIconId()?.let {
+            val icon = iconMapper(it)
+            icon
+        }
+
         return flowOf("")
     }
 

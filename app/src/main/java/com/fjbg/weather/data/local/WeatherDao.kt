@@ -32,6 +32,12 @@ interface WeatherDao {
     @Query("SELECT dt FROM WeatherEntity")
     suspend fun getDate(): Long?
 
+    @Query("SELECT weatherIcon FROM WeatherEntity")
+    suspend fun getIcon(): String?
+
+    @Query("SELECT weatherIconId FROM WeatherEntity")
+    suspend fun getIconId(): Int?
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertWeather(entity: WeatherEntity)
 
