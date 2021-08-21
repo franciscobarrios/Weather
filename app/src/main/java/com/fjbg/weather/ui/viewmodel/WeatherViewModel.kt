@@ -6,6 +6,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.fjbg.weather.data.TAG
+import com.fjbg.weather.data.mapper.iconIdToIconWeather
+import com.fjbg.weather.data.mapper.owApiIconToIntResourceDay
 import com.fjbg.weather.data.remote.NetworkResponse
 import com.fjbg.weather.data.repository.AqiRepositoryImp
 import com.fjbg.weather.data.repository.WeatherRepositoryImp
@@ -13,7 +15,6 @@ import com.fjbg.weather.util.toDate
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 import java.util.*
 import javax.inject.Inject
@@ -33,6 +34,7 @@ class WeatherViewModel @Inject constructor(
     val currentTemperature: MutableState<Int?> = mutableStateOf(null)
     val description: MutableState<String?> = mutableStateOf(null)
     val humidity: MutableState<Int?> = mutableStateOf(null)
+    val resIconWeather: MutableState<Int?> = mutableStateOf(null)
 
     init {
         viewModelScope.launch {
@@ -46,6 +48,7 @@ class WeatherViewModel @Inject constructor(
             getCity()
             getCountry()
             getDate()
+            getIcon()
         }
 
         viewModelScope.launch {
@@ -75,9 +78,23 @@ class WeatherViewModel @Inject constructor(
         }
     }
 
+    private fun getIcon() {
+        viewModelScope.launch {
+            weatherRepository.getIconId().collect { it ->
+                it?.run {
+                    val iconWeather = iconIdToIconWeather(it)
+                    val currentTime = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
+                    iconWeather?.let { icon ->
+                        resIconWeather.value = owApiIconToIntResourceDay(icon, currentTime > 19)
+                    }
+                }
+            }
+        }
+    }
+
     private fun getDate() {
         viewModelScope.launch {
-            weatherRepository.getDate().distinctUntilChanged().collect {
+            weatherRepository.getDate().collect {
                 it?.run {
                     Log.d(TAG, "getDate: ${this.toDate()}")
                     date.value = this.toDate()

@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.dp
 import com.fjbg.weather.R
 
 @Composable
-fun WeatherIcon() {
+fun WeatherIcon(icon: Int?) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -21,9 +21,9 @@ fun WeatherIcon() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(
-            painter = painterResource(id = R.drawable.ic_rainny_day_2),
+            painter = painterResource(id = icon ?: R.drawable.dunno),
             contentDescription = "weather icon",
-            modifier = Modifier.size(198.dp),
+            modifier = Modifier.size(108.dp),
             alignment = Alignment.Center
         )
     }
