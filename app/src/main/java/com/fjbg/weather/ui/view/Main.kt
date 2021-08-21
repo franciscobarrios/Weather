@@ -19,6 +19,7 @@ fun MainView(viewModel: WeatherViewModel) {
     val currentTemp = viewModel.currentTemperature.value
     val humidity = viewModel.humidity.value
     val description = viewModel.description.value
+    val icon = viewModel.resIconWeather.value
 
     Box(
         Modifier
@@ -38,7 +39,7 @@ fun MainView(viewModel: WeatherViewModel) {
                 country = country ?: "",
                 date = date ?: "",
             )
-            WeatherIcon()
+            WeatherIcon(icon = icon)
             WeatherInfo(
                 temp = "$currentTemp°",
                 description = description ?: "",
