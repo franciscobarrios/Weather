@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface WeatherDao {
@@ -12,31 +13,31 @@ interface WeatherDao {
     suspend fun getCurrentWeather(): WeatherEntity?
 
     @Query("SELECT currentTemp FROM WeatherEntity")
-    suspend fun getCurrentTemperature(): Double?
+    fun getCurrentTemperature(): Flow<Double?>
 
     @Query("SELECT weatherMain FROM WeatherEntity")
-    suspend fun getDescriptionMain(): String?
+    fun getDescriptionMain(): Flow<String?>
 
     @Query("SELECT weatherDescription FROM WeatherEntity")
-    suspend fun getDescription(): String?
+    fun getDescription(): Flow<String?>
 
     @Query("SELECT humidity FROM WeatherEntity")
-    suspend fun getHumidity(): Double?
+    fun getHumidity(): Flow<Double?>
 
     @Query("SELECT cityName FROM WeatherEntity")
-    suspend fun getCity(): String?
+    fun getCity(): Flow<String?>
 
     @Query("SELECT country FROM WeatherEntity")
-    suspend fun getCountry(): String?
+    fun getCountry(): Flow<String?>
 
     @Query("SELECT dt FROM WeatherEntity")
-    suspend fun getDate(): Long?
+    fun getDate(): Flow<Long?>
 
     @Query("SELECT weatherIcon FROM WeatherEntity")
-    suspend fun getIcon(): String?
+    fun getIcon(): Flow<String?>
 
     @Query("SELECT weatherIconId FROM WeatherEntity")
-    suspend fun getIconId(): Int?
+    fun getIconId(): Flow<Int?>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertWeather(entity: WeatherEntity)

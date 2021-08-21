@@ -4,7 +4,7 @@ import com.fjbg.weather.R
 
 fun iconMapper(iconId: Int): String? {
     when (iconId) {
-
+        200 -> IconWeather.THUNDERSTORM_WITH_LIGHT_RAIN
     }
     return null
 }

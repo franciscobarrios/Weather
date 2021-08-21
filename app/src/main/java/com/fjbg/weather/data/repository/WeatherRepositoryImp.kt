@@ -1,7 +1,6 @@
 package com.fjbg.weather.data.repository
 
 import com.fjbg.weather.data.AppDatabase
-import com.fjbg.weather.data.mapper.iconMapper
 import com.fjbg.weather.data.mapper.weatherEntityMapToModel
 import com.fjbg.weather.data.mapper.weatherResponseToEntity
 import com.fjbg.weather.data.remote.NetworkResponse
@@ -9,11 +8,10 @@ import com.fjbg.weather.data.remote.WeatherApi
 import com.fjbg.weather.data.remote.WeatherResponse
 import com.fjbg.weather.di.WeatherService
 import com.fjbg.weather.ui.viewmodel.WeatherUiState
-import com.fjbg.weather.util.toDate
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flowOf
-import java.util.*
 import javax.inject.Inject
 
 class WeatherRepositoryImp @Inject constructor(
@@ -48,38 +46,31 @@ class WeatherRepositoryImp @Inject constructor(
     override suspend fun clearLocal() = weatherDao.clearData()
 
     override suspend fun getCurrentTemperature(): Flow<Double?> =
-        flowOf(weatherDao.getCurrentTemperature())
+        weatherDao.getCurrentTemperature().distinctUntilChanged()
 
-    override suspend fun getHumidity(): Flow<Double?> = flowOf(weatherDao.getHumidity())
+    override suspend fun getHumidity(): Flow<Double?> =
+        weatherDao.getHumidity().distinctUntilChanged()
 
-    override suspend fun getDescription(): Flow<String?> = flowOf(weatherDao.getDescription())
+    override suspend fun getDescription(): Flow<String?> =
+        weatherDao.getDescription().distinctUntilChanged()
 
     override suspend fun getDescriptionMain(): Flow<String?> =
-        flowOf(weatherDao.getDescriptionMain())
+        weatherDao.getDescriptionMain().distinctUntilChanged()
 
-    override suspend fun getCity(): Flow<String?> = flowOf(weatherDao.getCity())
+    override suspend fun getCity(): Flow<String?> =
+        weatherDao.getCity().distinctUntilChanged()
 
-    override suspend fun getCountry(): Flow<String?> {
-        val data = MutableStateFlow("")
-        weatherDao.getCountry()?.let {
-            data.value = Locale("en", it).displayCountry
-        }
-        return data
-    }
+    override suspend fun getCountry(): Flow<String?> =
+        weatherDao.getCountry().distinctUntilChanged()
 
-    override suspend fun getIcon(): Flow<String?> {
+    override suspend fun getIcon(): Flow<String?> =
+        weatherDao.getIcon().distinctUntilChanged()
 
-        weatherDao.getIconId()?.let {
-            val icon = iconMapper(it)
-            icon
-        }
+    override suspend fun getIconId(): Flow<Int?> =
+        weatherDao.getIconId().distinctUntilChanged()
 
-        return flowOf("")
-    }
-
-    override suspend fun getDate(): Flow<String?> {
-        return flowOf(weatherDao.getDate()?.toDate())
-    }
+    override suspend fun getDate(): Flow<Long?> =
+        weatherDao.getDate().distinctUntilChanged()
 }
 
 

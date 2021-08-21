@@ -1,16 +1,21 @@
 package com.fjbg.weather.ui.viewmodel
 
+import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.fjbg.weather.data.TAG
 import com.fjbg.weather.data.remote.NetworkResponse
 import com.fjbg.weather.data.repository.AqiRepositoryImp
 import com.fjbg.weather.data.repository.WeatherRepositoryImp
+import com.fjbg.weather.util.toDate
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
+import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -72,8 +77,11 @@ class WeatherViewModel @Inject constructor(
 
     private fun getDate() {
         viewModelScope.launch {
-            weatherRepository.getDate().collect {
-                date.value = it
+            weatherRepository.getDate().distinctUntilChanged().collect {
+                it?.run {
+                    Log.d(TAG, "getDate: ${this.toDate()}")
+                    date.value = this.toDate()
+                }
             }
         }
     }
@@ -81,7 +89,10 @@ class WeatherViewModel @Inject constructor(
     private fun getCountry() {
         viewModelScope.launch {
             weatherRepository.getCountry().collect {
-                country.value = it
+                it?.run {
+                    Log.d(TAG, "getCountry: ${Locale("en", this).displayCountry}")
+                    country.value = Locale("en", this).displayCountry
+                }
             }
         }
     }
@@ -89,6 +100,7 @@ class WeatherViewModel @Inject constructor(
     private suspend fun getCity() {
         viewModelScope.launch {
             weatherRepository.getCity().collect {
+                Log.d(TAG, "getCity: $it")
                 cityName.value = it
             }
         }
@@ -97,6 +109,7 @@ class WeatherViewModel @Inject constructor(
     private suspend fun getCurrentTemperature() {
         viewModelScope.launch {
             weatherRepository.getCurrentTemperature().collect {
+                Log.d(TAG, "getCurrentTemperature: $it")
                 it?.run {
                     currentTemperature.value = this.toInt() / 10
                 }
@@ -107,6 +120,7 @@ class WeatherViewModel @Inject constructor(
     private suspend fun getHumidity() {
         viewModelScope.launch {
             weatherRepository.getHumidity().collect {
+                Log.d(TAG, "getHumidity: $it")
                 it?.run {
                     humidity.value = this.toInt()
                 }
@@ -117,6 +131,7 @@ class WeatherViewModel @Inject constructor(
     private suspend fun getDescription() {
         viewModelScope.launch {
             weatherRepository.getDescription().collect {
+                Log.d(TAG, "getDescription: $it")
                 description.value = it
             }
         }

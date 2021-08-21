@@ -16,5 +16,6 @@ interface WeatherRepository {
     suspend fun getCity(): Flow<String?>
     suspend fun getCountry(): Flow<String?>
     suspend fun getIcon(): Flow<String?>
-    suspend fun getDate(): Flow<String?>
+    suspend fun getIconId(): Flow<Int?>
+    suspend fun getDate(): Flow<Long?>
 }
