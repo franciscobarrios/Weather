@@ -34,6 +34,7 @@ class WeatherViewModel @Inject constructor(
     val currentTemperature: MutableState<Int?> = mutableStateOf(null)
     val description: MutableState<String?> = mutableStateOf(null)
     val humidity: MutableState<Int?> = mutableStateOf(null)
+    val windSpeed: MutableState<Int?> = mutableStateOf(null)
     val resIconWeather: MutableState<Int?> = mutableStateOf(null)
 
     init {
@@ -44,6 +45,7 @@ class WeatherViewModel @Inject constructor(
         viewModelScope.launch {
             getCurrentTemperature()
             getHumidity()
+            getWindSpeed()
             getDescription()
             getCity()
             getCountry()
@@ -129,6 +131,16 @@ class WeatherViewModel @Inject constructor(
                 Log.d(TAG, "getCurrentTemperature: $it")
                 it?.run {
                     currentTemperature.value = this.toInt() / 10
+                }
+            }
+        }
+    }
+
+    private suspend fun getWindSpeed() {
+        viewModelScope.launch {
+            weatherRepository.getWindSpeed().collect {
+                it?.run {
+                    windSpeed.value = this.toInt()
                 }
             }
         }

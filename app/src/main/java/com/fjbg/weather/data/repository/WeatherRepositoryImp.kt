@@ -51,6 +51,9 @@ class WeatherRepositoryImp @Inject constructor(
     override suspend fun getHumidity(): Flow<Double?> =
         weatherDao.getHumidity().distinctUntilChanged()
 
+    override suspend fun getWindSpeed(): Flow<Double?> =
+        weatherDao.getWindSpeed().distinctUntilChanged()
+
     override suspend fun getDescription(): Flow<String?> =
         weatherDao.getDescription().distinctUntilChanged()
 

@@ -39,6 +39,9 @@ interface WeatherDao {
     @Query("SELECT weatherIconId FROM WeatherEntity")
     fun getIconId(): Flow<Int?>
 
+    @Query("SELECT windSpeed FROM WeatherEntity")
+    fun getWindSpeed(): Flow<Double?>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertWeather(entity: WeatherEntity)
 

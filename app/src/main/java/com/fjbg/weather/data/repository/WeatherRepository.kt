@@ -11,6 +11,7 @@ interface WeatherRepository {
     suspend fun clearLocal()
     suspend fun getCurrentTemperature(): Flow<Double?>
     suspend fun getHumidity(): Flow<Double?>
+    suspend fun getWindSpeed(): Flow<Double?>
     suspend fun getDescriptionMain(): Flow<String?>
     suspend fun getDescription(): Flow<String?>
     suspend fun getCity(): Flow<String?>
