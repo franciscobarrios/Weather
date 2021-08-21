@@ -21,7 +21,7 @@ fun WeatherIcon() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(
-            painter = painterResource(id = R.drawable.icon_weather),
+            painter = painterResource(id = R.drawable.ic_rainny_day_2),
             contentDescription = "weather icon",
             modifier = Modifier.size(198.dp),
             alignment = Alignment.Center
