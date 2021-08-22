@@ -1,12 +1,10 @@
 package com.fjbg.weather.data.model
 
-import com.google.gson.JsonObject
-
 data class AqiDto(
     val id: Int,
-    val status: String,
+    //val status: String,
     val aqi: Int,
-    val idx: Int,
+    /*val idx: Int,
     val s: String,
     val tz: String,
     val name: String,
@@ -18,5 +16,5 @@ data class AqiDto(
     val pm10: JsonObject,
     val pm25: JsonObject,
     val so2: JsonObject,
-    val w: JsonObject,
+    val w: JsonObject,*/
 )

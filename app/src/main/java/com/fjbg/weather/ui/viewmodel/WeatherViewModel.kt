@@ -11,6 +11,7 @@ import com.fjbg.weather.data.mapper.owApiIconToIntResourceDay
 import com.fjbg.weather.data.remote.NetworkResponse
 import com.fjbg.weather.data.repository.AqiRepositoryImp
 import com.fjbg.weather.data.repository.WeatherRepositoryImp
+import com.fjbg.weather.util.oneDecimal
 import com.fjbg.weather.util.toDate
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -26,16 +27,18 @@ class WeatherViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _fetchWeatherInfo = MutableStateFlow<NetworkResponse<Any>?>(null)
+    private val _fetchAqiInfo = MutableStateFlow<NetworkResponse<Any>?>(null)
     private val _currentWeather = MutableStateFlow<WeatherUiState?>(null)
 
     val country: MutableState<String?> = mutableStateOf(null)
     val cityName: MutableState<String?> = mutableStateOf(null)
     val date: MutableState<String?> = mutableStateOf(null)
-    val currentTemperature: MutableState<Int?> = mutableStateOf(null)
-    val description: MutableState<String?> = mutableStateOf(null)
-    val humidity: MutableState<Int?> = mutableStateOf(null)
-    val windSpeed: MutableState<Int?> = mutableStateOf(null)
     val resIconWeather: MutableState<Int?> = mutableStateOf(null)
+    val currentTemperature: MutableState<String?> = mutableStateOf(null)
+    val description: MutableState<String?> = mutableStateOf(null)
+    val humidity: MutableState<String?> = mutableStateOf(null)
+    val windSpeed: MutableState<String?> = mutableStateOf(null)
+    val aqi: MutableState<String?> = mutableStateOf(null)
 
     init {
         viewModelScope.launch {
@@ -43,14 +46,15 @@ class WeatherViewModel @Inject constructor(
         }
 
         viewModelScope.launch {
-            getCurrentTemperature()
-            getHumidity()
-            getWindSpeed()
-            getDescription()
             getCity()
             getCountry()
             getDate()
             getIcon()
+            getCurrentTemperature()
+            getDescription()
+            getHumidity()
+            getWindSpeed()
+            getAqi()
         }
 
         viewModelScope.launch {
@@ -67,6 +71,19 @@ class WeatherViewModel @Inject constructor(
         }
 
         viewModelScope.launch {
+            aqiRepository.getRemoteAqi().collect { response ->
+                when (response) {
+                    is NetworkResponse.Loading -> _fetchAqiInfo.value =
+                        NetworkResponse.Loading(true)
+                    is NetworkResponse.Success -> _fetchAqiInfo.value =
+                        NetworkResponse.Success(response.data)
+                    is NetworkResponse.Error -> _fetchAqiInfo.value =
+                        NetworkResponse.Error(response.error)
+                }
+            }
+        }
+
+        viewModelScope.launch {
             weatherRepository.getCurrent().collect { state ->
                 when (state) {
                     is WeatherUiState.Loading -> _currentWeather.value =
@@ -75,20 +92,6 @@ class WeatherViewModel @Inject constructor(
                         WeatherUiState.Success(state.data)
                     is WeatherUiState.Error -> _currentWeather.value =
                         WeatherUiState.Error(state.error)
-                }
-            }
-        }
-    }
-
-    private fun getIcon() {
-        viewModelScope.launch {
-            weatherRepository.getIconId().collect { it ->
-                it?.run {
-                    val iconWeather = iconIdToIconWeather(it)
-                    val currentTime = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
-                    iconWeather?.let { icon ->
-                        resIconWeather.value = owApiIconToIntResourceDay(icon, currentTime > 19)
-                    }
                 }
             }
         }
@@ -125,33 +128,26 @@ class WeatherViewModel @Inject constructor(
         }
     }
 
+    private fun getIcon() {
+        viewModelScope.launch {
+            weatherRepository.getIconId().collect { it ->
+                it?.run {
+                    val iconWeather = iconIdToIconWeather(it)
+                    val currentTime = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
+                    iconWeather?.let { icon ->
+                        resIconWeather.value = owApiIconToIntResourceDay(icon, currentTime > 17)
+                    }
+                }
+            }
+        }
+    }
+
     private suspend fun getCurrentTemperature() {
         viewModelScope.launch {
             weatherRepository.getCurrentTemperature().collect {
                 Log.d(TAG, "getCurrentTemperature: $it")
                 it?.run {
-                    currentTemperature.value = this.toInt() / 10
-                }
-            }
-        }
-    }
-
-    private suspend fun getWindSpeed() {
-        viewModelScope.launch {
-            weatherRepository.getWindSpeed().collect {
-                it?.run {
-                    windSpeed.value = this.toInt()
-                }
-            }
-        }
-    }
-
-    private suspend fun getHumidity() {
-        viewModelScope.launch {
-            weatherRepository.getHumidity().collect {
-                Log.d(TAG, "getHumidity: $it")
-                it?.run {
-                    humidity.value = this.toInt()
+                    currentTemperature.value = (this / 10).toInt().toString()
                 }
             }
         }
@@ -162,6 +158,36 @@ class WeatherViewModel @Inject constructor(
             weatherRepository.getDescription().collect {
                 Log.d(TAG, "getDescription: $it")
                 description.value = it
+            }
+        }
+    }
+
+    private suspend fun getWindSpeed() {
+        viewModelScope.launch {
+            weatherRepository.getWindSpeed().collect {
+                it?.run {
+                    windSpeed.value = this.oneDecimal().toString()
+                }
+            }
+        }
+    }
+
+    private suspend fun getHumidity() {
+        viewModelScope.launch {
+            weatherRepository.getHumidity().collect {
+                it?.run {
+                    humidity.value = this.toInt().toString()
+                }
+            }
+        }
+    }
+
+    private suspend fun getAqi() {
+        viewModelScope.launch {
+            aqiRepository.getAqi().collect {
+                it?.run {
+                    aqi.value = this.toString()
+                }
             }
         }
     }

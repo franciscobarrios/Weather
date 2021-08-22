@@ -1,7 +1,10 @@
 package com.fjbg.weather.data.mapper
 
+import com.fjbg.weather.data.local.AqiEntity
 import com.fjbg.weather.data.local.WeatherEntity
+import com.fjbg.weather.data.model.AqiDto
 import com.fjbg.weather.data.model.WeatherDto
+import com.fjbg.weather.data.remote.AqiResponse
 import com.fjbg.weather.data.remote.WeatherResponse
 
 
@@ -32,7 +35,7 @@ fun weatherResponseToEntity(response: WeatherResponse): WeatherEntity = WeatherE
     visibility = response.visibility
 )
 
-fun weatherEntityMapToModel(entity: WeatherEntity): WeatherDto {
+fun weatherEntityToDomain(entity: WeatherEntity): WeatherDto {
     return WeatherDto(
         longitude = entity.longitude,
         latitude = entity.latitude,
@@ -59,3 +62,13 @@ fun weatherEntityMapToModel(entity: WeatherEntity): WeatherDto {
         weatherDescription = entity.weatherDescription
     )
 }
+
+fun aqiResponseToEntity(response: AqiResponse): AqiEntity = AqiEntity(
+    id = 0,
+    aqi = response.data?.aqi ?: 0,
+)
+
+fun aqiEntityToDomain(entity: AqiEntity): AqiDto = AqiDto(
+    id = entity.id,
+    aqi = entity.aqi
+)

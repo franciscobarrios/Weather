@@ -1,7 +1,7 @@
 package com.fjbg.weather.data.repository
 
 import com.fjbg.weather.data.AppDatabase
-import com.fjbg.weather.data.mapper.weatherEntityMapToModel
+import com.fjbg.weather.data.mapper.weatherEntityToDomain
 import com.fjbg.weather.data.mapper.weatherResponseToEntity
 import com.fjbg.weather.data.remote.NetworkResponse
 import com.fjbg.weather.data.remote.WeatherApi
@@ -38,20 +38,20 @@ class WeatherRepositoryImp @Inject constructor(
     override suspend fun getCurrent(): Flow<WeatherUiState?> {
         val data = MutableStateFlow<WeatherUiState?>(null)
         weatherDao.getCurrentWeather()?.run {
-            data.value = WeatherUiState.Success(weatherEntityMapToModel(this))
+            data.value = WeatherUiState.Success(weatherEntityToDomain(this))
         }
         return data
     }
 
     override suspend fun clearLocal() = weatherDao.clearData()
 
-    override suspend fun getCurrentTemperature(): Flow<Double?> =
+    override suspend fun getCurrentTemperature(): Flow<Float?> =
         weatherDao.getCurrentTemperature().distinctUntilChanged()
 
-    override suspend fun getHumidity(): Flow<Double?> =
+    override suspend fun getHumidity(): Flow<Float?> =
         weatherDao.getHumidity().distinctUntilChanged()
 
-    override suspend fun getWindSpeed(): Flow<Double?> =
+    override suspend fun getWindSpeed(): Flow<Float?> =
         weatherDao.getWindSpeed().distinctUntilChanged()
 
     override suspend fun getDescription(): Flow<String?> =
