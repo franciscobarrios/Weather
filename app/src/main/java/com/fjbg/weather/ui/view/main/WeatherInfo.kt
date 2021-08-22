@@ -1,4 +1,4 @@
-package com.fjbg.weather.ui.view
+package com.fjbg.weather.ui.view.main
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
@@ -16,13 +16,11 @@ import androidx.compose.ui.unit.dp
 import com.fjbg.weather.R
 import com.fjbg.weather.ui.theme.currentTempTextStyle
 import com.fjbg.weather.ui.theme.descriptionTextStyle
-import com.fjbg.weather.ui.theme.humidityTextStyle
 
 @Composable
 fun WeatherInfo(
     temp: String,
     description: String,
-    humidity: String,
     icon: Int?
 ) {
     Column(
@@ -55,11 +53,6 @@ fun WeatherInfo(
             modifier = Modifier.fillMaxWidth(),
             style = descriptionTextStyle
         )
-        Text(
-            text = humidity,
-            modifier = Modifier.fillMaxWidth(),
-            style = humidityTextStyle
-        )
     }
 }
 
@@ -70,6 +63,5 @@ fun WeatherInfoPreview() {
         icon = R.drawable.tstorm3,
         temp = "31°",
         description = "Thunderstorm",
-        humidity = "98%"
     )
 }

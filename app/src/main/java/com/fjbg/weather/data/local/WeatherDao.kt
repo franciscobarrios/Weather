@@ -13,7 +13,7 @@ interface WeatherDao {
     suspend fun getCurrentWeather(): WeatherEntity?
 
     @Query("SELECT currentTemp FROM WeatherEntity")
-    fun getCurrentTemperature(): Flow<Double?>
+    fun getCurrentTemperature(): Flow<Float?>
 
     @Query("SELECT weatherMain FROM WeatherEntity")
     fun getDescriptionMain(): Flow<String?>
@@ -22,7 +22,7 @@ interface WeatherDao {
     fun getDescription(): Flow<String?>
 
     @Query("SELECT humidity FROM WeatherEntity")
-    fun getHumidity(): Flow<Double?>
+    fun getHumidity(): Flow<Float?>
 
     @Query("SELECT cityName FROM WeatherEntity")
     fun getCity(): Flow<String?>
@@ -40,7 +40,7 @@ interface WeatherDao {
     fun getIconId(): Flow<Int?>
 
     @Query("SELECT windSpeed FROM WeatherEntity")
-    fun getWindSpeed(): Flow<Double?>
+    fun getWindSpeed(): Flow<Float?>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertWeather(entity: WeatherEntity)

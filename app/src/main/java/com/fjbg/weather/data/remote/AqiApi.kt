@@ -6,6 +6,6 @@ import retrofit2.http.GET
 interface AqiApi {
 
     @GET("bangkok/?token=$AQI_KEY")
-    suspend fun getAqi(): AqiResponse
+    suspend fun getAqi(): AqiResponse?
 
 }

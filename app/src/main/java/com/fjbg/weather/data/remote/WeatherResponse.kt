@@ -14,8 +14,8 @@ data class WeatherResponse(
 )
 
 data class Coordinate(
-    val lon: Double,
-    val lat: Double,
+    val lon: Float,
+    val lat: Float,
 )
 
 data class Weather(
@@ -26,18 +26,18 @@ data class Weather(
 )
 
 data class MainResponse(
-    val temp: Double,
-    val feels_like: Double,
-    val pressure: Double,
-    val humidity: Double,
-    val temp_min: Double,
-    val temp_max: Double,
+    val temp: Float,
+    val feels_like: Float,
+    val pressure: Float,
+    val humidity: Float,
+    val temp_min: Float,
+    val temp_max: Float,
 )
 
 data class Wind(
-    val speed: Double,
-    val deg: Double,
-    val gust: Double,
+    val speed: Float,
+    val deg: Float,
+    val gust: Float,
 )
 
 data class Cloud(
