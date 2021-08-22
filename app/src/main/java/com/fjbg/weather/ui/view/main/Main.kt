@@ -11,8 +11,11 @@ import androidx.compose.ui.unit.dp
 import com.fjbg.weather.ui.viewmodel.WeatherViewModel
 
 @Composable
-fun MainView(viewModel: WeatherViewModel?) {
-
+fun MainView(
+    viewModel: WeatherViewModel?,
+    actionAddLocation: () -> Unit,
+    actionLocationList: () -> Unit,
+) {
     val country = viewModel?.country?.value
     val city = viewModel?.cityName?.value
     val date = viewModel?.date?.value
@@ -43,7 +46,9 @@ fun MainView(viewModel: WeatherViewModel?) {
             HeaderView(
                 city = city,
                 country = country,
-                date = date
+                date = date,
+                actionAddLocation = actionAddLocation,
+                actionLocationList = actionLocationList,
             )
             WeatherInfo(
                 temp = "$currentTemp°",
@@ -64,5 +69,9 @@ fun MainView(viewModel: WeatherViewModel?) {
 @Preview
 @Composable
 fun MainViewPreview() {
-    MainView(null)
+    MainView(
+        viewModel = null,
+        actionAddLocation = { },
+        actionLocationList = { },
+    )
 }
