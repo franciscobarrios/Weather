@@ -8,7 +8,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -28,12 +27,13 @@ fun InfoCard(
 ) {
     Card(
         modifier = modifier,
-        shape = RoundedCornerShape(20.dp),
-        elevation = 2.dp,
+        shape = RoundedCornerShape(24.dp),
+        elevation = 12.dp,
     ) {
         Row(
-            modifier = Modifier.background(Color.White),
-            verticalAlignment = Alignment.CenterVertically
+            modifier = modifier
+                .background(Color.White)
+                .clickable(onClick = {}),
         ) {
             Column {
                 Image(
@@ -81,6 +81,6 @@ fun WindCardPreview() {
         title = "Wind",
         content = "15 Km/h",
         icon = R.drawable.ic_index_uv,
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.clickable(onClick = {})
     )
 }

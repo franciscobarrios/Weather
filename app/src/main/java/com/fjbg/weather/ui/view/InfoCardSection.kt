@@ -32,7 +32,6 @@ fun InfoCardSection(
                     start.linkTo(parent.start, margin = 12.dp)
                 }
                 .padding(4.dp)
-                .clickable(onClick = {})
                 .requiredWidth(158.dp)
         )
 
@@ -46,7 +45,6 @@ fun InfoCardSection(
                     end.linkTo(parent.end, margin = 12.dp)
                 }
                 .padding(4.dp)
-                .clickable(onClick = {})
                 .requiredWidth(158.dp)
         )
 
@@ -61,7 +59,6 @@ fun InfoCardSection(
                     bottom.linkTo(parent.bottom, margin = 16.dp)
                 }
                 .padding(4.dp)
-                .clickable(onClick = {})
                 .requiredWidth(158.dp)
         )
 
@@ -76,7 +73,6 @@ fun InfoCardSection(
                     bottom.linkTo(parent.bottom, margin = 16.dp)
                 }
                 .padding(4.dp)
-                .clickable(onClick = {})
                 .requiredWidth(158.dp)
         )
     }
