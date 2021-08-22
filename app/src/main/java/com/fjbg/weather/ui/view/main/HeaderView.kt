@@ -18,14 +18,18 @@ import androidx.compose.ui.tooling.preview.Preview
 fun HeaderView(
     city: String?,
     country: String?,
-    date: String?
+    date: String?,
+    actionAddLocation: () -> Unit,
+    actionLocationList: () -> Unit,
 ) {
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        IconButton(onClick = {}) {
+        IconButton(onClick = {
+            actionLocationList.invoke()
+        }) {
             Icon(
                 imageVector = Icons.Filled.Menu,
                 contentDescription = "Menu",
@@ -38,7 +42,9 @@ fun HeaderView(
             date = date ?: "sat, 21 Aug 2021",
         )
         IconButton(
-            onClick = {},
+            onClick = {
+                actionAddLocation.invoke()
+            },
         ) {
             Icon(
                 imageVector = Icons.Filled.Add,
@@ -56,5 +62,7 @@ fun HeaderViewPreview() {
         city = "Bangkok",
         country = "Thailand",
         date = "sat, 21 Aug 2021",
+        actionAddLocation = {},
+        actionLocationList = {}
     )
 }

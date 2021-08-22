@@ -72,6 +72,9 @@ dependencies {
     // Accompanist
     implementation "com.google.accompanist:accompanist-swiperefresh:0.16.0"
 
+    // Navigation
+    implementation "androidx.navigation:navigation-compose:$nav_compose_version"
+
     //  Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
