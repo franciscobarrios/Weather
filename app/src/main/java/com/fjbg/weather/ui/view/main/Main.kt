@@ -31,7 +31,14 @@ fun MainView(
                 brush = Brush.verticalGradient(
                     colors = listOf(
                         Color.White,
-                        Color(0xFFDADADA)
+                        Color(0xFFD4EDFF),
+                        Color(0xFFFAF0D8),
+                        Color(0xFFFAF0D8),
+                        Color.White,
+                        Color.White,
+                        Color(0xFFDADADA),
+                        Color(0xFFDADADA),
+                        Color(0xFFDADADA),
                     )
                 )
             )
@@ -51,7 +58,7 @@ fun MainView(
                 actionLocationList = actionLocationList,
             )
             WeatherInfo(
-                temp = "$currentTemp°",
+                temp = "$currentTemp°c",
                 description = description ?: "Thunderstorm",
                 humidity = "$humidity%",
                 icon = icon

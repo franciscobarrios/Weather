@@ -28,7 +28,7 @@ fun InfoCard(
     Card(
         modifier = modifier,
         shape = RoundedCornerShape(24.dp),
-        elevation = 12.dp,
+        elevation = 4.dp,
     ) {
         Row(
             modifier = modifier
