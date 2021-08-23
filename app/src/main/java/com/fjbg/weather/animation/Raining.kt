@@ -1,16 +1,13 @@
 package com.fjbg.weather.animation
 
 import android.content.res.Resources
-import androidx.compose.animation.animateColor
-import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.infiniteRepeatable
-import androidx.compose.animation.core.rememberInfiniteTransition
-import androidx.compose.animation.core.tween
+import androidx.compose.animation.core.*
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
@@ -28,23 +25,21 @@ fun Raining() {
 
     val starList = mutableListOf<Star>()
 
+    val initRandomAlpha = remember { mutableListOf(0f) }
+
     for (stars in 1..50) {
-        val star = Star(
-            positionX = Random.nextInt(0, screenWidth).toFloat(),
-            positionY = Random.nextInt(0, (screenHeight / 2)).toFloat(),
-            radius = Random.nextInt(2, 6).toFloat()
-        )
-        starList.add(star)
+
     }
 
+
     val infiniteTransition = rememberInfiniteTransition()
-    val color by infiniteTransition.animateColor(
-        initialValue = Color.White,
-        targetValue = Color.Black,
+
+    val alpha by infiniteTransition.animateFloat(
+        initialValue = 0f,
+        targetValue = 0.8f,
         animationSpec = infiniteRepeatable(
-            animation = tween(
-                durationMillis = 5000, easing = LinearEasing
-            )
+            animation = tween(durationMillis = 1000),
+            repeatMode = RepeatMode.Reverse
         )
     )
 
@@ -55,7 +50,8 @@ fun Raining() {
     ) {
         starList.forEach {
             drawCircle(
-                color = color,
+                color = Color.White,
+                alpha = alpha,
                 radius = it.radius,
                 center = Offset(
                     it.positionX,
@@ -70,6 +66,7 @@ data class Rain(
     val positionX: Float,
     val positionY: Float,
     val radius: Float,
+    val alpha: Float,
 )
 
 @ExperimentalTime
