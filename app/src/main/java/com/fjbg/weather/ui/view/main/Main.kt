@@ -8,9 +8,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.fjbg.weather.animation.NightSky
 import com.fjbg.weather.ui.view.HeaderView
 import com.fjbg.weather.ui.viewmodel.WeatherViewModel
 import com.fjbg.weather.util.backgroundBrush
+import kotlin.time.ExperimentalTime
 
 @ExperimentalMaterialApi
 @Composable
@@ -41,6 +43,7 @@ fun MainView(
                     .fillMaxSize(),
                 verticalArrangement = Arrangement.Top,
             ) {
+                NightSky()
                 HeaderView(
                     city = city,
                     country = country,
