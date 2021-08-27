@@ -1,10 +1,7 @@
 package com.fjbg.weather.ui.view.main
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -14,6 +11,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.fjbg.weather.R
+import com.fjbg.weather.animation.NightSky
 import com.fjbg.weather.ui.theme.currentTempTextStyle
 import com.fjbg.weather.ui.theme.descriptionTextStyle
 
@@ -23,37 +21,37 @@ fun WeatherInfo(
     description: String,
     icon: Int?
 ) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(
-                start = 16.dp,
-                bottom = 32.dp,
-                end = 16.dp,
-                top = 32.dp
-            ),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Image(
-            painter = painterResource(id = icon ?: R.drawable.dunno),
-            contentDescription = "weather icon",
-            alignment = Alignment.Center,
+    Box(modifier = Modifier
+        .fillMaxWidth()) {
+        NightSky()
+        Column(
             modifier = Modifier
-                .size(108.dp)
                 .fillMaxWidth(),
-        )
-        Text(
-            text = temp,
-            modifier = Modifier.fillMaxWidth(),
-            textAlign = TextAlign.Center,
-            style = currentTempTextStyle
-        )
-        Text(
-            text = description,
-            modifier = Modifier.fillMaxWidth(),
-            style = descriptionTextStyle
-        )
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Image(
+                painter = painterResource(id = icon ?: R.drawable.dunno),
+                contentDescription = "weather icon",
+                alignment = Alignment.Center,
+                modifier = Modifier
+                    .size(108.dp)
+                    .fillMaxWidth(),
+            )
+            Text(
+                text = temp,
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Center,
+                style = currentTempTextStyle
+            )
+            Text(
+                text = description,
+                modifier = Modifier.fillMaxWidth(),
+                style = descriptionTextStyle
+            )
+        }
     }
+
+
 }
 
 @Preview

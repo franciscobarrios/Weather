@@ -4,7 +4,8 @@ import android.content.res.Resources
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -12,7 +13,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import kotlin.random.Random
-import kotlin.time.ExperimentalTime
+
 
 @Composable
 fun NightSky() {
@@ -20,11 +21,11 @@ fun NightSky() {
     val displayMetrics = Resources.getSystem().displayMetrics
     val screenHeight = displayMetrics.heightPixels
     val screenWidth = displayMetrics.widthPixels
-
+    val infiniteTransition = rememberInfiniteTransition()
     val staticStarList = mutableListOf<Star>()
     val alphaStarList = mutableListOf<Star>()
 
-    for (staticStars in 1..100) {
+    for (staticStars in 1..125) {
         val star = Star(
             positionX = Random.nextInt(0, screenWidth).toFloat(),
             positionY = Random.nextInt(0, (screenHeight / 2)).toFloat(),
@@ -34,7 +35,7 @@ fun NightSky() {
         staticStarList.add(star)
     }
 
-    for (alphaStars in 1..50) {
+    for (alphaStars in 1..25) {
         val star = Star(
             positionX = Random.nextInt(0, screenWidth).toFloat(),
             positionY = Random.nextInt(0, (screenHeight / 2)).toFloat(),
@@ -43,28 +44,47 @@ fun NightSky() {
         alphaStarList.add(star)
     }
 
-    val infiniteTransition = rememberInfiniteTransition()
+
     val alpha by infiniteTransition.animateFloat(
-        initialValue = 0.2f,
+        initialValue = 0.1f,
         targetValue = 0.9f,
         animationSpec = infiniteRepeatable(
-            animation = tween(durationMillis = 5000),
+            animation = tween(durationMillis = 1500),
             repeatMode = RepeatMode.Reverse
         )
+    )
+
+    val speed by infiniteTransition.animateFloat(
+        initialValue = 0f,
+        targetValue = screenWidth.toFloat(),
+        animationSpec = infiniteRepeatable(
+            animation = tween(durationMillis = 5000),
+            repeatMode = RepeatMode.Restart
+        )
+    )
+
+    val comet = Comet(
+        positionX = Random.nextInt(0, screenWidth).toFloat(),
+        positionY = 0f,//Random.nextInt(0, screenWidth).toFloat(),
+        radius = Random.nextInt(1, 3).toFloat(),
+        alpha = 0.2f + (Random.nextFloat() * (0.8f - 0.2f))
     )
 
     Canvas(
         modifier = Modifier
             .background(Color.Transparent)
-            .fillMaxSize()
+            //.fillMaxSize()
+            .fillMaxWidth()
+            .fillMaxHeight(0.5f)
+
     ) {
         alphaStarList.forEach { a ->
             drawCircle(
                 color = Color.White,
                 radius = a.radius,
                 center = Offset(
-                    a.positionX,
-                    a.positionY
+                    x = a.positionX,
+                    y = a.positionY
                 ),
                 alpha = alpha
             )
@@ -74,12 +94,22 @@ fun NightSky() {
                 color = Color.White,
                 radius = s.radius,
                 center = Offset(
-                    s.positionX,
-                    s.positionY
+                    x = s.positionX,
+                    y = s.positionY
                 ),
                 alpha = s.alpha ?: 1f
             )
         }
+
+        drawCircle(
+            color = Color.White,
+            radius = comet.radius,
+            center = Offset(
+                x = comet.positionX + speed,
+                y = comet.positionY + speed
+            ),
+            alpha = alpha,
+        )
     }
 }
 
@@ -90,7 +120,13 @@ data class Star(
     val alpha: Float? = 1f,
 )
 
-@ExperimentalTime
+data class Comet(
+    var positionX: Float,
+    var positionY: Float,
+    val radius: Float,
+    val alpha: Float? = 1f,
+)
+
 @Preview
 @Composable
 fun NightSkyPreview() {
