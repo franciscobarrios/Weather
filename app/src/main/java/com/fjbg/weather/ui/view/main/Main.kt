@@ -43,7 +43,6 @@ fun MainView(
                     .fillMaxSize(),
                 verticalArrangement = Arrangement.Top,
             ) {
-                NightSky()
                 HeaderView(
                     city = city,
                     country = country,
