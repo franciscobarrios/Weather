@@ -44,6 +44,12 @@ fun NightSky() {
         alphaStarList.add(star)
     }
 
+    val list = generatePosition(100)
+
+    list.forEach {
+        Raining(position = it)
+    }
+
 
     val alpha by infiniteTransition.animateFloat(
         initialValue = 0.1f,
