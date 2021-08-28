@@ -34,16 +34,13 @@ private val LightColorPalette = lightColors(
 
 @Composable
 fun WeatherTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable() () -> Unit) {
-    /*val colors = if (darkTheme) {
+    val colors = if (darkTheme) {
         DarkColorPalette
     } else {
         LightColorPalette
-    }*/
-
-
+    }
     //val colors = LightColorPalette
-
-    val colors = DarkColorPalette
+    //val colors = DarkColorPalette
 
     MaterialTheme(
         colors = colors,

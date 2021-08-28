@@ -44,13 +44,6 @@ fun NightSky() {
         alphaStarList.add(star)
     }
 
-    val list = generatePosition(100)
-
-    list.forEach {
-        Raining(position = it)
-    }
-
-
     val alpha by infiniteTransition.animateFloat(
         initialValue = 0.1f,
         targetValue = 0.9f,
@@ -67,13 +60,6 @@ fun NightSky() {
             animation = tween(durationMillis = 5000),
             repeatMode = RepeatMode.Restart
         )
-    )
-
-    val comet = Comet(
-        positionX = Random.nextInt(0, screenWidth).toFloat(),
-        positionY = 0f,//Random.nextInt(0, screenWidth).toFloat(),
-        radius = Random.nextInt(1, 3).toFloat(),
-        alpha = 0.2f + (Random.nextFloat() * (0.8f - 0.2f))
     )
 
     Canvas(
@@ -106,29 +92,12 @@ fun NightSky() {
                 alpha = s.alpha ?: 1f
             )
         }
-
-        drawCircle(
-            color = Color.White,
-            radius = comet.radius,
-            center = Offset(
-                x = comet.positionX + speed,
-                y = comet.positionY + speed
-            ),
-            alpha = alpha,
-        )
     }
 }
 
 data class Star(
     val positionX: Float,
     val positionY: Float,
-    val radius: Float,
-    val alpha: Float? = 1f,
-)
-
-data class Comet(
-    var positionX: Float,
-    var positionY: Float,
     val radius: Float,
     val alpha: Float? = 1f,
 )
