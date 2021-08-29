@@ -53,9 +53,9 @@ fun MainView(
                 icon = icon
             )
             InfoCardSection(
-                humidity = humidity,
-                aqi = aqi,
-                wind = windSpeed,
+                humidity = humidity ?: "89%",
+                aqi = aqi ?: "46",
+                wind = windSpeed ?: "12",
                 indexUv = "12"
             )
         }
