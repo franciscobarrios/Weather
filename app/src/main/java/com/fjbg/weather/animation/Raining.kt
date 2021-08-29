@@ -3,7 +3,6 @@ package com.fjbg.weather.animation
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -13,17 +12,37 @@ import androidx.compose.ui.graphics.Color
 import kotlin.random.Random
 
 @Composable
-fun Raining(position: ObjectPosition) {
+fun RainingForecast(intensity: Int, isNight: Boolean) {
+    val objectList = generatePosition(intensity)
+
+    objectList.forEach {
+        Raining(objectPosition = it, isNight)
+    }
+}
+
+@Composable
+fun Raining(objectPosition: ObjectPosition, isNight: Boolean) {
 
     val infiniteTransition = rememberInfiniteTransition()
 
-    val color = if (position.z > 1) Color(0x88FFFFFF) else Color(0x2A3C3C3C)
-    val length = if (position.z > 2) 0.015f else 0.01f
-    val duration = Random.nextInt(1000, 2500)
+    val color = when (objectPosition.z) {
+        in 1..5 -> if (isNight) Color(0x8DE0E0E0) else Color(0x9ED1D1D1)
+        in 6..10 -> if (isNight) Color(0xA8949494) else Color(0xA87E7E7E)
+        else -> Color(0x48363636)
+    }
+
+    val length = when (objectPosition.z) {
+        in 1..3 -> 0.2f
+        in 3..6 -> 0.15f
+        in 6..10 -> 0.05f
+        else -> 0.01f
+    }
+
+    val duration = Random.nextInt(600, 2500)
 
     val positionY by infiniteTransition.animateFloat(
-        initialValue = position.y * -1f,
-        targetValue = 1.5f,
+        initialValue = objectPosition.y * -1f,
+        targetValue = 2.5f,
         animationSpec = infiniteRepeatable(
             keyframes {
                 durationMillis = duration
@@ -33,21 +52,18 @@ fun Raining(position: ObjectPosition) {
 
     Canvas(
         modifier = Modifier
-            //.fillMaxSize()
             .fillMaxWidth()
             .fillMaxHeight(0.5f)
-
     ) {
-
         drawLine(
             strokeWidth = 5f,
             color = color,
             start = Offset(
-                x = size.width * position.x,
+                x = size.width * objectPosition.x,
                 y = size.height * positionY,
             ),
             end = Offset(
-                x = size.width * position.x,
+                x = size.width * objectPosition.x,
                 y = size.height * positionY + size.height * length
             )
         )

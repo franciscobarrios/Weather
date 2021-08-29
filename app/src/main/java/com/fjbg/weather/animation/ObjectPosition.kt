@@ -17,7 +17,7 @@ fun generatePosition(size: Int): List<ObjectPosition> {
             ObjectPosition(
                 x = Random.nextFloat(),
                 y = Random.nextFloat(),
-                z = Random.nextInt(1, 5),
+                z = Random.nextInt(1, 10),
             )
         )
     }
