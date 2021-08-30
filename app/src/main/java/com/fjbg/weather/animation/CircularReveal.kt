@@ -1,6 +1,5 @@
 package com.fjbg.weather.animation
 
-import android.util.Log
 import androidx.compose.animation.core.Transition
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.keyframes
@@ -15,7 +14,6 @@ import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import com.fjbg.weather.data.TAG
 
 const val animationDuration: Int = 2000
 
@@ -76,12 +74,9 @@ fun CircularReveal() {
                 )
             }
     ) {
-
         Button(onClick = {
             isPressed = !isPressed
-        }) {
-            Log.d(TAG, "CircularReveal: isPressed = $isPressed")
-        }
+        }) {}
     }
 }
 

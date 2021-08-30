@@ -39,9 +39,6 @@ fun WeatherTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composabl
     } else {
         LightColorPalette
     }
-    //val colors = LightColorPalette
-    //val colors = DarkColorPalette
-
     MaterialTheme(
         colors = colors,
         typography = Typography,

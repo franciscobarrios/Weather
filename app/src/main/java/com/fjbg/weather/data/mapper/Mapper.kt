@@ -1,13 +1,16 @@
 package com.fjbg.weather.data.mapper
 
 import com.fjbg.weather.data.local.AqiEntity
+import com.fjbg.weather.data.local.CityEntity
 import com.fjbg.weather.data.local.WeatherEntity
 import com.fjbg.weather.data.model.AqiDto
+import com.fjbg.weather.data.model.CityDto
 import com.fjbg.weather.data.model.WeatherDto
 import com.fjbg.weather.data.remote.AqiResponse
+import com.fjbg.weather.data.remote.CityResponse
 import com.fjbg.weather.data.remote.WeatherResponse
 
-
+// Weather
 fun weatherResponseToEntity(response: WeatherResponse): WeatherEntity = WeatherEntity(
     id = 0,
     longitude = response.coord.lon,
@@ -72,3 +75,26 @@ fun aqiEntityToDomain(entity: AqiEntity): AqiDto = AqiDto(
     id = entity.id,
     aqi = entity.aqi
 )
+
+// City
+fun mapToEntity(response: CityResponse): CityEntity =
+    CityEntity(
+        id = 0,
+        name = response.name,
+        country = response.country,
+        lat = response.lat,
+        lon = response.lon
+    )
+
+fun CityEntity.mapToDomain(): CityDto =
+    CityDto(
+        id = this.id,
+        name = this.name,
+        country = this.country,
+        lat = this.lat,
+        lon = this.lon
+    )
+
+fun cityResponseListMapToEntities(list: List<CityResponse>):List<CityEntity>{
+    return list.map(::mapToEntity)
+}
