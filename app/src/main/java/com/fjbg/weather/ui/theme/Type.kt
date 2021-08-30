@@ -91,4 +91,14 @@ val categoryContentTextStyle = TextStyle(
     textAlign = TextAlign.Center,
     fontWeight = FontWeight.Bold
 )
+
+val titleTextStyle = TextStyle(
+    fontFamily = FontFamily.Default,
+    fontSize = 28.sp,
+    color = Color.DarkGray,
+    textAlign = TextAlign.Center,
+    fontWeight = FontWeight.SemiBold
+)
+
+
 //endregion

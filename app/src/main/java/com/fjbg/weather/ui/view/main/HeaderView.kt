@@ -1,4 +1,4 @@
-package com.fjbg.weather.ui.view
+package com.fjbg.weather.ui.view.main
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement

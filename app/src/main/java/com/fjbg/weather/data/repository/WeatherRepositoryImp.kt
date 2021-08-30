@@ -1,6 +1,7 @@
 package com.fjbg.weather.data.repository
 
 import com.fjbg.weather.data.AppDatabase
+import com.fjbg.weather.data.NO_DATA
 import com.fjbg.weather.data.mapper.weatherEntityToDomain
 import com.fjbg.weather.data.mapper.weatherResponseToEntity
 import com.fjbg.weather.data.remote.NetworkResponse
@@ -31,7 +32,7 @@ class WeatherRepositoryImp @Inject constructor(
                 entity.let { weatherDao.insertWeather(it) }
                 return flowOf(NetworkResponse.Success(true))
             }
-            else -> flowOf(NetworkResponse.Error(Throwable("no data")))
+            else -> flowOf(NetworkResponse.Error(Throwable(NO_DATA)))
         }
     }
 

@@ -1,12 +1,10 @@
 package com.fjbg.weather.animation
 
-import android.util.Log
 import androidx.compose.animation.core.Transition
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.keyframes
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Button
@@ -16,7 +14,6 @@ import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import com.fjbg.weather.data.TAG
 
 const val animationDuration: Int = 2000
 
@@ -25,12 +22,12 @@ enum class ButtonState {
 }
 
 @Composable
-fun CircularReveal(
-) {
-    var isPressed by remember { mutableStateOf(false) }
-    var toState by remember { mutableStateOf(ButtonState.Released) }
-    val modifier = Modifier.clickable { toState = ButtonState.Pressed }
+fun CircularReveal() {
+
+    val toState by remember { mutableStateOf(ButtonState.Released) }
     val transition: Transition<ButtonState> = updateTransition(targetState = toState, label = "")
+
+    var isPressed by remember { mutableStateOf(false) }
 
     val scale: Float by transition.animateFloat(
         label = "", transitionSpec = {
@@ -47,8 +44,22 @@ fun CircularReveal(
         }
     }
 
+    val alpha: Float by transition.animateFloat(
+        label = "", transitionSpec = {
+            keyframes {
+                1f at 0
+                0.5f at animationDuration
+            }
+        }
+    ) { state ->
+        when (state) {
+            ButtonState.Pressed -> if (isPressed) 0.5f else 1f
+            ButtonState.Released -> if (isPressed) 0.5f else 1f
+        }
+    }
+
     Box(
-        modifier = modifier
+        modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
             .drawBehind {
@@ -58,16 +69,14 @@ fun CircularReveal(
                     center = Offset(
                         x = size.width,
                         y = 0f
-                    )
+                    ),
+                    alpha = alpha
                 )
             }
     ) {
-
         Button(onClick = {
             isPressed = !isPressed
-        }) {
-            Log.d(TAG, "CircularReveal: isPressed = $isPressed")
-        }
+        }) {}
     }
 }
 
