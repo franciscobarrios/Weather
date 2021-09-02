@@ -1,9 +1,11 @@
 package com.fjbg.weather.ui.viewmodel
 
+import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.fjbg.weather.data.TAG
 import com.fjbg.weather.data.mapper.iconIdToIconWeather
 import com.fjbg.weather.data.mapper.owApiIconToIntResourceDay
 import com.fjbg.weather.data.remote.NetworkResponse
@@ -60,6 +62,9 @@ class WeatherViewModel @Inject constructor(
 
         viewModelScope.launch {
             cityRepository.getCity().collect { response ->
+
+                Log.d(TAG, "getCity: $response")
+
                 when (response) {
                     is NetworkResponse.Loading ->
                         _fetchCity.value = NetworkResponse.Loading(true)
