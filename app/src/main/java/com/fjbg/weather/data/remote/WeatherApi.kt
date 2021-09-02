@@ -8,7 +8,6 @@ interface WeatherApi {
     @GET("data/2.5/weather?q=Bangkok&appid=$WEATHER_KEY")
     suspend fun getWeather(): WeatherResponse?
 
-
     @GET("geo/1.0/direct?q=Villarrica&limit=5&appid=$WEATHER_KEY")
     suspend fun getCity(): List<CityResponse>
 }
