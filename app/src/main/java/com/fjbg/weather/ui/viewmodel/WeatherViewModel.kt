@@ -1,13 +1,12 @@
 package com.fjbg.weather.ui.viewmodel
 
-import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.fjbg.weather.data.TAG
 import com.fjbg.weather.data.mapper.iconIdToIconWeather
 import com.fjbg.weather.data.mapper.owApiIconToIntResourceDay
+import com.fjbg.weather.data.model.CityDto
 import com.fjbg.weather.data.remote.NetworkResponse
 import com.fjbg.weather.data.repository.AqiRepositoryImp
 import com.fjbg.weather.data.repository.CityRepositoryImp
@@ -29,9 +28,7 @@ class WeatherViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _fetchWeatherInfo = MutableStateFlow<NetworkResponse<Any>?>(null)
-    private val _fetchAqiInfo = MutableStateFlow<NetworkResponse<Any>?>(null)
     private val _currentWeather = MutableStateFlow<WeatherUiState?>(null)
-    private val _fetchCity = MutableStateFlow<NetworkResponse<Any>?>(null)
 
     val country: MutableState<String?> = mutableStateOf(null)
     val cityName: MutableState<String?> = mutableStateOf(null)
@@ -42,6 +39,7 @@ class WeatherViewModel @Inject constructor(
     val humidity: MutableState<String?> = mutableStateOf(null)
     val windSpeed: MutableState<String?> = mutableStateOf(null)
     val aqi: MutableState<String?> = mutableStateOf(null)
+    val citiesFromLocal: MutableState<List<CityDto>?> = mutableStateOf(null)
 
     init {
         viewModelScope.launch {
@@ -58,22 +56,7 @@ class WeatherViewModel @Inject constructor(
             getHumidity()
             getWindSpeed()
             getAqi()
-        }
-
-        viewModelScope.launch {
-            cityRepository.getCity().collect { response ->
-
-                Log.d(TAG, "getCity: $response")
-
-                when (response) {
-                    is NetworkResponse.Loading ->
-                        _fetchCity.value = NetworkResponse.Loading(true)
-                    is NetworkResponse.Success ->
-                        _fetchCity.value = NetworkResponse.Success(response.data)
-                    is NetworkResponse.Error ->
-                        _fetchCity.value = NetworkResponse.Error(response.error)
-                }
-            }
+            getCitiesFromLocal()
         }
 
         viewModelScope.launch {
@@ -90,19 +73,6 @@ class WeatherViewModel @Inject constructor(
         }
 
         viewModelScope.launch {
-            aqiRepository.getRemoteAqi().collect { response ->
-                when (response) {
-                    is NetworkResponse.Loading ->
-                        _fetchAqiInfo.value = NetworkResponse.Loading(true)
-                    is NetworkResponse.Success ->
-                        _fetchAqiInfo.value = NetworkResponse.Success(response.data)
-                    is NetworkResponse.Error ->
-                        _fetchAqiInfo.value = NetworkResponse.Error(response.error)
-                }
-            }
-        }
-
-        viewModelScope.launch {
             weatherRepository.getCurrent().collect { state ->
                 when (state) {
                     is WeatherUiState.Loading ->
@@ -113,6 +83,32 @@ class WeatherViewModel @Inject constructor(
                         _currentWeather.value = WeatherUiState.Error(state.error)
                 }
             }
+        }
+    }
+
+    private val _fetchCity: MutableState<List<CityDto>?> = mutableStateOf(null)
+
+    fun searchCityByName(city: String) {
+        viewModelScope.launch {
+            cityRepository.getCity(city).collect { response ->
+                if (response != null) _fetchCity.value = response else _fetchCity.value = null
+            }
+        }
+    }
+
+    fun getCityList(): List<CityDto>? {
+        return _fetchCity.value
+    }
+
+    fun saveCity(city: CityDto) {
+        viewModelScope.launch {
+            cityRepository.saveCity(city)
+        }
+    }
+
+    private fun getCitiesFromLocal() {
+        viewModelScope.launch {
+            citiesFromLocal.value = cityRepository.getCitiesFromLocal()
         }
     }
 

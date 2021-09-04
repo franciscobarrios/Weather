@@ -11,9 +11,9 @@ import com.fjbg.weather.navigation.Destination.AddLocation
 import com.fjbg.weather.navigation.Destination.Home
 import com.fjbg.weather.navigation.Destination.LocationList
 import com.fjbg.weather.ui.theme.WeatherTheme
-import com.fjbg.weather.ui.view.main.MainView
 import com.fjbg.weather.ui.view.addlocation.AddLocationView
 import com.fjbg.weather.ui.view.locationlist.LocationListView
+import com.fjbg.weather.ui.view.main.MainView
 import com.fjbg.weather.ui.viewmodel.WeatherViewModel
 
 @ExperimentalMaterialApi
@@ -31,8 +31,18 @@ fun WeatherComposeApp(viewModel: WeatherViewModel) {
                     actionLocationList = action.locationList,
                 )
             }
-            composable(LocationList) { LocationListView(actionGoBack = action.navigateBack) }
-            composable(AddLocation) { AddLocationView(actionGoBack = action.navigateBack) }
+            composable(LocationList) {
+                LocationListView(
+                    viewModel = viewModel,
+                    actionGoBack = action.navigateBack
+                )
+            }
+            composable(AddLocation) {
+                AddLocationView(
+                    viewModel = viewModel,
+                    actionGoBack = action.navigateBack
+                )
+            }
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.fjbg.weather.data.repository
 
+import com.fjbg.weather.data.AQI_KEY
 import com.fjbg.weather.data.AppDatabase
 import com.fjbg.weather.data.mapper.aqiResponseToEntity
 import com.fjbg.weather.data.remote.AqiApi
@@ -19,7 +20,10 @@ class AqiRepositoryImp @Inject constructor(
     private val aqiDao = database.aqiDao()
 
     override suspend fun getRemoteAqi(): Flow<NetworkResponse<AqiResponse?>> {
-        val entity = aqiService.getAqi()?.run {
+        val entity = aqiService.getAqi(
+            city = "Villarrica",
+            token = AQI_KEY,
+        )?.run {
             aqiResponseToEntity(this)
         }
         return when {

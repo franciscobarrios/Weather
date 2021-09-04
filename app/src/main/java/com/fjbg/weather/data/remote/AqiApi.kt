@@ -1,11 +1,15 @@
 package com.fjbg.weather.data.remote
 
-import com.fjbg.weather.data.AQI_KEY
 import retrofit2.http.GET
+import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface AqiApi {
 
-    @GET("bangkok/?token=$AQI_KEY")
-    suspend fun getAqi(): AqiResponse?
+    @GET("{city}/?")
+    suspend fun getAqi(
+        @Path("city") city: String,
+        @Query("token") token: String,
+    ): AqiResponse?
 
 }

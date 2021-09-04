@@ -1,20 +1,73 @@
 package com.fjbg.weather.ui.view.locationlist
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.fjbg.weather.ui.theme.titleTextStyle
+import com.fjbg.weather.ui.view.addlocation.ItemCity
+import com.fjbg.weather.ui.viewmodel.WeatherViewModel
+import com.fjbg.weather.util.backgroundBrush
 
 @Composable
 fun LocationListView(
-    actionGoBack:()->Unit
-){
-    Text(text = "Location list")
+    viewModel: WeatherViewModel?,
+    actionGoBack: () -> Unit
+) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(backgroundBrush(isSystemInDarkTheme()))
+    ) {
+        Column {
+            val textState = remember { mutableStateOf(TextFieldValue()) }
+            Text(
+                text = "Cities",
+                style = titleTextStyle,
+                modifier = Modifier
+                    .padding(
+                        start = 32.dp,
+                        end = 32.dp,
+                        top = 32.dp,
+                        bottom = 16.dp
+                    )
+                    .fillMaxWidth()
+            )
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(Color.Transparent)
+                    .padding(12.dp)
+            ) {
+                val list = viewModel?.citiesFromLocal?.value
+                list?.let { cities ->
+                    items(count = cities.size) {
+                        cities[it].id
+                        ItemCity(
+                            cities[it],
+                            viewModel = viewModel
+                        )
+                    }
+                }
+            }
+        }
+    }
 }
 
 @Preview
 @Composable
-fun LocationListPreview(){
+fun LocationListPreview() {
     LocationListView(
-        actionGoBack={}
+        viewModel = null,
+        actionGoBack = {}
     )
 }

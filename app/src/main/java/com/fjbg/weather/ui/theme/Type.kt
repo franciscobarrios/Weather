@@ -96,8 +96,8 @@ val titleTextStyle = TextStyle(
     fontFamily = FontFamily.Default,
     fontSize = 28.sp,
     color = Color.DarkGray,
-    textAlign = TextAlign.Center,
-    fontWeight = FontWeight.SemiBold
+    textAlign = TextAlign.Start,
+    fontWeight = FontWeight.Normal
 )
 
 
