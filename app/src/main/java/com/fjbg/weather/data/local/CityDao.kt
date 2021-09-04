@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 interface CityDao {
 
     @Query("SELECT * FROM city")
-    fun getCities(): Flow<List<CityEntity>>
+    suspend fun getCities(): List<CityEntity>?
 
     @Query("SELECT * FROM city WHERE name = :name")
     fun getCityByName(name: String): Flow<List<CityEntity>>

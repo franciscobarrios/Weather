@@ -77,7 +77,7 @@ fun AddLocationView(
                     .background(Color.Transparent)
                     .padding(12.dp)
             ) {
-                val list = viewModel?.getCitiList()
+                val list = viewModel?.getCityList()
                 list?.let { cities ->
                     items(count = cities.size) {
                         cities[it].id

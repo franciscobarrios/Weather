@@ -39,6 +39,7 @@ class WeatherViewModel @Inject constructor(
     val humidity: MutableState<String?> = mutableStateOf(null)
     val windSpeed: MutableState<String?> = mutableStateOf(null)
     val aqi: MutableState<String?> = mutableStateOf(null)
+    val citiesFromLocal: MutableState<List<CityDto>?> = mutableStateOf(null)
 
     init {
         viewModelScope.launch {
@@ -55,6 +56,7 @@ class WeatherViewModel @Inject constructor(
             getHumidity()
             getWindSpeed()
             getAqi()
+            getCitiesFromLocal()
         }
 
         viewModelScope.launch {
@@ -84,7 +86,6 @@ class WeatherViewModel @Inject constructor(
         }
     }
 
-    //    val country: MutableState<String?> = mutableStateOf(null)
     private val _fetchCity: MutableState<List<CityDto>?> = mutableStateOf(null)
 
     fun searchCityByName(city: String) {
@@ -95,13 +96,19 @@ class WeatherViewModel @Inject constructor(
         }
     }
 
-    fun getCitiList(): List<CityDto>? {
+    fun getCityList(): List<CityDto>? {
         return _fetchCity.value
     }
 
     fun saveCity(city: CityDto) {
         viewModelScope.launch {
             cityRepository.saveCity(city)
+        }
+    }
+
+    private fun getCitiesFromLocal() {
+        viewModelScope.launch {
+            citiesFromLocal.value = cityRepository.getCitiesFromLocal()
         }
     }
 
