@@ -19,6 +19,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.fjbg.weather.data.model.CityDto
 import com.fjbg.weather.ui.theme.WeatherTheme
 import com.fjbg.weather.ui.theme.titleTextStyle
 import com.fjbg.weather.ui.viewmodel.WeatherViewModel
@@ -78,12 +79,13 @@ fun AddLocationView(
             ) {
                 val list = viewModel?.getCitiList()
                 list?.let { cities ->
-                    items(count = cities.size, itemContent = {
+                    items(count = cities.size) {
+                        cities[it].id
                         ItemCity(
-                            city = cities[it].name,
-                            country = cities[it].country
+                            cities[it],
+                            viewModel = viewModel
                         )
-                    })
+                    }
                 }
             }
         }
@@ -92,16 +94,18 @@ fun AddLocationView(
 
 @Composable
 fun ItemCity(
-    city: String,
-    country: String
+    cityDto: CityDto,
+    viewModel: WeatherViewModel?,
 ) {
     Box(modifier = Modifier
         .background(Color.Transparent)
         .fillMaxWidth()
-        .clickable {}
+        .clickable {
+            viewModel?.saveCity(city = cityDto)
+        }
     ) {
         Text(
-            text = "$city, $country",
+            text = "${cityDto.name}, ${cityDto.country}",
             style = TextStyle(
                 fontSize = 24.sp,
                 textAlign = TextAlign.Start,
@@ -112,12 +116,6 @@ fun ItemCity(
                 .fillMaxWidth()
         )
     }
-}
-
-@Preview
-@Composable
-fun ItemCityPreview() {
-    ItemCity(city = "Villarrica", country = "CL")
 }
 
 @Preview

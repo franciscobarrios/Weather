@@ -95,6 +95,16 @@ fun CityEntity.mapToDomain(): CityDto =
         lon = this.lon
     )
 
+fun CityDto.mapToEntity(): CityEntity =
+    CityEntity(
+        id = 0,
+        name = this.name,
+        country = this.country,
+        lat = this.lat,
+        lon = this.lon
+    )
+
+
 fun citiResponseMapToDomain(response: CityResponse): CityDto {
     return CityDto(
         id = -1,

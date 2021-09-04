@@ -14,7 +14,6 @@ import com.fjbg.weather.data.repository.WeatherRepositoryImp
 import com.fjbg.weather.util.oneDecimal
 import com.fjbg.weather.util.toDate
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -30,7 +29,6 @@ class WeatherViewModel @Inject constructor(
 
     private val _fetchWeatherInfo = MutableStateFlow<NetworkResponse<Any>?>(null)
     private val _currentWeather = MutableStateFlow<WeatherUiState?>(null)
-
 
     val country: MutableState<String?> = mutableStateOf(null)
     val cityName: MutableState<String?> = mutableStateOf(null)
@@ -87,7 +85,7 @@ class WeatherViewModel @Inject constructor(
     }
 
     //    val country: MutableState<String?> = mutableStateOf(null)
-    private val _fetchCity : MutableState<List<CityDto>?> = mutableStateOf(null)
+    private val _fetchCity: MutableState<List<CityDto>?> = mutableStateOf(null)
 
     fun searchCityByName(city: String) {
         viewModelScope.launch {
@@ -99,6 +97,12 @@ class WeatherViewModel @Inject constructor(
 
     fun getCitiList(): List<CityDto>? {
         return _fetchCity.value
+    }
+
+    fun saveCity(city: CityDto) {
+        viewModelScope.launch {
+            cityRepository.saveCity(city)
+        }
     }
 
     private fun getDate() {
