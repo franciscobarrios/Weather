@@ -1,13 +1,12 @@
 package com.fjbg.weather.ui.viewmodel
 
-import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.fjbg.weather.data.TAG
 import com.fjbg.weather.data.mapper.iconIdToIconWeather
 import com.fjbg.weather.data.mapper.owApiIconToIntResourceDay
+import com.fjbg.weather.data.model.CityDto
 import com.fjbg.weather.data.remote.NetworkResponse
 import com.fjbg.weather.data.repository.AqiRepositoryImp
 import com.fjbg.weather.data.repository.CityRepositoryImp
@@ -15,6 +14,7 @@ import com.fjbg.weather.data.repository.WeatherRepositoryImp
 import com.fjbg.weather.util.oneDecimal
 import com.fjbg.weather.util.toDate
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -29,9 +29,8 @@ class WeatherViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _fetchWeatherInfo = MutableStateFlow<NetworkResponse<Any>?>(null)
-    private val _fetchAqiInfo = MutableStateFlow<NetworkResponse<Any>?>(null)
     private val _currentWeather = MutableStateFlow<WeatherUiState?>(null)
-    private val _fetchCity = MutableStateFlow<NetworkResponse<Any>?>(null)
+
 
     val country: MutableState<String?> = mutableStateOf(null)
     val cityName: MutableState<String?> = mutableStateOf(null)
@@ -61,22 +60,6 @@ class WeatherViewModel @Inject constructor(
         }
 
         viewModelScope.launch {
-            cityRepository.getCity().collect { response ->
-
-                Log.d(TAG, "getCity: $response")
-
-                when (response) {
-                    is NetworkResponse.Loading ->
-                        _fetchCity.value = NetworkResponse.Loading(true)
-                    is NetworkResponse.Success ->
-                        _fetchCity.value = NetworkResponse.Success(response.data)
-                    is NetworkResponse.Error ->
-                        _fetchCity.value = NetworkResponse.Error(response.error)
-                }
-            }
-        }
-
-        viewModelScope.launch {
             weatherRepository.getRemoteWeather().collect { response ->
                 when (response) {
                     is NetworkResponse.Loading ->
@@ -88,19 +71,6 @@ class WeatherViewModel @Inject constructor(
                 }
             }
         }
-
-        /*viewModelScope.launch {
-            aqiRepository.getRemoteAqi().collect { response ->
-                when (response) {
-                    is NetworkResponse.Loading ->
-                        _fetchAqiInfo.value = NetworkResponse.Loading(true)
-                    is NetworkResponse.Success ->
-                        _fetchAqiInfo.value = NetworkResponse.Success(response.data)
-                    is NetworkResponse.Error ->
-                        _fetchAqiInfo.value = NetworkResponse.Error(response.error)
-                }
-            }
-        }*/
 
         viewModelScope.launch {
             weatherRepository.getCurrent().collect { state ->
@@ -114,6 +84,21 @@ class WeatherViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    //    val country: MutableState<String?> = mutableStateOf(null)
+    private val _fetchCity : MutableState<List<CityDto>?> = mutableStateOf(null)
+
+    fun searchCityByName(city: String) {
+        viewModelScope.launch {
+            cityRepository.getCity(city).collect { response ->
+                if (response != null) _fetchCity.value = response else _fetchCity.value = null
+            }
+        }
+    }
+
+    fun getCitiList(): List<CityDto>? {
+        return _fetchCity.value
     }
 
     private fun getDate() {

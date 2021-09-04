@@ -95,6 +95,18 @@ fun CityEntity.mapToDomain(): CityDto =
         lon = this.lon
     )
 
-fun cityResponseListMapToEntities(list: List<CityResponse>):List<CityEntity>{
-    return list.map(::mapToEntity)
+fun citiResponseMapToDomain(response: CityResponse): CityDto {
+    return CityDto(
+        id = -1,
+        name = response.name,
+        country = response.country,
+        lat = response.lat,
+        lon = response.lon
+    )
 }
+
+fun cityResponseListMapToEntities(list: List<CityResponse>): List<CityEntity> =
+    list.map(::mapToEntity)
+
+fun cityResponseListMapToDomain(list: List<CityResponse>): List<CityDto> =
+    list.map(::citiResponseMapToDomain)

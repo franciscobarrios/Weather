@@ -16,6 +16,5 @@ interface WeatherApi {
         @Query("q") city: String,
         @Query("limit") limit: Int,
         @Query("appid") apiKey: String,
-
-        ): List<CityResponse>
+    ): List<CityResponse>?
 }
