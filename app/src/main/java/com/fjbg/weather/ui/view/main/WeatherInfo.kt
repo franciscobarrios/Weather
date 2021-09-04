@@ -1,7 +1,11 @@
 package com.fjbg.weather.ui.view.main
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -21,8 +25,10 @@ fun WeatherInfo(
     description: String,
     icon: Int?
 ) {
-    Box(modifier = Modifier
-        .fillMaxWidth()) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+    ) {
         NightSky()
         Column(
             modifier = Modifier
@@ -41,12 +47,12 @@ fun WeatherInfo(
                 text = temp,
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center,
-                style = currentTempTextStyle
+                style = currentTempTextStyle(isSystemInDarkTheme())
             )
             Text(
                 text = description,
                 modifier = Modifier.fillMaxWidth(),
-                style = descriptionTextStyle
+                style = descriptionTextStyle(isSystemInDarkTheme())
             )
         }
     }

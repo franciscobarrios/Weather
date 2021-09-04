@@ -21,7 +21,6 @@ import androidx.compose.ui.unit.dp
 import com.fjbg.weather.R
 import com.fjbg.weather.ui.theme.categoryContentTextStyle
 import com.fjbg.weather.ui.theme.categoryTitleTextStyle
-import com.fjbg.weather.util.background
 import com.fjbg.weather.util.iconTint
 
 @ExperimentalMaterialApi
@@ -58,7 +57,7 @@ fun InfoCard(
             ) {
                 Text(
                     text = title,
-                    style = categoryTitleTextStyle,
+                    style = categoryTitleTextStyle(isSystemInDarkTheme()),
                     maxLines = 1,
                     modifier = Modifier.padding(
                         top = 16.dp,
@@ -69,7 +68,7 @@ fun InfoCard(
                 )
                 Text(
                     text = content,
-                    style = categoryContentTextStyle,
+                    style = categoryContentTextStyle(isSystemInDarkTheme()),
                     maxLines = 1,
                     modifier = Modifier.padding(
                         top = 2.dp,

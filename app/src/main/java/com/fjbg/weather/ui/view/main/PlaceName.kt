@@ -1,5 +1,6 @@
 package com.fjbg.weather.ui.view.main
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -28,16 +29,16 @@ fun PlaceName(
         Row(
             horizontalArrangement = Arrangement.Center
         ) {
-            Column() {
+            Column {
                 Text(
                     text = "$city, ",
-                    style = cityTextStyle
+                    style = cityTextStyle(isSystemInDarkTheme())
                 )
             }
-            Column() {
+            Column {
                 Text(
                     text = country,
-                    style = countryTextStyle
+                    style = countryTextStyle(isSystemInDarkTheme())
                 )
             }
         }
@@ -46,7 +47,7 @@ fun PlaceName(
         ) {
             Text(
                 text = date,
-                style = dateTextStyle,
+                style = dateTextStyle(isSystemInDarkTheme()),
             )
         }
     }

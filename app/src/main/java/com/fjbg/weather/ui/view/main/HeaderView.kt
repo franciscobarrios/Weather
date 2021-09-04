@@ -38,9 +38,9 @@ fun HeaderView(
             )
         }
         PlaceName(
-            city = city ?: "Bangkok",
-            country = country ?: "Thailand",
-            date = date ?: "sat, 21 Aug 2021",
+            city = city ?: "",
+            country = country ?: "",
+            date = date ?: "",
         )
         IconButton(
             onClick = {

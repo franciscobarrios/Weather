@@ -32,7 +32,7 @@ fun LocationListView(
             val textState = remember { mutableStateOf(TextFieldValue()) }
             Text(
                 text = "Cities",
-                style = titleTextStyle,
+                style = titleTextStyle(isSystemInDarkTheme()),
                 modifier = Modifier
                     .padding(
                         start = 32.dp,
@@ -49,6 +49,8 @@ fun LocationListView(
                     .padding(12.dp)
             ) {
                 val list = viewModel?.citiesFromLocal?.value
+
+
                 list?.let { cities ->
                     items(count = cities.size) {
                         cities[it].id

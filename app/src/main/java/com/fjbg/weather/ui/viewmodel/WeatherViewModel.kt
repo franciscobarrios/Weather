@@ -1,9 +1,11 @@
 package com.fjbg.weather.ui.viewmodel
 
+import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.fjbg.weather.data.TAG
 import com.fjbg.weather.data.mapper.iconIdToIconWeather
 import com.fjbg.weather.data.mapper.owApiIconToIntResourceDay
 import com.fjbg.weather.data.model.CityDto
@@ -108,7 +110,12 @@ class WeatherViewModel @Inject constructor(
 
     private fun getCitiesFromLocal() {
         viewModelScope.launch {
-            citiesFromLocal.value = cityRepository.getCitiesFromLocal()
+            cityRepository.getCitiesFromLocal().collect {
+
+                Log.d(TAG, "getCitiesFromLocal: $it")
+
+                citiesFromLocal.value = it
+            }
         }
     }
 

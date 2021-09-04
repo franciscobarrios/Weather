@@ -24,6 +24,7 @@ import com.fjbg.weather.ui.theme.WeatherTheme
 import com.fjbg.weather.ui.theme.titleTextStyle
 import com.fjbg.weather.ui.viewmodel.WeatherViewModel
 import com.fjbg.weather.util.backgroundBrush
+import com.fjbg.weather.util.textColor
 
 @Composable
 fun AddLocationView(
@@ -40,7 +41,7 @@ fun AddLocationView(
 
             Text(
                 text = "Add a new city",
-                style = titleTextStyle,
+                style = titleTextStyle(isSystemInDarkTheme()),
                 modifier = Modifier
                     .padding(
                         start = 32.dp,
@@ -111,6 +112,7 @@ fun ItemCity(
                 textAlign = TextAlign.Start,
                 fontWeight = FontWeight.Light
             ),
+            color = textColor(isSystemInDarkTheme()),
             modifier = Modifier
                 .padding(12.dp)
                 .fillMaxWidth()
