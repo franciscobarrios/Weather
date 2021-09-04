@@ -1,6 +1,7 @@
 package com.fjbg.weather.data.repository
 
 import com.fjbg.weather.data.AppDatabase
+import com.fjbg.weather.data.WEATHER_KEY
 import com.fjbg.weather.data.remote.CityResponse
 import com.fjbg.weather.data.remote.NetworkResponse
 import com.fjbg.weather.data.remote.WeatherApi
@@ -17,7 +18,11 @@ class CityRepositoryImp @Inject constructor(
     private val cityDao = database.cityDao()
 
     override suspend fun getCity(): Flow<NetworkResponse<List<CityResponse>>> {
-        weatherService.getCity().run {
+        weatherService.getCity(
+            city = "villarrica",
+            limit = 5,
+            apiKey = WEATHER_KEY,
+        ).run {
             return run {
                 flowOf(NetworkResponse.Success(this))
             }

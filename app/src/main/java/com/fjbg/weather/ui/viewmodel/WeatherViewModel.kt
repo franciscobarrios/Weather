@@ -89,7 +89,7 @@ class WeatherViewModel @Inject constructor(
             }
         }
 
-        viewModelScope.launch {
+        /*viewModelScope.launch {
             aqiRepository.getRemoteAqi().collect { response ->
                 when (response) {
                     is NetworkResponse.Loading ->
@@ -100,7 +100,7 @@ class WeatherViewModel @Inject constructor(
                         _fetchAqiInfo.value = NetworkResponse.Error(response.error)
                 }
             }
-        }
+        }*/
 
         viewModelScope.launch {
             weatherRepository.getCurrent().collect { state ->

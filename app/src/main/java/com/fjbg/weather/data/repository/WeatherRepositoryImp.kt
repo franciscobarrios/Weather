@@ -2,6 +2,7 @@ package com.fjbg.weather.data.repository
 
 import com.fjbg.weather.data.AppDatabase
 import com.fjbg.weather.data.NO_DATA
+import com.fjbg.weather.data.WEATHER_KEY
 import com.fjbg.weather.data.mapper.weatherEntityToDomain
 import com.fjbg.weather.data.mapper.weatherResponseToEntity
 import com.fjbg.weather.data.remote.NetworkResponse
@@ -23,7 +24,10 @@ class WeatherRepositoryImp @Inject constructor(
     private val weatherDao = database.weatherDao()
 
     override suspend fun getRemoteWeather(): Flow<NetworkResponse<WeatherResponse?>> {
-        val entity = weatherService.getWeather()?.run {
+        val entity = weatherService.getWeather(
+            city = "Villarica",
+            apiKey = WEATHER_KEY
+        )?.run {
             weatherResponseToEntity(this)
         }
         return when {
