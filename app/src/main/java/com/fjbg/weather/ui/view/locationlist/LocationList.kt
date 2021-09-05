@@ -11,7 +11,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.fjbg.weather.ui.theme.titleTextStyle
 import com.fjbg.weather.ui.view.addlocation.ItemCity
@@ -20,9 +19,12 @@ import com.fjbg.weather.util.backgroundBrush
 
 @Composable
 fun LocationListView(
-    viewModel: WeatherViewModel?,
+    viewModel: WeatherViewModel? = null,
     actionGoBack: () -> Unit
 ) {
+
+    val cityList = viewModel?.citiesFromLocal?.value
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -48,10 +50,7 @@ fun LocationListView(
                     .background(Color.Transparent)
                     .padding(12.dp)
             ) {
-                val list = viewModel?.citiesFromLocal?.value
-
-
-                list?.let { cities ->
+                cityList?.let { cities ->
                     items(count = cities.size) {
                         cities[it].id
                         ItemCity(
@@ -65,6 +64,7 @@ fun LocationListView(
     }
 }
 
+/*
 @Preview
 @Composable
 fun LocationListPreview() {
@@ -72,4 +72,4 @@ fun LocationListPreview() {
         viewModel = null,
         actionGoBack = {}
     )
-}
+}*/
