@@ -2,7 +2,7 @@ package com.fjbg.weather.data.repository
 
 import com.fjbg.weather.data.AppDatabase
 import com.fjbg.weather.data.WEATHER_KEY
-import com.fjbg.weather.data.mapper.cityEntityListMapToDomain
+import com.fjbg.weather.data.local.CityEntity
 import com.fjbg.weather.data.mapper.cityResponseListMapToDomain
 import com.fjbg.weather.data.mapper.mapToEntity
 import com.fjbg.weather.data.model.CityDto
@@ -44,7 +44,7 @@ class CityRepositoryImp @Inject constructor(
         cityDao.saveCity(city.mapToEntity())
     }
 
-    override suspend fun getCitiesFromLocal(): List<CityDto>? = cityDao.getCities()?.run {
-        cityEntityListMapToDomain(this)
+    override suspend fun getCitiesFromLocal(): Flow<List<CityEntity>?> {
+        return cityDao.getCities()
     }
 }

@@ -7,7 +7,6 @@ import androidx.compose.ui.graphics.Color
 import java.util.*
 import kotlin.math.roundToInt
 
-
 fun Long.toDate(): String {
     val calendar = Calendar.getInstance(Locale.getDefault())
     calendar.timeInMillis = this * 1000
@@ -52,3 +51,6 @@ fun backgroundBrush(isSystemInDarkTheme: Boolean): Brush =
         )
     }
 
+fun textColor(isSystemInDarkTheme: Boolean): Color {
+    return if (isSystemInDarkTheme) Color.White else Color.Black
+}
