@@ -23,4 +23,7 @@ interface CityDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveCity(city: CityEntity)
+
+    @Query("DELETE FROM city WHERE id=:id")
+    suspend fun deleteCityById(id: Int)
 }

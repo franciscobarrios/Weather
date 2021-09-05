@@ -56,7 +56,7 @@ fun LocationListView(
                     items(count = cities.size) {
                         cities[it].id
                         ItemCity(
-                            cities[it],
+                            city = cities[it],
                             viewModel = viewModel
                         )
                     }

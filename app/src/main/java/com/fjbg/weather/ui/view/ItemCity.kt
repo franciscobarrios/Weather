@@ -1,5 +1,6 @@
 package com.fjbg.weather.ui.view
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -18,6 +19,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.fjbg.weather.data.TAG
 import com.fjbg.weather.data.model.CityDto
 import com.fjbg.weather.ui.viewmodel.WeatherViewModel
 import com.fjbg.weather.util.getCountry
@@ -27,13 +29,13 @@ import com.fjbg.weather.util.textColor
 @Composable
 fun ItemAddCity(
     cityDto: CityDto,
-    viewModel: WeatherViewModel? = null,
+    viewModel: WeatherViewModel,
 ) {
     ItemCityCard(
         city = cityDto.name,
         country = cityDto.country,
         action = {
-            viewModel?.saveCity(city = cityDto)
+            viewModel.saveCity(city = cityDto)
         }
     )
 }
@@ -41,18 +43,26 @@ fun ItemAddCity(
 @ExperimentalMaterialApi
 @Composable
 fun ItemCity(
-    cityDto: CityDto,
-    viewModel: WeatherViewModel? = null,
+    city: CityDto,
+    viewModel: WeatherViewModel,
 ) {
     ItemCityCard(
-        city = cityDto.name,
-        country = cityDto.country
+        city = city.name,
+        country = city.country,
+        action = {
+            Log.d(TAG, "ItemCity: city: $city")
+            viewModel.deleteCity(city = city)
+        }
     )
 }
 
 @ExperimentalMaterialApi
 @Composable
-fun ItemCityCard(city: String, country: String, action: (() -> Unit)? = null) {
+fun ItemCityCard(
+    city: String,
+    country: String,
+    action: (() -> Unit)? = null
+) {
     Card(
         backgroundColor = Color(0xFFFFFFFF),//cityListBackgroundColor(isSystemInDarkTheme()),
         modifier = Modifier
@@ -60,6 +70,15 @@ fun ItemCityCard(city: String, country: String, action: (() -> Unit)? = null) {
             .graphicsLayer {
                 alpha = 0.8f
             }
+            /*.pointerInput(Unit) {
+                detectTapGestures(
+                    onLongPress = {
+                        action?.invoke()
+
+                        Log.d(TAG, "ItemCityCard: onLongPress ")
+                    }
+                )
+            }*/
             .padding(
                 bottom = 4.dp,
                 top = 4.dp,

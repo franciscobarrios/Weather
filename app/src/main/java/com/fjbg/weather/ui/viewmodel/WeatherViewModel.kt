@@ -118,6 +118,12 @@ class WeatherViewModel @Inject constructor(
         }
     }
 
+    fun deleteCity(city: CityDto) {
+        viewModelScope.launch {
+            cityRepository.deleteCity(city)
+        }
+    }
+
     private fun getDate() {
         viewModelScope.launch {
             weatherRepository.getDate().collect {

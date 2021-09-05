@@ -9,4 +9,5 @@ interface CityRepository {
     suspend fun clearAll()
     suspend fun saveCity(city: CityDto)
     suspend fun getCitiesFromLocal(): Flow<List<CityEntity>?>
+    suspend fun deleteCity(city: CityDto)
 }

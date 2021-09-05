@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
@@ -21,6 +22,7 @@ import com.fjbg.weather.ui.view.ItemCity
 import com.fjbg.weather.ui.viewmodel.WeatherViewModel
 import com.fjbg.weather.util.backgroundBrush
 
+@ExperimentalMaterialApi
 @Composable
 fun AddLocationView(
     viewModel: WeatherViewModel?,
@@ -88,6 +90,7 @@ fun AddLocationView(
     }
 }
 
+@ExperimentalMaterialApi
 @Preview
 @Composable
 fun AddLocationViewPreview() {
