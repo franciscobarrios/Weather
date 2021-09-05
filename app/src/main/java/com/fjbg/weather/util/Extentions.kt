@@ -15,6 +15,8 @@ fun Long.toDate(): String {
 
 fun Float.oneDecimal(): Float = ((this * 10.0).roundToInt() / 10.0).toFloat()
 
+fun String.getCountry(): String = Locale("en", this).displayCountry
+
 fun background(isSystemInDarkTheme: Boolean): Color =
     if (isSystemInDarkTheme) Color.Black else Color.White
 
@@ -52,5 +54,9 @@ fun backgroundBrush(isSystemInDarkTheme: Boolean): Brush =
     }
 
 fun textColor(isSystemInDarkTheme: Boolean): Color {
-    return if (isSystemInDarkTheme) Color.White else Color.Black
+    return if (isSystemInDarkTheme) Color.White else Color(0xFF292929)
+}
+
+fun cityListBackgroundColor(isSystemInDarkTheme: Boolean): Color {
+    return if (isSystemInDarkTheme) Color(0xFF000000) else Color(0x99EBEBEB)
 }

@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -13,10 +14,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import com.fjbg.weather.ui.theme.titleTextStyle
-import com.fjbg.weather.ui.view.addlocation.ItemCity
+import com.fjbg.weather.ui.view.ItemCity
 import com.fjbg.weather.ui.viewmodel.WeatherViewModel
 import com.fjbg.weather.util.backgroundBrush
 
+@ExperimentalMaterialApi
 @Composable
 fun LocationListView(
     viewModel: WeatherViewModel? = null,
@@ -63,13 +65,3 @@ fun LocationListView(
         }
     }
 }
-
-/*
-@Preview
-@Composable
-fun LocationListPreview() {
-    LocationListView(
-        viewModel = null,
-        actionGoBack = {}
-    )
-}*/
