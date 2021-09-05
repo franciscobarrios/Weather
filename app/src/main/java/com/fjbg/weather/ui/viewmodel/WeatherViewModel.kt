@@ -12,6 +12,7 @@ import com.fjbg.weather.data.remote.NetworkResponse
 import com.fjbg.weather.data.repository.AqiRepositoryImp
 import com.fjbg.weather.data.repository.CityRepositoryImp
 import com.fjbg.weather.data.repository.WeatherRepositoryImp
+import com.fjbg.weather.util.getCountry
 import com.fjbg.weather.util.oneDecimal
 import com.fjbg.weather.util.toDate
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -117,6 +118,12 @@ class WeatherViewModel @Inject constructor(
         }
     }
 
+    fun deleteCity(city: CityDto) {
+        viewModelScope.launch {
+            cityRepository.deleteCity(city)
+        }
+    }
+
     private fun getDate() {
         viewModelScope.launch {
             weatherRepository.getDate().collect {
@@ -133,7 +140,7 @@ class WeatherViewModel @Inject constructor(
             weatherRepository.getCountry().collect {
                 it?.run {
                     //Log.d(TAG, "getCountry: ${Locale("en", this).displayCountry}")
-                    country.value = Locale("en", this).displayCountry
+                    country.value = this.getCountry()
                 }
             }
         }

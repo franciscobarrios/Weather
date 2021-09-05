@@ -36,6 +36,10 @@ class CityRepositoryImp @Inject constructor(
         return data
     }
 
+    override suspend fun deleteCity(city: CityDto) {
+        cityDao.deleteCityById(city.id)
+    }
+
     override suspend fun clearAll() {
         cityDao.clearAll()
     }
