@@ -67,104 +67,154 @@ fun owApiIconToIntResourceDay(iconWeather: IconWeather, isNight: Boolean): Int {
     return when {
         (iconWeather == IconWeather.THUNDERSTORM && isNight) -> R.drawable.tstorm3
         (iconWeather == IconWeather.THUNDERSTORM && !isNight) -> R.drawable.tstorm3
+
         (iconWeather == IconWeather.LIGHT_THUNDERSTORM && isNight) -> R.drawable.tstorm1_night
         (iconWeather == IconWeather.LIGHT_THUNDERSTORM && !isNight) -> R.drawable.tstorm1
+
         (iconWeather == IconWeather.THUNDERSTORM_WITH_LIGHT_RAIN && isNight) -> R.drawable.tstorm1_night
         (iconWeather == IconWeather.THUNDERSTORM_WITH_LIGHT_RAIN && !isNight) -> R.drawable.tstorm1
+
         (iconWeather == IconWeather.THUNDERSTORM_WITH_RAIN && isNight) -> R.drawable.tstorm2_night
         (iconWeather == IconWeather.THUNDERSTORM_WITH_RAIN && !isNight) -> R.drawable.tstorm2
+
         (iconWeather == IconWeather.THUNDERSTORM_WITH_HEAVY_RAIN && isNight) -> R.drawable.tstorm3
         (iconWeather == IconWeather.THUNDERSTORM_WITH_HEAVY_RAIN && !isNight) -> R.drawable.tstorm3
+
         (iconWeather == IconWeather.HEAVY_THUNDERSTORM && isNight) -> R.drawable.tstorm3
         (iconWeather == IconWeather.HEAVY_THUNDERSTORM && !isNight) -> R.drawable.tstorm3
+
         (iconWeather == IconWeather.RAGGED_THUNDERSTORM && isNight) -> R.drawable.tstorm3
         (iconWeather == IconWeather.RAGGED_THUNDERSTORM && !isNight) -> R.drawable.tstorm3
+
         (iconWeather == IconWeather.THUNDERSTORM_WITH_LIGHT_DRIZZLE && isNight) -> R.drawable.tstorm1_night
         (iconWeather == IconWeather.THUNDERSTORM_WITH_LIGHT_DRIZZLE && !isNight) -> R.drawable.tstorm1
+
         (iconWeather == IconWeather.THUNDERSTORM_WITH_DRIZZLE && isNight) -> R.drawable.tstorm1_night
         (iconWeather == IconWeather.THUNDERSTORM_WITH_DRIZZLE && !isNight) -> R.drawable.tstorm1
+
         (iconWeather == IconWeather.THUNDERSTORM_WITH_HEAVY_DRIZZLE && isNight) -> R.drawable.tstorm2_night
         (iconWeather == IconWeather.THUNDERSTORM_WITH_HEAVY_DRIZZLE && !isNight) -> R.drawable.tstorm2
+
         (iconWeather == IconWeather.LIGHT_INTENSITY_DRIZZLE && isNight) -> R.drawable.shower1_night
         (iconWeather == IconWeather.LIGHT_INTENSITY_DRIZZLE && !isNight) -> R.drawable.shower1
+
         (iconWeather == IconWeather.DRIZZLE && isNight) -> R.drawable.shower1_night
         (iconWeather == IconWeather.DRIZZLE && !isNight) -> R.drawable.shower1
+
         (iconWeather == IconWeather.HEAVY_INTENSITY_DRIZZLE && isNight) -> R.drawable.shower2_night
         (iconWeather == IconWeather.HEAVY_INTENSITY_DRIZZLE && !isNight) -> R.drawable.shower2
+
         (iconWeather == IconWeather.LIGHT_INTENSITY_DRIZZLE_RAIN && isNight) -> R.drawable.shower2_night
         (iconWeather == IconWeather.LIGHT_INTENSITY_DRIZZLE_RAIN && !isNight) -> R.drawable.shower2
+
         (iconWeather == IconWeather.DRIZZLE_RAIN && isNight) -> R.drawable.shower2_night
         (iconWeather == IconWeather.DRIZZLE_RAIN && !isNight) -> R.drawable.shower2
+
         (iconWeather == IconWeather.HEAVY_INTENSITY_DRIZZLE_RAIN && isNight) -> R.drawable.shower2_night
         (iconWeather == IconWeather.HEAVY_INTENSITY_DRIZZLE_RAIN && !isNight) -> R.drawable.shower2
+
         (iconWeather == IconWeather.SHOWER_RAIN_AND_DRIZZLE && isNight) -> R.drawable.shower2_night
         (iconWeather == IconWeather.SHOWER_RAIN_AND_DRIZZLE && !isNight) -> R.drawable.shower2
+
         (iconWeather == IconWeather.HEAVY_SHOWER_RAIN_AND_DRIZZLE && isNight) -> R.drawable.shower2_night
         (iconWeather == IconWeather.HEAVY_SHOWER_RAIN_AND_DRIZZLE && !isNight) -> R.drawable.shower2
+
         (iconWeather == IconWeather.SHOWER_DRIZZLE && isNight) -> R.drawable.shower2_night
         (iconWeather == IconWeather.SHOWER_DRIZZLE && !isNight) -> R.drawable.shower2
+
         (iconWeather == IconWeather.LIGHT_RAIN && isNight) -> R.drawable.shower2_night
         (iconWeather == IconWeather.LIGHT_RAIN && !isNight) -> R.drawable.shower2
+
         (iconWeather == IconWeather.MODERATE_RAIN && isNight) -> R.drawable.shower2_night
         (iconWeather == IconWeather.MODERATE_RAIN && !isNight) -> R.drawable.shower2
+
         (iconWeather == IconWeather.HEAVY_INTENSITY_RAIN && isNight) -> R.drawable.shower3
         (iconWeather == IconWeather.HEAVY_INTENSITY_RAIN && !isNight) -> R.drawable.shower3
+
         (iconWeather == IconWeather.VERY_HEAVY_RAIN && isNight) -> R.drawable.shower3
         (iconWeather == IconWeather.VERY_HEAVY_RAIN && !isNight) -> R.drawable.shower3
+
         (iconWeather == IconWeather.EXTREME_RAIN && isNight) -> R.drawable.shower3
         (iconWeather == IconWeather.EXTREME_RAIN && !isNight) -> R.drawable.shower3
+
         (iconWeather == IconWeather.FREEZING_RAIN && isNight) -> R.drawable.sleet
         (iconWeather == IconWeather.FREEZING_RAIN && !isNight) -> R.drawable.sleet
+
         (iconWeather == IconWeather.LIGHT_SNOW && isNight) -> R.drawable.snow1_night
         (iconWeather == IconWeather.LIGHT_SNOW && !isNight) -> R.drawable.snow1
+
         (iconWeather == IconWeather.SNOW && isNight) -> R.drawable.snow2_night
         (iconWeather == IconWeather.SNOW && !isNight) -> R.drawable.snow2
+
         (iconWeather == IconWeather.HEAVY_SNOW && isNight) -> R.drawable.snow3_night
         (iconWeather == IconWeather.HEAVY_SNOW && !isNight) -> R.drawable.snow3
+
         (iconWeather == IconWeather.SLEET && isNight) -> R.drawable.sleet
         (iconWeather == IconWeather.SLEET && !isNight) -> R.drawable.sleet
+
         (iconWeather == IconWeather.LIGHT_SHOWER_SLEET && isNight) -> R.drawable.sleet
         (iconWeather == IconWeather.LIGHT_SHOWER_SLEET && !isNight) -> R.drawable.sleet
+
         (iconWeather == IconWeather.SHOWER_SLEET && isNight) -> R.drawable.sleet
         (iconWeather == IconWeather.SHOWER_SLEET && !isNight) -> R.drawable.sleet
+
         (iconWeather == IconWeather.LIGHT_RAIN_AND_SNOW && isNight) -> R.drawable.sleet
         (iconWeather == IconWeather.LIGHT_RAIN_AND_SNOW && !isNight) -> R.drawable.sleet
+
         (iconWeather == IconWeather.RAIN_AND_SNOW && isNight) -> R.drawable.sleet
         (iconWeather == IconWeather.RAIN_AND_SNOW && !isNight) -> R.drawable.sleet
+
         (iconWeather == IconWeather.LIGHT_SHOWER_SNOW && isNight) -> R.drawable.sleet
         (iconWeather == IconWeather.LIGHT_SHOWER_SNOW && !isNight) -> R.drawable.sleet
+
         (iconWeather == IconWeather.SHOWER_SNOW && isNight) -> R.drawable.sleet
         (iconWeather == IconWeather.SHOWER_SNOW && !isNight) -> R.drawable.sleet
+
         (iconWeather == IconWeather.HEAVY_SHOWER_SNOW && isNight) -> R.drawable.sleet
         (iconWeather == IconWeather.HEAVY_SHOWER_SNOW && !isNight) -> R.drawable.sleet
+
         (iconWeather == IconWeather.MIST && isNight) -> R.drawable.mist_night
         (iconWeather == IconWeather.MIST && !isNight) -> R.drawable.mist
+
         (iconWeather == IconWeather.SMOKE && isNight) -> R.drawable.mist_night
         (iconWeather == IconWeather.SMOKE && !isNight) -> R.drawable.mist
+
         (iconWeather == IconWeather.HAZE && isNight) -> R.drawable.mist_night
         (iconWeather == IconWeather.HAZE && !isNight) -> R.drawable.mist
+
         (iconWeather == IconWeather.SAND_DUST_WHIRLS && isNight) -> R.drawable.mist_night
         (iconWeather == IconWeather.SAND_DUST_WHIRLS && !isNight) -> R.drawable.mist
+
         (iconWeather == IconWeather.FOG && isNight) -> R.drawable.fog_night
-        (iconWeather == IconWeather.FOG && !isNight) -> R.drawable.fog_night
+        (iconWeather == IconWeather.FOG && !isNight) -> R.drawable.fog
+
         (iconWeather == IconWeather.SAND && isNight) -> R.drawable.fog_night
-        (iconWeather == IconWeather.SAND && !isNight) -> R.drawable.fog_night
+        (iconWeather == IconWeather.SAND && !isNight) -> R.drawable.fog
+
         (iconWeather == IconWeather.DUST && isNight) -> R.drawable.fog_night
-        (iconWeather == IconWeather.DUST && !isNight) -> R.drawable.fog_night
+        (iconWeather == IconWeather.DUST && !isNight) -> R.drawable.fog
+
         (iconWeather == IconWeather.VOLCANIC_ASH && isNight) -> R.drawable.fog_night
-        (iconWeather == IconWeather.VOLCANIC_ASH && !isNight) -> R.drawable.fog_night
+        (iconWeather == IconWeather.VOLCANIC_ASH && !isNight) -> R.drawable.fog
+
         (iconWeather == IconWeather.CLEAR_SKY && isNight) -> R.drawable.sunny_night
         (iconWeather == IconWeather.CLEAR_SKY && !isNight) -> R.drawable.sunny
+
         (iconWeather == IconWeather.FEW_CLOUDS && isNight) -> R.drawable.cloudy1_night
         (iconWeather == IconWeather.FEW_CLOUDS && !isNight) -> R.drawable.cloudy1
+
         (iconWeather == IconWeather.SCATTERED_CLOUDS && isNight) -> R.drawable.cloudy2_night
         (iconWeather == IconWeather.SCATTERED_CLOUDS && !isNight) -> R.drawable.cloudy2
+
         (iconWeather == IconWeather.BROKEN_CLOUDS && isNight) -> R.drawable.cloudy3_night
         (iconWeather == IconWeather.BROKEN_CLOUDS && !isNight) -> R.drawable.cloudy3
+
         (iconWeather == IconWeather.OVERCAST_CLOUDS && isNight) -> R.drawable.cloudy4_night
         (iconWeather == IconWeather.OVERCAST_CLOUDS && !isNight) -> R.drawable.cloudy4
+
         (iconWeather == IconWeather.SQUALLS && isNight) -> R.drawable.cloudy5
         (iconWeather == IconWeather.SQUALLS && !isNight) -> R.drawable.cloudy5
+
         (iconWeather == IconWeather.TORNADO && isNight) -> R.drawable.cloudy5
         (iconWeather == IconWeather.TORNADO && !isNight) -> R.drawable.cloudy5
         else -> R.drawable.dunno
