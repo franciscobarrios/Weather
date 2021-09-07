@@ -1,5 +1,6 @@
 package com.fjbg.weather
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -16,6 +17,7 @@ import com.fjbg.weather.ui.view.locationlist.LocationListView
 import com.fjbg.weather.ui.view.main.MainView
 import com.fjbg.weather.ui.viewmodel.WeatherViewModel
 
+@ExperimentalFoundationApi
 @ExperimentalMaterialApi
 @Composable
 fun WeatherComposeApp(viewModel: WeatherViewModel) {

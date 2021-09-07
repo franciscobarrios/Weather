@@ -67,7 +67,7 @@ fun AddLocationView(
                 cityList?.let { cities ->
                     items(count = cities.size) {
                         cities[it].id
-                        Text(text = "${cities[it].name}")
+                        Text(text = cities[it].name)
                         CityWeatherWidget(
                             temperature = "31",
                             icon = R.drawable.cloudy2_night,
