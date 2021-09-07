@@ -1,4 +1,4 @@
-package com.fjbg.weather.ui.view
+package com.fjbg.weather.ui.view.addlocation
 
 import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
