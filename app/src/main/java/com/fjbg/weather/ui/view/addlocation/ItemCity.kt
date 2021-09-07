@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.sp
 import com.fjbg.weather.data.TAG
 import com.fjbg.weather.data.model.CityDto
 import com.fjbg.weather.ui.viewmodel.WeatherViewModel
+import com.fjbg.weather.util.cityListBackgroundColor
 import com.fjbg.weather.util.getCountry
 import com.fjbg.weather.util.textColor
 
@@ -68,7 +69,7 @@ fun ItemCityCard(
     action: (() -> Unit)? = null
 ) {
     Card(
-        backgroundColor = Color(0xFFFFFFFF),//cityListBackgroundColor(isSystemInDarkTheme()),
+        backgroundColor = cityListBackgroundColor(isSystemInDarkTheme()),
         modifier = Modifier
             .fillMaxWidth()
             .padding(

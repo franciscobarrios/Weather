@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import com.fjbg.weather.WeatherComposeApp
 import com.fjbg.weather.ui.viewmodel.WeatherViewModel
@@ -14,6 +15,7 @@ class MainActivity : ComponentActivity() {
 
     val viewModel: WeatherViewModel by viewModels()
 
+    @ExperimentalFoundationApi
     @ExperimentalMaterialApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
