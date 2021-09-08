@@ -24,31 +24,20 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew build
+      
+      # Sign App
     - name: Android Sign
       uses: Tlaster/android-sign@v1.2.2
       with:
-      releaseDirectory: |
-        app/build/outputs/apk/release
-        app/build/outputs/bundle/release
-        app/build/release
-      signingKeyBase64: key/franciscobarrios.key
-      output: build/release/signed
-      alias: Production Key
-      keyStorePassword: Azhagth0tt#12345k
-      keyPassword: Azhagth0tt#12345k
-      
+        releaseDirectory: |
+          app/build/outputs/apk/release
+          app/build/outputs/bundle/release
+          app/build/release
+        signingKeyBase64: key/franciscobarrios.key
+        output: build/release/signed
+        alias: Production Key
+        keyStorePassword: Azhagth0tt#12345k
+        keyPassword: Azhagth0tt#12345k     
     env:
       BUILD_TOOLS_VERSION: "30.0.2"
-      
-    - name: Upload Android Release to Play Store
-      uses: r0adkll/upload-google-play@v1
-      with:
-          serviceAccountJson: key/yet-another-weather-app-325401-5802ec80a368.json
-          packageName: com.fjbg.weather
-          releaseFile: ${{ SIGNED_RELEASE_FILE}}
-          track: internalsharing
-          inAppUpdatePriority: 2
-          userFraction: 0.33
-          whatsNewDirectory: distribution/whatsnew
-          mappingFile: app/build/outputs/mapping/release/mapping.txt
 
