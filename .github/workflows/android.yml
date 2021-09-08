@@ -2,9 +2,9 @@ name: Android CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [ deploy-internal ]
   pull_request:
-    branches: [ main ]
+    branches: [ deploy-internal ]
 
 jobs:
   build:
@@ -12,32 +12,32 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: set up JDK 11
-      uses: actions/setup-java@v2
-      with:
-        java-version: '11'
-        distribution: 'adopt'
-        cache: gradle
+      - uses: actions/checkout@v2
+      - name: set up JDK 11
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+          cache: gradle
 
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
-    - name: Build with Gradle
-      run: ./gradlew build
-      
-      # Sign App
-    - name: Android Sign
-      uses: Tlaster/android-sign@v1.2.2
-      with:
-        releaseDirectory: |
-          app/build/outputs/apk/release
-          app/build/outputs/bundle/release
-          app/build/release
-        signingKeyBase64: key/franciscobarrios.key
-        output: build/release/signed
-        alias: Production Key
-        keyStorePassword: Azhagth0tt#12345k
-        keyPassword: Azhagth0tt#12345k     
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+      - name: Build with Gradle
+        run: ./gradlew build
+
+        # Sign App
+      - name: Android Sign
+        uses: Tlaster/android-sign@v1.2.2
+        with:
+          releaseDirectory: |
+            app/build/outputs/apk/release
+            app/build/outputs/bundle/release
+            app/build/release
+          signingKeyBase64: key/franciscobarrios.key
+          output: build/release/signed
+          alias: Production Key
+          keyStorePassword: Azhagth0tt#12345k
+          keyPassword: Azhagth0tt#12345k
     env:
       BUILD_TOOLS_VERSION: "30.0.2"
 
