@@ -26,11 +26,11 @@ jobs:
       run: ./gradlew build
     - name: Upload Android Release to Play Store
       uses: r0adkll/upload-google-play@v1
-        with:
-          serviceAccountJson: ${{ SERVICE_ACCOUNT_JSON }}
+      with:
+          serviceAccountJson: key/yet-another-weather-app-325401-5802ec80a368.json
           packageName: com.fjbg.weather
           releaseFile: ${{ SIGNED_RELEASE_FILE}}
-          track: production
+          track: internalsharing
           inAppUpdatePriority: 2
           userFraction: 0.33
           whatsNewDirectory: distribution/whatsnew
