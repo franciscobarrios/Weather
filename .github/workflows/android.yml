@@ -24,3 +24,6 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew build
+    - name: Upload Android Release to Play Store
+      uses: r0adkll/upload-google-play@v1
+
