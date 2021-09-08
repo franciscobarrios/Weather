@@ -8,9 +8,7 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v2
       - name: set up JDK 11
@@ -24,20 +22,3 @@ jobs:
         run: chmod +x gradlew
       - name: Build with Gradle
         run: ./gradlew build
-
-        # Sign App
-      - name: Android Sign
-        uses: Tlaster/android-sign@v1.2.2
-        with:
-          releaseDirectory: |
-            app/build/outputs/apk/release
-            app/build/outputs/bundle/release
-            app/build/release
-          signingKeyBase64: key/franciscobarrios.key
-          output: build/release/signed
-          alias: Production Key
-          keyStorePassword: Azhagth0tt#12345k
-          keyPassword: Azhagth0tt#12345k
-    env:
-      BUILD_TOOLS_VERSION: "30.0.2"
-
