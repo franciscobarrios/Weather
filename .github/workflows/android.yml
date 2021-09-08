@@ -32,7 +32,7 @@ jobs:
           signingKeyBase64: ${{ secrets.SIGNING_KEY }}
           output: build/release/signed
           alias: ${{ secrets.ALIAS }}
-          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
-          keyPassword: ${{ secrets.KEY_PASSWORD }}
+          keyStorePassword: Azhagth0tt#12345k
+          keyPassword: Azhagth0tt#12345k
       env:
         BUILD_TOOLS_VERSION: "30.0.2"
