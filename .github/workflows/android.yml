@@ -81,7 +81,7 @@ jobs:
       - name: Upload to Google Play Store/Console
         uses: r0adkll/upload-google-play@v1.0.15
         with:
-          serviceAccountJson: ${{ secrets.SERVICE_ACCOUNT_JSON }}
+          serviceAccountJson: ${{ secrets.SERVICE_ACCOUNT_B64 }}
           packageName: com.fjbg.weather
           releaseFiles: "app/build/outputs/bundle/release/signed/app-release.aab"
           releaseName: "Yet Another Weather App"
