@@ -35,9 +35,24 @@ jobs:
       - name: Check file
         run: ls -la app/build/outputs/bundle/release/
 
+      # Base64 to JKS
+      - name: Run Base64 to JKS
+        id: write_file
+        uses: timheuer/base64-to-file@v1
+        with:
+          fileName: 'weather.jks'
+          encodedString: ${{ secrets.SIGNING_KEY }}
+
+      # Upload JKS File
+      - name: Upload JKS File
+        uses: actions/upload-artifact@v2
+        with:
+          name: Build Artifacts
+          path: app/
+
       # Run Jarsigner
       - name: Run Jarsigner
-        run: jarsigner -verbose -sigalg SHA256withRSA -digestalg SHA-256 -keystore ${{secrets.SIGNING_KEY}} -storepass ${{ secrets.KEY_STORE_PASSWORD }} -keypass ${{ secrets.KEY_PASSWORD }} app/build/outputs/bundle/release/app-release.aab ${{ secrets.ALIAS }}
+        run: jarsigner -verbose -sigalg SHA256withRSA -digestalg SHA-256 -keystore app/weather.jks -storepass ${{ secrets.KEY_STORE_PASSWORD }} -keypass ${{ secrets.KEY_PASSWORD }} app/build/outputs/bundle/release/app-release.aab ${{ secrets.ALIAS }}
 
       # Upload Signed file
       - name: Upload Signed file
