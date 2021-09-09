@@ -32,8 +32,12 @@ jobs:
           path: app/build/outputs/bundle/release/
 
       # Runs ls
-      - name: Run ls -la app/build/outputs/bundle/release/
+      - name: Check file
         run: ls -la app/build/outputs/bundle/release/
+
+      # Runs mv
+      - name: Rename file
+        run: mv app/build/outputs/bundle/release/app-release.aab app/build/outputs/bundle/release/app-release-signed.aab
 
       # Sign Android App (.aab)
       - name: Sign Android .aab
