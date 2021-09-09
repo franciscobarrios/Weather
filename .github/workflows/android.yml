@@ -32,8 +32,8 @@ jobs:
           path: app/build/outputs/bundle/release/
 
       # Runs ls
-      - name: Run ls -la pp/build/outputs/bundle/release/
-        run: ls -la pp/build/outputs/bundle/release/
+      - name: Run ls -la app/build/outputs/bundle/release/
+        run: ls -la app/build/outputs/bundle/release/
 
       # Sign Android App (.aab)
       - name: Sign Android .aab
