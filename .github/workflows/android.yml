@@ -69,6 +69,14 @@ jobs:
       - name: Copy signe file
         run: cp app/build/outputs/bundle/release/app-release.aab app/build/outputs/bundle/release/signed/
 
+      # Check file (ls)
+      - name: Check file location
+        run: ls -la app/build/outputs/bundle/release/
+
+      # Check file (ls)
+      - name: Check file location
+        run: ls -la app/build/outputs/bundle/release/signed
+
       # Upload app
       - name: Upload to Google Play Store/Console
         uses: r0adkll/upload-google-play@v1.0.15
