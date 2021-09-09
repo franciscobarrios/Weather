@@ -25,7 +25,7 @@ jobs:
 
       #Sign App
       - name: Android Sign
-        uses: Tlaster/android-sign@v1.2.2
+      - uses: Tlaster/android-sign@v1.2.2
         with:
           releaseDirectory: app/release
           signingKeyBase64: ${{ secrets.SIGNING_KEY }}
@@ -34,9 +34,10 @@ jobs:
           keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
           keyPassword: ${{ secrets.KEY_PASSWORD }}
         env:
-          BUILD_TOOLS_VERSION: "30.0.2"
+            BUILD_TOOLS_VERSION: "30.0.2"
 
       #Upload App
+      - name: Google Play Store Upload AAB
       - uses: r0adkll/upload-google-play@v1
         with:
           serviceAccountJson: ${{ SERVICE_ACCOUNT_JSON }}
