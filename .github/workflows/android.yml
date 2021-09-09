@@ -35,9 +35,9 @@ jobs:
       - name: Check file
         run: ls -la app/build/outputs/bundle/release/
 
-      # Runs mv
-      - name: Rename file
-        run: mv app/build/outputs/bundle/release/app-release.aab app/build/outputs/bundle/release/app-release-signed.aab
+      # Jarsigner permission
+      - name: Jarsigner permission
+        run: chmod +x /opt/hostedtoolcache/Java_Adopt_jdk/11.0.11-9/x64/bin/jarsigner
 
       # Sign Android App (.aab)
       - name: Sign Android .aab
