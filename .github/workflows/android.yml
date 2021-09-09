@@ -24,9 +24,9 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build
 
-      # Sign App
-      - uses: Tlaster/android-sign@v1.2.2
-      - name: Sign Android aab
+      # Sign Android .aab
+      - name: Android Sign
+        uses: Tlaster/android-sign@v1.2.2
         with:
           releaseDirectory: app/release
           signingKeyBase64: ${{ secrets.SIGNING_KEY }}
@@ -34,4 +34,6 @@ jobs:
           alias: ${{ secrets.ALIAS }}
           keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
           keyPassword: ${{ secrets.KEY_PASSWORD }}
+        env:
+          BUILD_TOOLS_VERSION: "30.0.2"
 
