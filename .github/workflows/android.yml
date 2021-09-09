@@ -35,17 +35,15 @@ jobs:
       - name: Check file
         run: ls -la app/build/outputs/bundle/release/
 
-      # Jarsigner permission
-      - name: Jarsigner permission
-        run: chmod +x /opt/hostedtoolcache/Java_Adopt_jdk/11.0.11-9/x64/bin/jarsigner
-
       # Sign Android App (.aab)
       - name: Sign Android .aab
         uses: Tlaster/android-sign@v1.2.2
         with:
-          releaseDirectory: app/build/outputs/bundle/release/
+          releaseDirectory: |
+            app/build/outputs/apk/release
+            app/build/outputs/bundle/release
           signingKeyBase64: ${{ secrets.SIGNING_KEY }}
-          output: app/build/outputs/bundle/release/
+          output: build/release/signed
           alias: ${{ secrets.ALIAS }}
           keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
           keyPassword: ${{ secrets.KEY_PASSWORD }}
@@ -64,4 +62,3 @@ jobs:
           userFraction: 0.33
           whatsNewDirectory: distribution/whatsnew
           # mappingFile: app/build/outputs/mapping/release/mapping.txt
-
