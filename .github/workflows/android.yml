@@ -84,8 +84,8 @@ jobs:
           serviceAccountJson: ${{ secrets.SERVICE_ACCOUNT_JSON }}
           packageName: com.fjbg.weather
           releaseFiles: "app/build/outputs/bundle/release/signed/app-release.aab"
+          releaseName: "Yet Another Weather App"
           track: internal
-          inAppUpdatePriority: 2
-          userFraction: 0.33
+          inAppUpdatePriority: 0
+          userFraction: 0.0
           whatsNewDirectory: distribution/whatsnew
-          # mappingFile: app/build/outputs/mapping/release/mapping.txt
