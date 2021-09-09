@@ -19,10 +19,8 @@ jobs:
           cache: gradle
 
       # Create folders
-      - name: Run mkdir app/release
-        run: mkdir app/release
-      - name: Run mkdir app/release/signed
-        run: mkdir app/release/signed
+      - name: Run mkdir app/build/outputs/bundle/release/
+        run: mkdir app/build/outputs/bundle/release/
 
       # Build with Gradle
       - name: Grant execute permission for gradlew
@@ -37,24 +35,22 @@ jobs:
           name: Build Artifacts
           path: app/build/outputs/bundle/release/
 
+      # Runs ls
+      - name: Run ls -la pp/build/outputs/bundle/release/
+        run: ls -la pp/build/outputs/bundle/release/
+
       # Sign Android App (.aab)
       - name: Sign Android .aab
         uses: Tlaster/android-sign@v1.2.2
         with:
-          releaseDirectory: app/release
+          releaseDirectory: app/build/outputs/bundle/release/
           signingKeyBase64: ${{ secrets.SIGNING_KEY }}
-          output: app/release/signed
+          output: app/build/outputs/bundle/release/
           alias: ${{ secrets.ALIAS }}
           keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
           keyPassword: ${{ secrets.KEY_PASSWORD }}
         env:
           BUILD_TOOLS_VERSION: "30.0.2"
-
-      # Runs a single command using the runners shell
-      - name: Run ls -la app/release
-        run: ls -la app/release
-      - name: Run ls -la app/release/signed
-        run: ls -la app/release/signed
 
       # Upload app
       - name: Upload to Google Play Store/Console
@@ -62,7 +58,7 @@ jobs:
         with:
           serviceAccountJson: ${{ secrets.SERVICE_ACCOUNT_JSON }}
           packageName: com.fjbg.weather
-          releaseFiles: "app/release/signed"
+          releaseFiles: "app/build/outputs/bundle/release/"
           track: internal
           inAppUpdatePriority: 2
           userFraction: 0.33
