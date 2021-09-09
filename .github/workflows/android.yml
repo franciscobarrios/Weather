@@ -87,5 +87,5 @@ jobs:
           releaseName: "Yet Another Weather App"
           track: internal
           inAppUpdatePriority: 0
-          userFraction: 0.0
+          userFraction: 0.5
           whatsNewDirectory: distribution/whatsnew
