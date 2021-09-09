@@ -42,6 +42,12 @@ jobs:
         env:
           BUILD_TOOLS_VERSION: "30.0.2"
 
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: Build Artifacts
+          path: app/release/signed/
+
       # Runs a single command using the runners shell
       - name: Run ls -la app/release
         run: ls -la app/release
