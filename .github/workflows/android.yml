@@ -18,26 +18,31 @@ jobs:
           distribution: 'adopt'
           cache: gradle
 
-      # Build with Gradle
-      - name: Grant execute permission for gradlew
+      # Prepare Gradle and build .aab file
+      - name: Prepare Gradle
         run: chmod +x gradlew
-      - name: Build with Gradle
+
+      - name: Build .aab file
         run: ./gradlew app:bundleRelease
 
-      # Upload Artifact
-      - name: Upload Artifact
+      # Upload Artifact (.aab file)
+      - name: Upload Artifact (.aab file)
         uses: actions/upload-artifact@v2
         with:
-          name: Build Artifacts
+          name: .AAB File
           path: app/build/outputs/bundle/release/
 
       # Check file (ls)
-      - name: Check file
+      - name: Check file location
         run: ls -la app/build/outputs/bundle/release/
 
       # Create folder
       - name: Create JKS folder
         run: mkdir app/jks
+
+      # Create folder
+      - name: Create folder signed .aab
+        run: mkdir app/build/outputs/bundle/release/signed
 
       # Base64 to JKS
       - name: Run Base64 to JKS
@@ -48,20 +53,21 @@ jobs:
           fileDir: "app/jks"
           encodedString: ${{ secrets.SIGNING_KEY }}
 
-      # Runs ls
-      - name: Check file
+      # Runs ls jks
+      - name: Check JKS file location
         run: ls -la app/jks/
 
       # Run Jarsigner
-      - name: Run Jarsigner
+      - name: Sign aab. file
         run: jarsigner -verbose -sigalg SHA256withRSA -digestalg SHA-256 -keystore app/jks/weather.jks -storepass ${{ secrets.KEY_STORE_PASSWORD }} -keypass ${{ secrets.KEY_PASSWORD }} app/build/outputs/bundle/release/app-release.aab ${{ secrets.ALIAS }}
 
-      # Upload Signed file
-      - name: Upload Signed file
-        uses: actions/upload-artifact@v2
-        with:
-          name: Build Artifacts
-          path: app/build/outputs/bundle/release/
+      # Runs ls jks
+      - name: Check JKS file location
+        run: ls -la app/jks/
+
+      # Copy file
+      - name: Copy signe file
+        run: cp app/build/outputs/bundle/release/app-release.aab app/build/outputs/bundle/release/signed/
 
       # Upload app
       - name: Upload to Google Play Store/Console
@@ -69,7 +75,7 @@ jobs:
         with:
           serviceAccountJson: ${{ secrets.SERVICE_ACCOUNT_JSON }}
           packageName: com.fjbg.weather
-          releaseFiles: "app/build/outputs/bundle/release/"
+          releaseFiles: "app/build/outputs/bundle/release/signed"
           track: internal
           inAppUpdatePriority: 2
           userFraction: 0.33
