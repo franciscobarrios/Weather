@@ -38,7 +38,7 @@ jobs:
       # Base64 to JKS
       - name: Run Base64 to JKS
         id: write_file
-        uses: timheuer/base64-to-file@v1
+        uses: timheuer/base64-to-file@v1.1
         with:
           fileName: 'weather.jks'
           encodedString: ${{ secrets.SIGNING_KEY }}
