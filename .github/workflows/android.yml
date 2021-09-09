@@ -12,19 +12,18 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: set up JDK 11
-      - uses: actions/setup-java@v2
+        uses: actions/setup-java@v2
         with:
           java-version: '11'
           distribution: 'adopt'
           cache: gradle
 
-      # Gradle Build
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Build with Gradle
         run: ./gradlew build
 
-      # Sign Android .aab
+      #Sign App
       - name: Android Sign
         uses: Tlaster/android-sign@v1.2.2
         with:
@@ -36,4 +35,3 @@ jobs:
           keyPassword: ${{ secrets.KEY_PASSWORD }}
         env:
           BUILD_TOOLS_VERSION: "30.0.2"
-
