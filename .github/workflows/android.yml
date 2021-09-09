@@ -35,18 +35,16 @@ jobs:
       - name: Check file
         run: ls -la app/build/outputs/bundle/release/
 
-      # Sign Android App (.aab)
-      - name: Sign Android .aab
-        uses: Tlaster/android-sign@v1.2.2
+      # Run Jarsigner
+      - name: Run Jarsigner
+        run: jarsigner -verbose -sigalg SHA256withRSA -digestalg SHA-256 -keystore ${{secrets.SIGNING_KEY}} -storepass ${{ secrets.KEY_STORE_PASSWORD }} -keypass ${{ secrets.KEY_PASSWORD }} app/build/outputs/bundle/release/app-release.aab ${{ secrets.ALIAS }}
+
+      # Upload Signed file
+      - name: Upload Signed file
+        uses: actions/upload-artifact@v2
         with:
-          releaseDirectory: "app/build/outputs/bundle/release/"
-          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
-          output: build/release/signed
-          alias: ${{ secrets.ALIAS }}
-          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
-          keyPassword: ${{ secrets.KEY_PASSWORD }}
-        env:
-          BUILD_TOOLS_VERSION: "30.0.2"
+          name: Build Artifacts
+          path: app/build/outputs/bundle/release/signed
 
       # Upload app
       - name: Upload to Google Play Store/Console
