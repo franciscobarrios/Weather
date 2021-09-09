@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "yet-another-weather-app-325401",
+  "private_key_id": "5802ec80a368c77a40c2867ba12f00ad2e80106d",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC/3LZMFYO4J6uG\nOo9icT8tihXbdE8xvSui7ris9FChNlfI/5bHVJlhpZVK7gnuZMjw7UFSJuca6Fnj\ntuVXowW05loNh3NsPkWrwxWaoOwfnEB1k+BdINlMth06h9dI3kqE4CfYHwWViB9k\nukuPsWHujx7e3RkBlWpE/gN0Ya51L0ckAtAJRG4nGL55+tcsz0fj9+6hotr2dfLQ\nuopWSTWL5meokSNbGYIbBgtLW6It3L+zAzCSW+jDYMmWLUWkzDemKsBWgPiVBfV4\n9WFT9YDdNwmpVo+ftJvmyMy+HQNVE2Nlrtp5brqtO+5wUXh7jOQx5cRHAw/JXvW/\nLMQHZB2RAgMBAAECggEAJdClqYdQB9rhxroCCsARWLNvrWpWNZJ4aEuu4H/i6HNi\nh/5ARJdbB9DwBO23zWHV7Q6GImACit4i4Wvp9gTumgIQ27vHtxzq9Hil6G0xPOW6\nGrKDtTdFPQZj6mZdu0H85AWeNM2gdyF2No81V2P5zmAtEHX5eMNvR5vdKHIcRYIt\nlIbdRmBP7P5xu6T6fHm6tA5fh1iDyT8j6nQon/cAmNoCBdXlXnYFzjnK8sRQkApx\n/PzIgczCwOw+DXmiuSlCeDTwWd/e8HZ1/GKhtN1jU6qgCs1Ma6Tdd6glssmPRVkj\nE0Rp7HgBL6pZblY+fNFSpJNzc2iV5BMjx2sWsAw/RQKBgQDlTTMunxuf3vNZ2Ya8\njLCXQo3OnlCWzGSsBZtk25NZI0CRkRe6KFSboSL/AKFyCJjmkqIQ0LAR0AaGu+R4\npxXsW4NOGL/GLuXqoMyuQMdEc3+MkSYzodTf5kdXDQxY493/xCQtsAzBI/lYyx8w\nrEaB2GuQVGj8m/S9vPGNXZafwwKBgQDWM43vW4BrPbG3RQPeB7+TZuhmLWBGjBze\nCgFgf1XoJPlqM3XHr/8kgRG83eCC3MR93zg1Sb37lQPU50CISH0p6E4NXfS1sTDm\nOOHsssKThARuYWSY748hAh5g1/HOg6vv5pnF61V0wadmrky46iIbR/m3gge08g6P\nPX4FT8lsGwKBgG+i9U82cXmVTz8oU5vKl1MdOPMmSrAQVNcXZ79j08orCo2UaUvd\nxMt8WRBzmyZsnxxquXKcV4xkjjjck3BWUKshJr1H+V4giRmBLgWMTje6T5f9Nu8e\nVAiqEYOFO8SvM+8I7GA9/QevXv9m7QmCZlVjK4M6RV7vAum5apTbwrCHAoGAaXit\nNOTrUOLp9QIIq3VJQb10RYumUlZ/iF2I3AkXNd2u6jo4joD8su7S2xqtiAJIxmn5\ndVPANnbjkhvkTLbU2qPGexJ+glCjcVkk9bX31Uc2H1vZeuzKn0g5yRnLuRJgwRnd\nMfV0+K66TPcaVBsFfEVukot2XASsYp+2w8rLtW0CgYBvZgC2VOeclC5coxvGdKYl\n2mvLrKyYxItwfqFdKdBnR6GVaYxBQKhuyEEvk1rg7wmsO492AxRqn/6rdojoUDHR\n9tHpBBVfSd00J2zGi6ciHxewbdEHAoej/OElQarAN9XXCyFGPVOGDPT33bOiR8rG\n2kYHcm1whAw9vG9GBUO0vw==\n-----END PRIVATE KEY-----\n",
+  "client_email": "yet-another-weather-app@yet-another-weather-app-325401.iam.gserviceaccount.com",
+  "client_id": "112193069044988315575",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/yet-another-weather-app%40yet-another-weather-app-325401.iam.gserviceaccount.com"
+}
