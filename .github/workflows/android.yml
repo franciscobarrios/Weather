@@ -77,14 +77,20 @@ jobs:
       - name: Check file location
         run: ls -la app/build/outputs/bundle/release/signed
 
+      # Create service_account.json
+      - name: Create service_account.json
+        id: createServiceAccount
+        run: echo '${{ secrets.SERVICE_ACCOUNT_JSON }}' > service_account.json
+
       # Upload app
       - name: Upload to Google Play Store/Console
-        uses: r0adkll/upload-google-play@v1.0.15
+        id: deploy
+        uses: r0adkll/upload-google-play@v1
         with:
-          serviceAccountJson: ${{ secrets.SERVICE_ACCOUNT_B64 }}
+          serviceAccountJson: service_account.json
           packageName: com.fjbg.weather
-          releaseFiles: "app/build/outputs/bundle/release/signed/app-release.aab"
-          releaseName: "Yet Another Weather App"
+          releaseFiles: app/build/outputs/bundle/release/signed/app-release.aab
+          releaseName: Yet Another Weather App
           track: internal
           inAppUpdatePriority: 0
           userFraction: 0.5
