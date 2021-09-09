@@ -85,7 +85,7 @@ jobs:
       # Upload app
       - name: Upload to Google Play Store/Console
         id: deploy
-        uses: r0adkll/upload-google-play@v1
+        uses: r0adkll/upload-google-play@v1.0.15
         with:
           serviceAccountJson: service_account.json
           packageName: com.fjbg.weather
