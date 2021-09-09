@@ -31,28 +31,30 @@ jobs:
           name: Build Artifacts
           path: app/build/outputs/bundle/release/
 
-      # Runs ls
+      # Check file (ls)
       - name: Check file
         run: ls -la app/build/outputs/bundle/release/
+
+      # Create folder
+      - name: Check file
+        run: mkdir app/jks
 
       # Base64 to JKS
       - name: Run Base64 to JKS
         id: write_file
         uses: timheuer/base64-to-file@v1.1
         with:
-          fileName: 'weather.jks'
+          fileName: "weather.jks"
+          fileDir: "app/jks"
           encodedString: ${{ secrets.SIGNING_KEY }}
 
-      # Upload JKS File
-      - name: Upload JKS File
-        uses: actions/upload-artifact@v2
-        with:
-          name: Build Artifacts
-          path: /home/runner/work/Weather/Weather/
+      # Runs ls
+      - name: Check file
+        run: ls -la app/jks/
 
       # Run Jarsigner
       - name: Run Jarsigner
-        run: jarsigner -verbose -sigalg SHA256withRSA -digestalg SHA-256 -keystore weather.jks -storepass ${{ secrets.KEY_STORE_PASSWORD }} -keypass ${{ secrets.KEY_PASSWORD }} app/build/outputs/bundle/release/app-release.aab ${{ secrets.ALIAS }}
+        run: jarsigner -verbose -sigalg SHA256withRSA -digestalg SHA-256 -keystore app/jks/weather.jks -storepass ${{ secrets.KEY_STORE_PASSWORD }} -keypass ${{ secrets.KEY_PASSWORD }} app/build/outputs/bundle/release/app-release.aab ${{ secrets.ALIAS }}
 
       # Upload Signed file
       - name: Upload Signed file
@@ -67,7 +69,7 @@ jobs:
         with:
           serviceAccountJson: ${{ secrets.SERVICE_ACCOUNT_JSON }}
           packageName: com.fjbg.weather
-          releaseFiles: "app/build/outputs/bundle/release/"
+          releaseFiles: "app/build/outputs/bundle/release/signed"
           track: internal
           inAppUpdatePriority: 2
           userFraction: 0.33
