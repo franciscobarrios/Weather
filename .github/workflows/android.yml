@@ -24,10 +24,18 @@ jobs:
       - name: Run mkdir app/release/signed
         run: mkdir app/release/signed
 
+      # Build with Gradle
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Build with Gradle
         run: ./gradlew app:bundleRelease
+
+      # Upload Artifact
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: Build Artifacts
+          path: app/build/outputs/bundle/release/
 
       # Sign Android App (.aab)
       - name: Sign Android .aab
@@ -41,12 +49,6 @@ jobs:
           keyPassword: ${{ secrets.KEY_PASSWORD }}
         env:
           BUILD_TOOLS_VERSION: "30.0.2"
-
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: Build Artifacts
-          path: app/release/signed/
 
       # Runs a single command using the runners shell
       - name: Run ls -la app/release
