@@ -39,3 +39,16 @@ jobs:
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: echo Hello, world!
+
+      # Upload app
+      - uses: r0adkll/upload-google-play@v1.0.15
+        with:
+          serviceAccountJson: ${{ secrets.SERVICE_ACCOUNT_JSON }}
+          packageName: com.fjbg.weather
+          releaseFiles: ${{ SIGNED_RELEASE_FILE}}
+          track: internal
+          inAppUpdatePriority: 2
+          userFraction: 0.33
+          whatsNewDirectory: distribution/whatsnew
+          # mappingFile: app/build/outputs/mapping/release/mapping.txt
+
