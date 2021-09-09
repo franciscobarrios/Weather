@@ -22,8 +22,10 @@ jobs:
         run: chmod +x gradlew
       - name: Build with Gradle
         run: ./gradlew build
-      - uses: Tlaster/android-sign@v1
-        name: Sign app APK
+
+      #Sign App
+      - name: Android Sign
+        uses: Tlaster/android-sign@v1.2.2
         with:
           releaseDirectory: |
             app/build/outputs/apk/release
