@@ -36,7 +36,7 @@ jobs:
         run: ls -la app/build/outputs/bundle/release/
 
       # Create folder
-      - name: Check file
+      - name: Create JKS folder
         run: mkdir app/jks
 
       # Base64 to JKS
@@ -61,7 +61,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: Build Artifacts
-          path: app/build/outputs/bundle/release/signed
+          path: app/build/outputs/bundle/release/
 
       # Upload app
       - name: Upload to Google Play Store/Console
@@ -69,7 +69,7 @@ jobs:
         with:
           serviceAccountJson: ${{ secrets.SERVICE_ACCOUNT_JSON }}
           packageName: com.fjbg.weather
-          releaseFiles: "app/build/outputs/bundle/release/signed"
+          releaseFiles: "app/build/outputs/bundle/release/"
           track: internal
           inAppUpdatePriority: 2
           userFraction: 0.33
