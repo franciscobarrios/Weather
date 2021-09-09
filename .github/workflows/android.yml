@@ -23,8 +23,8 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build
 
-      #Sign App
-      - name: Android Sign
+      # Sign Android App (.aab)
+      - name: Sign Android .aab
         uses: Tlaster/android-sign@v1.2.2
         with:
           releaseDirectory: app/release
