@@ -1,0 +1,15 @@
+name: Android CI
+
+on:
+  # Only when PR to deploy-internal
+  pull_request:
+    branches: [ deploy-internal ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+      # Check file (ls)
+      - name: Check file location
+        run: ls -la app/build/outputs/bundle/release/
