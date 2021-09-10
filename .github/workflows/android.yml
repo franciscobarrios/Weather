@@ -1,9 +1,8 @@
 name: Android CI
 
 on:
+  # Only when push to deploy-internal
   push:
-    branches: [ deploy-internal ]
-  pull_request:
     branches: [ deploy-internal ]
 
 jobs:
