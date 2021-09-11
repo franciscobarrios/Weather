@@ -8,7 +8,6 @@ import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -21,22 +20,12 @@ fun HeaderView(
     country: String?,
     date: String?,
     actionAddLocation: () -> Unit,
-    actionLocationList: () -> Unit,
 ) {
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        IconButton(onClick = {
-            actionLocationList.invoke()
-        }) {
-            Icon(
-                imageVector = Icons.Filled.Menu,
-                contentDescription = "Menu",
-                tint = iconTint(isSystemInDarkTheme()),
-            )
-        }
         PlaceName(
             city = city ?: "",
             country = country ?: "",
@@ -64,6 +53,5 @@ fun HeaderViewPreview() {
         country = "Thailand",
         date = "sat, 21 Aug 2021",
         actionAddLocation = {},
-        actionLocationList = {}
     )
 }

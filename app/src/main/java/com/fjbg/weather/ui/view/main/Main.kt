@@ -16,7 +16,6 @@ import com.fjbg.weather.util.backgroundBrush
 fun MainView(
     viewModel: WeatherViewModel?,
     actionAddLocation: () -> Unit,
-    actionLocationList: () -> Unit,
 ) {
     val country = viewModel?.country?.value
     val city = viewModel?.cityName?.value
@@ -44,7 +43,6 @@ fun MainView(
                 country = country,
                 date = date,
                 actionAddLocation = actionAddLocation,
-                actionLocationList = actionLocationList,
             )
             WeatherInfo(
                 temp = "$currentTemp°c",
@@ -68,6 +66,5 @@ fun MainViewPreview() {
     MainView(
         viewModel = null,
         actionAddLocation = { },
-        actionLocationList = { },
     )
 }

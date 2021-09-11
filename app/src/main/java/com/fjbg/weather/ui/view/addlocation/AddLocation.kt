@@ -22,7 +22,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.fjbg.weather.R
 import com.fjbg.weather.data.model.CityDto
 import com.fjbg.weather.ui.viewmodel.WeatherViewModel
 import com.fjbg.weather.util.backgroundBrush
@@ -37,6 +36,7 @@ fun AddLocationView(
 ) {
 
     val cityList = viewModel?.citiesFromLocal?.value
+    val cityWeatherList = viewModel?.cityWeatherList?.value
 
     Box(
         modifier = Modifier
@@ -64,20 +64,32 @@ fun AddLocationView(
                 }
             }
             LazyVerticalGrid(cells = GridCells.Fixed(2)) {
-                cityList?.let { cities ->
-                    items(count = cities.size) {
-                        cities[it].id
-                        Text(text = cities[it].name)
+
+                cityWeatherList?.let { cityWeather ->
+                    items(count = cityWeatherList.size) {
                         CityWeatherWidget(
-                            temperature = "31",
-                            icon = R.drawable.cloudy2_night,
-                            city = cities[it].name,
-                            country = cities[it].country.getCountry(),
-                            humidity = "12",
-                            wind = "5"
+                            temperature = cityWeather[it].temperature.toString(),
+                            icon = 1,
+                            city = cityWeather[it].city,
+                            country = cityWeather[it].country,
+                            humidity = cityWeather[it].humidity.toString(),
+                            wind = cityWeather[it].wind.toString(),
                         )
                     }
                 }
+
+                /* cityList?.let { cities ->
+                     items(count = cities.size) {
+                         CityWeatherWidget(
+                             temperature = "31",
+                             icon = R.drawable.cloudy2_night,
+                             city = cities[it].name,
+                             country = cities[it].country.getCountry(),
+                             humidity = "12",
+                             wind = "5"
+                         )
+                     }
+                 }*/
             }
         }
     }

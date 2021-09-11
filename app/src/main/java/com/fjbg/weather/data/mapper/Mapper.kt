@@ -2,9 +2,11 @@ package com.fjbg.weather.data.mapper
 
 import com.fjbg.weather.data.local.AqiEntity
 import com.fjbg.weather.data.local.CityEntity
+import com.fjbg.weather.data.local.CityWeatherEntity
 import com.fjbg.weather.data.local.WeatherEntity
 import com.fjbg.weather.data.model.AqiDto
 import com.fjbg.weather.data.model.CityDto
+import com.fjbg.weather.data.model.CityWeatherDto
 import com.fjbg.weather.data.model.WeatherDto
 import com.fjbg.weather.data.remote.AqiResponse
 import com.fjbg.weather.data.remote.CityResponse
@@ -123,3 +125,46 @@ fun cityEntityListMapToDomain(list: List<CityEntity>): List<CityDto> =
 
 fun cityResponseListMapToDomain(list: List<CityResponse>): List<CityDto> =
     list.map(::citiResponseMapToDomain)
+
+fun cityWeatherDomainToEntity(cityWeather: CityWeatherDto): CityWeatherEntity {
+    return CityWeatherEntity(
+        id = 0,
+        city = cityWeather.city,
+        country = cityWeather.country,
+        temperature = cityWeather.temperature,
+        humidity = cityWeather.humidity,
+        wind = cityWeather.wind,
+        icon = cityWeather.icon,
+        active = cityWeather.active,
+        isFavorite = cityWeather.isFavorite
+    )
+}
+
+fun cityWeatherDtoToEntity(cityWeather: CityWeatherDto): CityWeatherEntity =
+    CityWeatherEntity(
+        id = 0,
+        city = cityWeather.city,
+        country = cityWeather.country,
+        temperature = cityWeather.temperature,
+        humidity = cityWeather.humidity,
+        wind = cityWeather.wind,
+        icon = cityWeather.icon,
+        active = cityWeather.active,
+        isFavorite = cityWeather.isFavorite
+    )
+
+fun cityWeatherEntityToDomain(entity: CityWeatherEntity): CityWeatherDto =
+    CityWeatherDto(
+        id = entity.id,
+        city = entity.city,
+        country = entity.country,
+        temperature = entity.temperature,
+        humidity = entity.humidity,
+        wind = entity.wind,
+        icon = entity.icon,
+        active = entity.active,
+        isFavorite = entity.isFavorite
+    )
+
+fun cityWeatherEntitiesToDomain(list: List<CityWeatherEntity>): List<CityWeatherDto> =
+    list.map(::cityWeatherEntityToDomain)
