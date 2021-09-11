@@ -17,4 +17,11 @@ interface WeatherApi {
         @Query("limit") limit: Int,
         @Query("appid") apiKey: String,
     ): List<CityResponse>?
+
+    @GET("data/2.5/weather?")
+    suspend fun getCityWeather(
+        @Query("lat") lat: Double,
+        @Query("lon") lon: Double,
+        @Query("appid") apiKey: String,
+    ): WeatherResponse?
 }

@@ -10,15 +10,13 @@ import androidx.navigation.compose.rememberNavController
 import com.fjbg.weather.navigation.Action
 import com.fjbg.weather.navigation.Destination.AddLocation
 import com.fjbg.weather.navigation.Destination.Home
-import com.fjbg.weather.navigation.Destination.LocationList
 import com.fjbg.weather.ui.theme.WeatherTheme
 import com.fjbg.weather.ui.view.addlocation.AddLocationView
-import com.fjbg.weather.ui.view.locationlist.LocationListView
 import com.fjbg.weather.ui.view.main.MainView
 import com.fjbg.weather.ui.viewmodel.WeatherViewModel
 
-@ExperimentalFoundationApi
 @ExperimentalMaterialApi
+@ExperimentalFoundationApi
 @Composable
 fun WeatherComposeApp(viewModel: WeatherViewModel) {
     val navController = rememberNavController()
@@ -30,13 +28,6 @@ fun WeatherComposeApp(viewModel: WeatherViewModel) {
                 MainView(
                     viewModel = viewModel,
                     actionAddLocation = action.addLocation,
-                    actionLocationList = action.locationList,
-                )
-            }
-            composable(LocationList) {
-                LocationListView(
-                    viewModel = viewModel,
-                    actionGoBack = action.navigateBack
                 )
             }
             composable(AddLocation) {

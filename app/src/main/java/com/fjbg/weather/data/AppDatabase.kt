@@ -9,6 +9,7 @@ import com.fjbg.weather.data.local.*
         WeatherEntity::class,
         AqiEntity::class,
         CityEntity::class,
+        CityWeatherEntity::class,
     ],
     version = DB_VERSION,
     exportSchema = false,
@@ -17,4 +18,5 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun weatherDao(): WeatherDao
     abstract fun aqiDao(): AqiDao
     abstract fun cityDao(): CityDao
+    abstract fun cityWeatherDao(): CityWeatherDao
 }

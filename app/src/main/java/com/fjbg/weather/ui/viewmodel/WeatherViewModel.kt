@@ -5,12 +5,15 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.fjbg.weather.data.mapper.cityEntityListMapToDomain
+import com.fjbg.weather.data.mapper.cityWeatherEntitiesToDomain
 import com.fjbg.weather.data.mapper.iconIdToIconWeather
 import com.fjbg.weather.data.mapper.owApiIconToIntResourceDay
 import com.fjbg.weather.data.model.CityDto
+import com.fjbg.weather.data.model.CityWeatherDto
 import com.fjbg.weather.data.remote.NetworkResponse
 import com.fjbg.weather.data.repository.AqiRepositoryImp
 import com.fjbg.weather.data.repository.CityRepositoryImp
+import com.fjbg.weather.data.repository.CityWeatherRepositoryImp
 import com.fjbg.weather.data.repository.WeatherRepositoryImp
 import com.fjbg.weather.util.getCountry
 import com.fjbg.weather.util.oneDecimal
@@ -27,6 +30,7 @@ class WeatherViewModel @Inject constructor(
     private val weatherRepository: WeatherRepositoryImp,
     private val cityRepository: CityRepositoryImp,
     private val aqiRepository: AqiRepositoryImp,
+    private val cityWeatherRepository: CityWeatherRepositoryImp,
 ) : ViewModel() {
 
     private val _fetchWeatherInfo = MutableStateFlow<NetworkResponse<Any>?>(null)
@@ -42,6 +46,7 @@ class WeatherViewModel @Inject constructor(
     val windSpeed: MutableState<String?> = mutableStateOf(null)
     val aqi: MutableState<String?> = mutableStateOf(null)
     val citiesFromLocal: MutableState<List<CityDto>?> = mutableStateOf(null)
+    val cityWeatherList : MutableState<List<CityWeatherDto>?> = mutableStateOf(null)
 
     init {
         viewModelScope.launch {
@@ -105,14 +110,15 @@ class WeatherViewModel @Inject constructor(
     fun saveCity(city: CityDto) {
         viewModelScope.launch {
             cityRepository.saveCity(city)
+            cityWeatherRepository.completeCityWeatherInfo(city)
         }
     }
 
     private fun getCitiesFromLocal() {
         viewModelScope.launch {
-            cityRepository.getCitiesFromLocal().collect { list ->
-                list?.let { entities ->
-                    citiesFromLocal.value = cityEntityListMapToDomain(list = entities)
+            cityWeatherRepository.getCityWeatherList().collect {list->
+                list?.let {
+                    cityWeatherList.value = cityWeatherEntitiesToDomain(it)
                 }
             }
         }
