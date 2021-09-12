@@ -1,5 +1,5 @@
 # Weather
-Yet Another Weather App
+Weather & AQI
 
 https://franciscobarrios.github.io/Weather/
 ## Welcome to GitHub Pages
