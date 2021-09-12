@@ -1,15 +1,15 @@
 package com.fjbg.weather.ui.view.main
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.fjbg.weather.ui.viewmodel.WeatherViewModel
-import com.fjbg.weather.util.backgroundBrush
 
 @ExperimentalMaterialApi
 @Composable
@@ -29,7 +29,20 @@ fun MainView(
 
     Box(
         modifier = Modifier
-            .background(backgroundBrush(isSystemInDarkTheme()))
+            .background(
+                Brush.verticalGradient(
+                    colors = listOf(
+                        Color(0xFF071A22),
+                        Color(0xFF24263B),
+                        Color(0xFF272A41),
+                        Color(0xFF413D60),
+                        Color(0xFF7E5E79),
+                        Color(0xFFDE8A64),
+                        Color(0xFF6D2F24),
+                        Color(0xFF0C0B0E),
+                    )
+                )
+            )
             .fillMaxSize(),
     ) {
         Column(
