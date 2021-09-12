@@ -12,4 +12,4 @@ jobs:
 
       # Check file (ls)
       - name: Check file location
-        run: ls -la app/build/outputs/bundle/release/
+        run: ls -la
