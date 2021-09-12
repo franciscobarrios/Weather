@@ -15,6 +15,8 @@ fun Long.toDate(): String {
 
 fun Float.oneDecimal(): Float = ((this * 10.0).roundToInt() / 10.0).toFloat()
 
+fun Double.oneDecimal(): Double = ((this * 10).roundToInt() / 10).toDouble()
+
 fun String.getCountry(): String = Locale("en", this).displayCountry
 
 fun background(isSystemInDarkTheme: Boolean): Color =
