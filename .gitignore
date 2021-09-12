@@ -19,3 +19,4 @@ local.properties
 /.idea/
 key/yet-another-weather-app-325401-5802ec80a368.json
 key/franciscobarrios.key
+/app/google-services.json

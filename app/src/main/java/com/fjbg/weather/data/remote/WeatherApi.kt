@@ -4,10 +4,12 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface WeatherApi {
-
+//&units=metric
     @GET("data/2.5/weather?")
     suspend fun getWeather(
         @Query("q") city: String,
+        @Query("units") units:String,
+        @Query("lang") lang:String,
         @Query("appid") apiKey: String,
     ): WeatherResponse?
 
@@ -17,4 +19,13 @@ interface WeatherApi {
         @Query("limit") limit: Int,
         @Query("appid") apiKey: String,
     ): List<CityResponse>?
+
+    @GET("data/2.5/weather?")
+    suspend fun getCityWeather(
+        @Query("lat") lat: Double,
+        @Query("lon") lon: Double,
+        @Query("units") units:String,
+        @Query("lang") lang:String,
+        @Query("appid") apiKey: String,
+    ): WeatherResponse?
 }

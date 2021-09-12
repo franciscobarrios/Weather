@@ -4,13 +4,15 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.fjbg.weather.data.mapper.cityEntityListMapToDomain
+import com.fjbg.weather.data.mapper.cityWeatherEntitiesToDomain
 import com.fjbg.weather.data.mapper.iconIdToIconWeather
 import com.fjbg.weather.data.mapper.owApiIconToIntResourceDay
 import com.fjbg.weather.data.model.CityDto
+import com.fjbg.weather.data.model.CityWeatherDto
 import com.fjbg.weather.data.remote.NetworkResponse
 import com.fjbg.weather.data.repository.AqiRepositoryImp
 import com.fjbg.weather.data.repository.CityRepositoryImp
+import com.fjbg.weather.data.repository.CityWeatherRepositoryImp
 import com.fjbg.weather.data.repository.WeatherRepositoryImp
 import com.fjbg.weather.util.getCountry
 import com.fjbg.weather.util.oneDecimal
@@ -27,6 +29,7 @@ class WeatherViewModel @Inject constructor(
     private val weatherRepository: WeatherRepositoryImp,
     private val cityRepository: CityRepositoryImp,
     private val aqiRepository: AqiRepositoryImp,
+    private val cityWeatherRepository: CityWeatherRepositoryImp,
 ) : ViewModel() {
 
     private val _fetchWeatherInfo = MutableStateFlow<NetworkResponse<Any>?>(null)
@@ -41,7 +44,7 @@ class WeatherViewModel @Inject constructor(
     val humidity: MutableState<String?> = mutableStateOf(null)
     val windSpeed: MutableState<String?> = mutableStateOf(null)
     val aqi: MutableState<String?> = mutableStateOf(null)
-    val citiesFromLocal: MutableState<List<CityDto>?> = mutableStateOf(null)
+    val cityWeatherList: MutableState<List<CityWeatherDto>?> = mutableStateOf(null)
 
     init {
         viewModelScope.launch {
@@ -98,23 +101,29 @@ class WeatherViewModel @Inject constructor(
         }
     }
 
-    fun getCityList(): List<CityDto>? {
-        return _fetchCity.value
-    }
+    fun getCityList(): List<CityDto>? = _fetchCity.value
+
 
     fun saveCity(city: CityDto) {
         viewModelScope.launch {
             cityRepository.saveCity(city)
+            cityWeatherRepository.completeCityWeatherInfo(city)
         }
     }
 
     private fun getCitiesFromLocal() {
         viewModelScope.launch {
-            cityRepository.getCitiesFromLocal().collect { list ->
-                list?.let { entities ->
-                    citiesFromLocal.value = cityEntityListMapToDomain(list = entities)
+            cityWeatherRepository.getCityWeatherList().collect { list ->
+                list?.let {
+                    cityWeatherList.value = cityWeatherEntitiesToDomain(it)
                 }
             }
+        }
+    }
+
+    fun updateCurrentCityWeather(list: List<CityDto>) {
+        viewModelScope.launch {
+            cityWeatherRepository.getCurrentWeatherPerCity(list)
         }
     }
 
@@ -157,12 +166,12 @@ class WeatherViewModel @Inject constructor(
 
     private fun getIcon() {
         viewModelScope.launch {
-            weatherRepository.getIconId().collect { it ->
+            weatherRepository.getIconId().collect {
                 it?.run {
                     val iconWeather = iconIdToIconWeather(it)
                     val currentTime = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
                     iconWeather?.let { icon ->
-                        resIconWeather.value = owApiIconToIntResourceDay(icon, currentTime > 17)
+                        resIconWeather.value = owApiIconToIntResourceDay(icon, currentTime > 18)
                     }
                 }
             }
@@ -174,7 +183,7 @@ class WeatherViewModel @Inject constructor(
             weatherRepository.getCurrentTemperature().collect {
                 //Log.d(TAG, "getCurrentTemperature: $it")
                 it?.run {
-                    currentTemperature.value = (this / 10).toInt().toString()
+                    currentTemperature.value = (this - 273).toInt().toString()
                 }
             }
         }

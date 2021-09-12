@@ -26,6 +26,8 @@ class WeatherRepositoryImp @Inject constructor(
     override suspend fun getRemoteWeather(): Flow<NetworkResponse<WeatherResponse?>> {
         val entity = weatherService.getWeather(
             city = "Bangkok",
+            units = "metrics",
+            lang = "en",
             apiKey = WEATHER_KEY
         )?.run {
             weatherResponseToEntity(this)

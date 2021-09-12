@@ -3,7 +3,10 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
+    id 'com.google.gms.google-services'
 }
+
+apply plugin: 'com.google.firebase.crashlytics'
 
 android {
     compileSdk 30
@@ -12,8 +15,8 @@ android {
         applicationId "com.fjbg.weather"
         minSdk 28
         targetSdk 30
-        versionCode 2
-        versionName "1.0.1"
+        versionCode 4
+        versionName "1.0.3"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -75,6 +78,11 @@ dependencies {
     implementation 'androidx.activity:activity-compose:1.3.1'
     implementation "androidx.constraintlayout:constraintlayout-compose:1.0.0-beta02"
 
+    // Firebase
+    implementation platform('com.google.firebase:firebase-bom:28.4.0')
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+
     // Accompanist
     implementation "com.google.accompanist:accompanist-swiperefresh:0.16.0"
 
@@ -91,6 +99,7 @@ dependencies {
 
     // Hilt
     implementation "com.google.dagger:hilt-android:$hilt_version"
+    implementation 'com.google.firebase:firebase-analytics:18.0.1'
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
 
     //Retrofit

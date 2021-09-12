@@ -10,6 +10,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -18,7 +19,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.fjbg.weather.R
+import com.fjbg.weather.data.mapper.iconIdToIconWeather
+import com.fjbg.weather.data.mapper.owApiIconToIntResourceDay
+import com.fjbg.weather.util.iconTint
 import com.fjbg.weather.util.textColor
+import java.util.*
 
 @ExperimentalMaterialApi
 @Composable
@@ -47,13 +52,20 @@ fun CityWeatherWidget(
                     modifier = Modifier.padding(12.dp)
                 )
                 Spacer(modifier = Modifier.padding(4.dp))
-                Image(
-                    painter = painterResource(icon),
-                    contentDescription = "weather icon",
-                    alignment = Alignment.Center,
-                    modifier = Modifier
-                        .size(52.dp),
-                )
+
+                val iconWeather = iconIdToIconWeather(icon)
+                val currentTime = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
+
+                iconWeather?.let {
+                    val id = owApiIconToIntResourceDay(it, currentTime > 18)
+                    Image(
+                        painter = painterResource(id),
+                        contentDescription = "weather icon",
+                        alignment = Alignment.Center,
+                        modifier = Modifier
+                            .size(52.dp),
+                    )
+                }
             }
             Column {
                 Text(
@@ -94,6 +106,7 @@ fun CityWeatherWidget(
                     painter = painterResource(R.drawable.ic_humidity),
                     contentDescription = "weather icon",
                     alignment = Alignment.Center,
+                    colorFilter = ColorFilter.tint(iconTint(isSystemInDarkTheme())),
                     modifier = Modifier
                         .padding(
                             start = 12.dp,
@@ -122,6 +135,7 @@ fun CityWeatherWidget(
                     painter = painterResource(R.drawable.ic_wind),
                     contentDescription = "weather icon",
                     alignment = Alignment.Center,
+                    colorFilter = ColorFilter.tint(iconTint(isSystemInDarkTheme())),
                     modifier = Modifier
                         .padding(
                             start = 12.dp,

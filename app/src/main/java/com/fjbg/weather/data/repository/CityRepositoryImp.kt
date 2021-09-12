@@ -18,11 +18,16 @@ class CityRepositoryImp @Inject constructor(
 ) : CityRepository {
 
     private val cityDao = database.cityDao()
+    private val cityWeatherDao = database.cityWeatherDao()
 
     override suspend fun getCity(city: String): Flow<List<CityDto>?> {
         val data = MutableStateFlow<List<CityDto>?>(null)
         try {
-            weatherService.getCity(city = city, limit = 5, apiKey = WEATHER_KEY)?.run {
+            weatherService.getCity(
+                city = city,
+                limit = 5,
+                apiKey = WEATHER_KEY,
+            )?.run {
                 val list = this
                 if (list.isNotEmpty()) {
                     data.value = cityResponseListMapToDomain(list)

@@ -1,4 +1,4 @@
-name: Android CI
+name: Android CI - Create TAG
 
 on:
   # Only when PR to deploy-internal
@@ -12,4 +12,4 @@ jobs:
 
       # Check file (ls)
       - name: Check file location
-        run: ls -la app/build/outputs/bundle/release/
+        run: ls -la
