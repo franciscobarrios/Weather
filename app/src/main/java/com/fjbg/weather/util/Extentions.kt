@@ -25,36 +25,6 @@ fun background(isSystemInDarkTheme: Boolean): Color =
 fun iconTint(isSystemInDarkTheme: Boolean): Color =
     if (isSystemInDarkTheme) Color(0xFFA2A2A2) else Color.Black
 
-fun backgroundBrush(isSystemInDarkTheme: Boolean): Brush =
-    if (isSystemInDarkTheme) {
-        Brush.verticalGradient(
-            colors = listOf(
-                Color.Black,
-                Color.Black,
-                Color(0xFF2D0041),
-                Color(0xFF00104E),
-                Color(0xFF04001D),
-                Color.Black,
-                Color.Black,
-                Color.Black,
-            )
-        )
-    } else {
-        Brush.verticalGradient(
-            colors = listOf(
-                Color.White,
-                Color(0xFFD4EDFF),
-                Color(0xFFFAF0D8),
-                Color(0xFFFAF0D8),
-                Color.White,
-                Color.White,
-                Color(0xFFDADADA),
-                Color(0xFFDADADA),
-                Color(0xFFDADADA),
-            )
-        )
-    }
-
 fun textColor(isSystemInDarkTheme: Boolean): Color {
     return if (isSystemInDarkTheme) Color.White else Color(0xFF292929)
 }

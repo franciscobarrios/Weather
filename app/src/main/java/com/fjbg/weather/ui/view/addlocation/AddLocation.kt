@@ -25,8 +25,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.fjbg.weather.data.TAG
 import com.fjbg.weather.data.model.CityDto
+import com.fjbg.weather.ui.view.main.backgroundBrush
 import com.fjbg.weather.ui.viewmodel.WeatherViewModel
-import com.fjbg.weather.util.backgroundBrush
 import com.fjbg.weather.util.getCountry
 import com.fjbg.weather.util.oneDecimal
 import java.util.*
