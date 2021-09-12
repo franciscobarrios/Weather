@@ -24,6 +24,8 @@ class CityWeatherRepositoryImp @Inject constructor(
             weatherService.getCityWeather(
                 lat = city.lat,
                 lon = city.lon,
+                units = "metrics",
+                lang = "en",
                 apiKey = WEATHER_KEY,
             )?.let { response ->
                 saveCityWeather(
@@ -36,7 +38,7 @@ class CityWeatherRepositoryImp @Inject constructor(
                         wind = response.wind.speed.toDouble(),
                         active = true,
                         isFavorite = false,
-                        icon = response.weather[0].icon
+                        icon = response.weather[0].id
                     )
                 )
             }
@@ -45,11 +47,46 @@ class CityWeatherRepositoryImp @Inject constructor(
         }
     }
 
+    suspend fun getCurrentWeatherPerCity(list: List<CityDto>) {
+        list.forEach { cityDto ->
+            weatherService.getWeather(
+                city = cityDto.name,
+                units = "metrics",
+                lang = "en",
+                apiKey = WEATHER_KEY,
+            ).let { response ->
+                response?.let {
+                    updateCurrentWeather(
+                        UpdateCityWeather(
+                            id = cityDto.id,
+                            temperature = (response.main.temp.toDouble()),
+                            humidity = response.main.humidity.toDouble(),
+                            wind = response.wind.speed.toDouble(),
+                            icon = response.weather[0].id
+                        )
+                    )
+                }
+            }
+        }
+    }
+
     override fun getCityWeatherList(): Flow<List<CityWeatherEntity>?> =
         cityWeatherDao.getCityWeatherList()
 
     override suspend fun saveCityWeather(cityWeather: CityWeatherEntity) {
+        cityWeather.apply {
+            temperature -= 273
+        }
         cityWeatherDao.saveCityWeather(cityWeather)
+    }
+
+    override suspend fun updateCurrentWeather(cityWeather: UpdateCityWeather) {
+        cityWeatherDao.updateCurrentWeather(
+            id = cityWeather.id,
+            temperature = cityWeather.temperature,
+            humidity = cityWeather.humidity,
+            wind = cityWeather.wind
+        )
     }
 
     override suspend fun setCityAsFavorite(isFavorite: Boolean) {
@@ -60,3 +97,13 @@ class CityWeatherRepositoryImp @Inject constructor(
         TODO("Not yet implemented")
     }
 }
+
+data class UpdateCityWeather(
+    val id: Int,
+    val temperature: Double,
+    val humidity: Double,
+    val wind: Double,
+    val icon: Int,
+    val active: Boolean? = null,
+    val isFavorite: Boolean? = null
+)

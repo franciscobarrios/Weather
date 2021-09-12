@@ -15,6 +15,14 @@ interface CityWeatherDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveCityWeather(entity: CityWeatherEntity)
 
+    @Query("UPDATE city_weather SET temperature=:temperature, humidity=:humidity, wind=:wind WHERE id=:id")
+    suspend fun updateCurrentWeather(
+        id: Int,
+        temperature: Double,
+        humidity: Double,
+        wind: Double
+    )
+
     @Query("DELETE FROM city_weather WHERE id=:id")
     suspend fun deleteCityWeather(id: Int)
 

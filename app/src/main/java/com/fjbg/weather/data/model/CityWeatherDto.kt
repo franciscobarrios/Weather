@@ -7,7 +7,7 @@ data class CityWeatherDto(
     val temperature: Double,
     val humidity: Double,
     val wind: Double,
-    val icon: String,
+    val icon: Int,
     val active: Boolean,
     val isFavorite: Boolean
 )

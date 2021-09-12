@@ -1,5 +1,6 @@
 package com.fjbg.weather.ui.view.addlocation
 
+import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -22,10 +23,13 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.fjbg.weather.data.TAG
 import com.fjbg.weather.data.model.CityDto
 import com.fjbg.weather.ui.viewmodel.WeatherViewModel
 import com.fjbg.weather.util.backgroundBrush
 import com.fjbg.weather.util.getCountry
+import com.fjbg.weather.util.oneDecimal
+import java.util.*
 
 @ExperimentalFoundationApi
 @ExperimentalMaterialApi
@@ -35,8 +39,8 @@ fun AddLocationView(
     actionGoBack: () -> Unit
 ) {
 
-    val cityList = viewModel?.citiesFromLocal?.value
     val cityWeatherList = viewModel?.cityWeatherList?.value
+    Log.d(TAG, "AddLocationView: cityWeatherList= $cityWeatherList")
 
     Box(
         modifier = Modifier
@@ -52,10 +56,17 @@ fun AddLocationView(
                     .padding(12.dp)
             ) {
                 val list = viewModel?.getCityList()
+
+                list?.let {
+                    viewModel.updateCurrentCityWeather(it)
+                }
+
                 list?.run {
                     items(count = this.size) {
                         val cityDto = this@run[it]
-                        cityDto.id
+
+                        Log.d(TAG, "AddLocationView: getCityList()= $cityDto")
+
                         CityCountryText(
                             cityDto = cityDto,
                             viewModel = viewModel
@@ -68,28 +79,15 @@ fun AddLocationView(
                 cityWeatherList?.let { cityWeather ->
                     items(count = cityWeatherList.size) {
                         CityWeatherWidget(
-                            temperature = cityWeather[it].temperature.toString(),
-                            icon = 1,
+                            temperature = cityWeather[it].temperature.oneDecimal().toString(),
+                            icon = cityWeather[it].icon,
                             city = cityWeather[it].city,
                             country = cityWeather[it].country,
-                            humidity = cityWeather[it].humidity.toString(),
-                            wind = cityWeather[it].wind.toString(),
+                            humidity = cityWeather[it].humidity.oneDecimal().toString(),
+                            wind = cityWeather[it].wind.oneDecimal().toString(),
                         )
                     }
                 }
-
-                /* cityList?.let { cities ->
-                     items(count = cities.size) {
-                         CityWeatherWidget(
-                             temperature = "31",
-                             icon = R.drawable.cloudy2_night,
-                             city = cities[it].name,
-                             country = cities[it].country.getCountry(),
-                             humidity = "12",
-                             wind = "5"
-                         )
-                     }
-                 }*/
             }
         }
     }

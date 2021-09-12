@@ -17,6 +17,14 @@ jobs:
           distribution: 'adopt'
           cache: gradle
 
+      # Bump version
+      - name: Bump version
+        uses: chkfung/android-version-actions@v1.1
+        with:
+          gradlePath: app/build.gradle
+          versionCode: ${{github.run_number}}
+          versionName: 1.0.3
+
       # Prepare Gradle and build .aab file
       - name: Prepare Gradle
         run: chmod +x gradlew

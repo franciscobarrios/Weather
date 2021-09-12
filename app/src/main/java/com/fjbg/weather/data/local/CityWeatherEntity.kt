@@ -9,10 +9,10 @@ data class CityWeatherEntity(
     val id: Int,
     val city: String,
     val country: String,
-    val temperature: Double,
+    var temperature: Double,
     val humidity: Double,
     val wind: Double,
-    val icon: String,
+    val icon: Int,
     val active: Boolean,
     val isFavorite: Boolean
 )
