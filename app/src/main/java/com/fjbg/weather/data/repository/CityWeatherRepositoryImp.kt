@@ -62,7 +62,8 @@ class CityWeatherRepositoryImp @Inject constructor(
                             temperature = (response.main.temp.toDouble()),
                             humidity = response.main.humidity.toDouble(),
                             wind = response.wind.speed.toDouble(),
-                            icon = response.weather[0].id
+                            icon = response.weather[0].id,
+                            localTime = response.timezone
                         )
                     )
                 }
@@ -104,6 +105,7 @@ data class UpdateCityWeather(
     val humidity: Double,
     val wind: Double,
     val icon: Int,
+    val localTime: Int,
     val active: Boolean? = null,
     val isFavorite: Boolean? = null
 )
