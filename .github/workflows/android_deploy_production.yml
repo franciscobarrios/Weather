@@ -23,7 +23,7 @@ jobs:
         with:
           gradlePath: app/build.gradle
           versionCode: ${{github.run_number}}
-          versionName: 1.0.3
+          versionName: 1.0
 
       # Prepare Gradle and build .aab file
       - name: Prepare Gradle
