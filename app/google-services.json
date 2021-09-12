@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1011804993293",
+    "project_id": "weather-and-aqi",
+    "storage_bucket": "weather-and-aqi.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1011804993293:android:55f809f407155304f4e244",
+        "android_client_info": {
+          "package_name": "com.fjbg.weather"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1011804993293-r57bdkrsjh2jset5m8gfr2c1aplpgnq9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBR8vxPguR3xVc_YmPfxVY-IT_8FzFYqBo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1011804993293-r57bdkrsjh2jset5m8gfr2c1aplpgnq9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
