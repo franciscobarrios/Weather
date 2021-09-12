@@ -3,7 +3,7 @@ name: Android CI - Deploy to Internal Test
 on:
   # Only when push to deploy-internal
   push:
-    branches: [ deploy-internal ]
+    branches: [ deploy-production ]
 
 jobs:
   build:
@@ -97,7 +97,7 @@ jobs:
           serviceAccountJson: service_account.json
           packageName: com.fjbg.weather
           releaseFiles: app/build/outputs/bundle/release/signed/app-release.aab
-          releaseName: Weather & AQI (IT)
+          releaseName: Weather & AQI (Prod)
           track: internal
           inAppUpdatePriority: 0
           userFraction: 0.5
