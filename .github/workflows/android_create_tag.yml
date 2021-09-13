@@ -2,8 +2,8 @@ name: Android CI - Create TAG
 
 on:
   # Only when PR to deploy-internal
-  pull_request:
-    branches: [ deploy-internal ]
+  push:
+    branches: [ dev ]
 
 jobs:
   build:

@@ -1,7 +1,7 @@
-name: Android CI - Deploy to Internal Test
+name: Android CI - Deploy to Production
 
 on:
-  # Only when push to deploy-internal
+  # Only when push to deploy-production
   push:
     branches: [ deploy-production ]
 

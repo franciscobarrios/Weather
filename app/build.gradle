@@ -15,7 +15,7 @@ android {
         applicationId "com.fjbg.weather"
         minSdk 28
         targetSdk 30
-        versionCode 4
+        versionCode 11
         versionName "1.0.4"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -34,6 +34,7 @@ android {
 
     buildTypes {
         release {
+            shrinkResources true
             minifyEnabled true
             debuggable false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
