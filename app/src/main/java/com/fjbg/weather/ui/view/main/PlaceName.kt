@@ -1,6 +1,5 @@
 package com.fjbg.weather.ui.view.main
 
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -20,6 +19,7 @@ fun PlaceName(
     city: String,
     country: String,
     date: String,
+    timeOfTheDay: TimeOfTheDay
 ) {
     Column(
         modifier = Modifier
@@ -32,13 +32,13 @@ fun PlaceName(
             Column {
                 Text(
                     text = "$city, ",
-                    style = cityTextStyle(isSystemInDarkTheme())
+                    style = cityTextStyle(timeOfTheDay),
                 )
             }
             Column {
                 Text(
                     text = country,
-                    style = countryTextStyle(isSystemInDarkTheme())
+                    style = countryTextStyle(timeOfTheDay),
                 )
             }
         }
@@ -47,7 +47,7 @@ fun PlaceName(
         ) {
             Text(
                 text = date,
-                style = dateTextStyle(isSystemInDarkTheme()),
+                style = dateTextStyle(timeOfTheDay),
             )
         }
     }
@@ -59,6 +59,7 @@ fun PlaceNamePreview() {
     PlaceName(
         city = "Bangkok",
         country = "Thailand",
-        date = "Sun 15 Aug"
+        date = "Sun 15 Aug",
+        timeOfTheDay = TimeOfTheDay.DAY
     )
 }

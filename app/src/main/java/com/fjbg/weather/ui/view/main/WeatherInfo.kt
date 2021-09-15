@@ -1,7 +1,6 @@
 package com.fjbg.weather.ui.view.main
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -16,20 +15,25 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.fjbg.weather.R
 import com.fjbg.weather.animation.NightSky
-import com.fjbg.weather.ui.theme.currentTempTextStyle
 import com.fjbg.weather.ui.theme.descriptionTextStyle
 
 @Composable
 fun WeatherInfo(
-    temp: String,
-    description: String,
-    icon: Int?
+    temperature: String?,
+    description: String?,
+    icon: Int?,
+    timeOfTheDay: TimeOfTheDay
 ) {
+
+    val currentTemp = temperature ?: ""
+
     Box(
         modifier = Modifier
             .fillMaxWidth()
     ) {
+
         NightSky()
+
         Column(
             modifier = Modifier
                 .fillMaxWidth(),
@@ -44,15 +48,15 @@ fun WeatherInfo(
                     .fillMaxWidth(),
             )
             Text(
-                text = temp,
+                text = "$currentTemp°c",
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center,
-                style = currentTempTextStyle(isSystemInDarkTheme())
+                style = descriptionTextStyle(timeOfTheDay)
             )
             Text(
-                text = description,
+                text = description ?: "",
                 modifier = Modifier.fillMaxWidth(),
-                style = descriptionTextStyle(isSystemInDarkTheme())
+                style = descriptionTextStyle(timeOfTheDay)
             )
         }
     }
@@ -65,7 +69,8 @@ fun WeatherInfo(
 fun WeatherInfoPreview() {
     WeatherInfo(
         icon = R.drawable.tstorm3,
-        temp = "31°",
+        temperature = "31°",
         description = "Thunderstorm",
+        timeOfTheDay = TimeOfTheDay.DAY
     )
 }

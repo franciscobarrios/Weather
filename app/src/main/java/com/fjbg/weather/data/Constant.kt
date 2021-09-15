@@ -8,3 +8,11 @@ const val AQI_BASE_URL = "https://api.waqi.info/feed/"
 const val DB_NAME = "weather_db"
 const val TAG = ">>>>>>>>>>>>>>>>>>"
 const val NO_DATA = "no data"
+
+
+const val CELSIUS = "°c"
+const val FAHRENHEIT = "°f"
+const val HUMIDITY = "%"
+const val WIND_SPEED_MS = "m/s"
+const val WIND_SPEED_KMS = "Km/s"
+const val WIND_SPEED_KMH = "Km/h"

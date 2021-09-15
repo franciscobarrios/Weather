@@ -1,6 +1,8 @@
 package com.fjbg.weather.data.repository
 
+import android.util.Log
 import com.fjbg.weather.data.AppDatabase
+import com.fjbg.weather.data.TAG
 import com.fjbg.weather.data.WEATHER_KEY
 import com.fjbg.weather.data.local.CityWeatherEntity
 import com.fjbg.weather.data.model.CityDto
@@ -19,7 +21,6 @@ class CityWeatherRepositoryImp @Inject constructor(
     private val cityWeatherDao = database.cityWeatherDao()
 
     override suspend fun completeCityWeatherInfo(city: CityDto) {
-        val data = MutableStateFlow<List<CityWeatherDto>?>(null)
         try {
             weatherService.getCityWeather(
                 lat = city.lat,
@@ -38,12 +39,13 @@ class CityWeatherRepositoryImp @Inject constructor(
                         wind = response.wind.speed.toDouble(),
                         active = true,
                         isFavorite = false,
-                        icon = response.weather[0].id
+                        icon = response.weather[0].id,
+                        timeOfTheDay = 1
                     )
                 )
             }
         } catch (e: Exception) {
-
+            Log.e(TAG, "Exception: $e")
         }
     }
 
@@ -71,8 +73,8 @@ class CityWeatherRepositoryImp @Inject constructor(
         }
     }
 
-    override fun getCityWeatherList(): Flow<List<CityWeatherEntity>?> =
-        cityWeatherDao.getCityWeatherList()
+    override fun getCityWeatherListFlow(): Flow<List<CityWeatherEntity>?> =
+        cityWeatherDao.getCityWeatherListFlow()
 
     override suspend fun saveCityWeather(cityWeather: CityWeatherEntity) {
         cityWeather.apply {

@@ -25,10 +25,6 @@ fun background(isSystemInDarkTheme: Boolean): Color =
 fun iconTint(isSystemInDarkTheme: Boolean): Color =
     if (isSystemInDarkTheme) Color(0xFFA2A2A2) else Color.Black
 
-fun textColor(isSystemInDarkTheme: Boolean): Color {
-    return if (isSystemInDarkTheme) Color.White else Color(0xFF292929)
-}
-
 fun cityListBackgroundColor(isSystemInDarkTheme: Boolean): Color {
     return if (isSystemInDarkTheme) Color(0xFF000000) else Color(0x99EBEBEB)
 }

@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 interface CityWeatherDao {
 
     @Query("SELECT * FROM city_weather WHERE active=1 ORDER BY city")
-    fun getCityWeatherList(): Flow<List<CityWeatherEntity>?>
+    fun getCityWeatherListFlow(): Flow<List<CityWeatherEntity>?>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveCityWeather(entity: CityWeatherEntity)
