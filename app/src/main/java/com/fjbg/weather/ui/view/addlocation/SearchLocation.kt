@@ -22,9 +22,9 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.fjbg.weather.data.model.CityDto
-import com.fjbg.weather.ui.view.main.TimeOfTheDay
-import com.fjbg.weather.ui.view.main.dynamicBackground
 import com.fjbg.weather.ui.viewmodel.WeatherViewModel
+import com.fjbg.weather.util.TimeOfTheDay
+import com.fjbg.weather.util.dynamicBackground
 import com.fjbg.weather.util.getCountry
 
 @Composable

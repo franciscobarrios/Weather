@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import com.fjbg.weather.R
 import com.fjbg.weather.animation.NightSky
 import com.fjbg.weather.ui.theme.descriptionTextStyle
+import com.fjbg.weather.util.TimeOfTheDay
 
 @Composable
 fun WeatherInfo(

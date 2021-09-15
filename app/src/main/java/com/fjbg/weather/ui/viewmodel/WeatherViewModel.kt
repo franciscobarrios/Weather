@@ -15,7 +15,7 @@ import com.fjbg.weather.data.repository.AqiRepositoryImp
 import com.fjbg.weather.data.repository.CityRepositoryImp
 import com.fjbg.weather.data.repository.CityWeatherRepositoryImp
 import com.fjbg.weather.data.repository.WeatherRepositoryImp
-import com.fjbg.weather.ui.view.main.TimeOfTheDay
+import com.fjbg.weather.util.TimeOfTheDay
 import com.fjbg.weather.util.getCountry
 import com.fjbg.weather.util.oneDecimal
 import com.fjbg.weather.util.toDate

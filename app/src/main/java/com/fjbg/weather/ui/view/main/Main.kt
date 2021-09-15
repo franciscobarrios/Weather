@@ -8,6 +8,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.fjbg.weather.ui.viewmodel.WeatherViewModel
+import com.fjbg.weather.util.TimeOfTheDay
+import com.fjbg.weather.util.dynamicBackground
 
 @ExperimentalMaterialApi
 @Composable
@@ -80,13 +82,6 @@ fun CityWeatherContent(
         temperature = currentTemp,
         description = description,
         icon = icon,
-        timeOfTheDay = TimeOfTheDay.DAY,
-    )
-    InfoCardSection(
-        humidity = humidity,
-        aqi = aqi,
-        wind = windSpeed,
-        indexUv = indexUv,
         timeOfTheDay = TimeOfTheDay.DAY,
     )
 }

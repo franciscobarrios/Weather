@@ -23,12 +23,7 @@ import com.fjbg.weather.R
 import com.fjbg.weather.data.CELSIUS
 import com.fjbg.weather.data.HUMIDITY
 import com.fjbg.weather.data.WIND_SPEED_MS
-import com.fjbg.weather.ui.view.main.TimeOfTheDay
-import com.fjbg.weather.ui.view.main.dynamicBackgroundWidget
-import com.fjbg.weather.ui.view.main.dynamicIconTint
-import com.fjbg.weather.ui.view.main.dynamicTextColor
-import com.fjbg.weather.util.getCountry
-import com.fjbg.weather.util.iconTint
+import com.fjbg.weather.util.*
 
 @ExperimentalMaterialApi
 @Composable
