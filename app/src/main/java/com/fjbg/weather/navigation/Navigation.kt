@@ -4,11 +4,13 @@ import androidx.navigation.NavHostController
 
 object Destination {
     const val Home = "home"
-    const val AddLocation = "add_location"
+    const val Location = "location"
+    const val SearchLocation = "search_location"
 }
 
 class Action(navController: NavHostController) {
     val home: () -> Unit = { navController.navigate(Destination.Home) }
-    val addLocation: () -> Unit = { navController.navigate(Destination.AddLocation) }
+    val location: () -> Unit = { navController.navigate(Destination.Location) }
+    val searchLocation: () -> Unit = { navController.navigate(Destination.SearchLocation) }
     val navigateBack: () -> Unit = { navController.popBackStack() }
 }

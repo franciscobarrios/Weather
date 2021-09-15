@@ -8,12 +8,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.fjbg.weather.navigation.Action
-import com.fjbg.weather.navigation.Destination.AddLocation
 import com.fjbg.weather.navigation.Destination.Home
+import com.fjbg.weather.navigation.Destination.Location
+import com.fjbg.weather.navigation.Destination.SearchLocation
 import com.fjbg.weather.ui.theme.WeatherTheme
 import com.fjbg.weather.ui.view.addlocation.LocationView
+import com.fjbg.weather.ui.view.addlocation.SearchLocationView
 import com.fjbg.weather.ui.view.main.MainView
-import com.fjbg.weather.ui.view.main.TimeOfTheDay
 import com.fjbg.weather.ui.viewmodel.WeatherViewModel
 
 @ExperimentalMaterialApi
@@ -35,15 +36,22 @@ fun WeatherComposeApp(
             composable(Home) {
                 MainView(
                     viewModel = viewModel,
-                    actionAddLocation = action.addLocation,
+                    location = action.location,
                     timeOfTheDay = timeOfTheDay
                 )
             }
 
-            composable(AddLocation) {
+            composable(Location) {
                 LocationView(
                     viewModel = viewModel,
-                    actionGoBack = action.navigateBack,
+                    searchLocation = action.searchLocation,
+                    timeOfTheDay = timeOfTheDay
+                )
+            }
+
+            composable(SearchLocation) {
+                SearchLocationView(
+                    viewModel = viewModel,
                     timeOfTheDay = timeOfTheDay
                 )
             }

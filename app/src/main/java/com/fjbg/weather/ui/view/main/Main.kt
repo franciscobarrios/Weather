@@ -13,7 +13,7 @@ import com.fjbg.weather.ui.viewmodel.WeatherViewModel
 @Composable
 fun MainView(
     viewModel: WeatherViewModel?,
-    actionAddLocation: () -> Unit,
+    location: () -> Unit,
     timeOfTheDay: TimeOfTheDay,
 ) {
     val country = viewModel?.country?.value
@@ -28,12 +28,12 @@ fun MainView(
 
     Box(
         modifier = Modifier
-            .fillMaxSize(),
+            .fillMaxSize()
+            .background(dynamicBackground(timeOfTheDay)),
     ) {
         Column(
             modifier = Modifier
                 .padding(12.dp)
-                .background(dynamicBackground(timeOfTheDay))
                 .fillMaxSize(),
             verticalArrangement = Arrangement.Top,
         ) {
@@ -48,7 +48,7 @@ fun MainView(
                 aqi = aqi,
                 windSpeed = windSpeed,
                 indexUv = "",
-                actionAddLocation = actionAddLocation
+                actionAddLocation = location
             )
         }
     }
@@ -98,7 +98,7 @@ fun CityWeatherContent(
 fun MainViewPreview() {
     MainView(
         viewModel = null,
-        actionAddLocation = { },
+        location = { },
         timeOfTheDay = TimeOfTheDay.DAY
     )
 }

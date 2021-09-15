@@ -119,7 +119,7 @@ fun dynamicIconTint(timeOfTheDay: TimeOfTheDay): ColorFilter = when (timeOfTheDa
 fun dynamicFabColor(timeOfTheDay: TimeOfTheDay): Color = when (timeOfTheDay) {
     TimeOfTheDay.DAWN -> Color(0xFF304FFE)
     TimeOfTheDay.DAY -> Color(0xFFFF6D00)
-    TimeOfTheDay.DUSK -> Color(0xFFFFF59D)
+    TimeOfTheDay.DUSK -> Color(0xFFFFD600)
     TimeOfTheDay.NIGHT -> Color(0xFFD1C4E9)
 }
 

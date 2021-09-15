@@ -6,11 +6,9 @@ import com.fjbg.weather.data.TAG
 import com.fjbg.weather.data.WEATHER_KEY
 import com.fjbg.weather.data.local.CityWeatherEntity
 import com.fjbg.weather.data.model.CityDto
-import com.fjbg.weather.data.model.CityWeatherDto
 import com.fjbg.weather.data.remote.WeatherApi
 import com.fjbg.weather.di.WeatherService
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 
 class CityWeatherRepositoryImp @Inject constructor(
@@ -93,11 +91,9 @@ class CityWeatherRepositoryImp @Inject constructor(
     }
 
     override suspend fun setCityAsFavorite(isFavorite: Boolean) {
-        TODO("Not yet implemented")
     }
 
     override suspend fun deleteCityWeather(cityWeatherId: Int) {
-        TODO("Not yet implemented")
     }
 }
 

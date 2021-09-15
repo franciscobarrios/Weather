@@ -27,7 +27,7 @@ import com.fjbg.weather.util.oneDecimal
 @Composable
 fun LocationView(
     viewModel: WeatherViewModel?,
-    actionGoBack: () -> Unit,
+    searchLocation: () -> Unit,
     timeOfTheDay: TimeOfTheDay
 ) {
     val cityWeatherList = viewModel?.cityWeatherList?.value
@@ -63,7 +63,7 @@ fun LocationView(
             }
         }
         FloatingActionButton(
-            onClick = { },
+            onClick = { searchLocation.invoke() },
             modifier = Modifier.padding(24.dp),
             backgroundColor = dynamicFabColor(timeOfTheDay),
             contentColor = dynamicFabContentColor(timeOfTheDay),
@@ -83,7 +83,7 @@ fun LocationView(
 fun LocationViewPreview() {
     LocationView(
         viewModel = null,
-        actionGoBack = {},
+        searchLocation = {},
         timeOfTheDay = TimeOfTheDay.DAY
     )
 }

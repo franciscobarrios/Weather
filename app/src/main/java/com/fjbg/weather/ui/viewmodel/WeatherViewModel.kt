@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.fjbg.weather.data.mapper.cityWeatherEntitiesToDomain
 import com.fjbg.weather.data.mapper.iconIdToIconWeather
+import com.fjbg.weather.data.mapper.mapTimeOfTheDay
 import com.fjbg.weather.data.mapper.owApiIconToIntResourceDay
 import com.fjbg.weather.data.model.CityDto
 import com.fjbg.weather.data.model.CityWeatherDto
@@ -65,16 +66,8 @@ class WeatherViewModel @Inject constructor(
     }
 
     fun timeOfTheDay(): TimeOfTheDay {
-        val calendar = Calendar.getInstance()
-        val hour = calendar.get(Calendar.HOUR_OF_DAY)
-        return when {
-            (hour in 0..4) -> TimeOfTheDay.NIGHT
-            (hour in 5..8) -> TimeOfTheDay.DAWN
-            (hour in 9..17) -> TimeOfTheDay.DAY
-            (hour in 18..21) -> TimeOfTheDay.DUSK
-            (hour in 22..23) -> TimeOfTheDay.NIGHT
-            else -> TimeOfTheDay.NIGHT
-        }
+        val hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
+        return mapTimeOfTheDay(hour)
     }
 
     fun getCityList(): List<CityDto>? = _fetchCity.value
