@@ -1,4 +1,4 @@
-package com.fjbg.weather.ui.view.main
+package com.fjbg.weather.util
 
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -43,7 +43,7 @@ fun dynamicBackground(timeOfTheDay: TimeOfTheDay): Brush = when (timeOfTheDay) {
 
     TimeOfTheDay.DUSK -> Brush.verticalGradient(
         colors = listOf(
-            Color(0xFF071A22),
+            Color(0xFF000000),
             Color(0xFF24263B),
             Color(0xFF272A41),
             Color(0xFF413D60),

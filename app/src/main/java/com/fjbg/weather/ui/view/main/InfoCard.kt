@@ -17,6 +17,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.fjbg.weather.R
 import com.fjbg.weather.ui.theme.categoryContentTextStyle
+import com.fjbg.weather.util.TimeOfTheDay
+import com.fjbg.weather.util.dynamicBackgroundWidget
+import com.fjbg.weather.util.dynamicIconTint
 
 @ExperimentalMaterialApi
 @Composable

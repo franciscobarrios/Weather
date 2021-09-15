@@ -11,6 +11,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.fjbg.weather.util.TimeOfTheDay
+import com.fjbg.weather.util.dynamicTextColor
 
 @Composable
 fun HeaderView(

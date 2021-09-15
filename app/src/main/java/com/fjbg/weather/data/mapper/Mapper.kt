@@ -11,7 +11,7 @@ import com.fjbg.weather.data.model.WeatherDto
 import com.fjbg.weather.data.remote.AqiResponse
 import com.fjbg.weather.data.remote.CityResponse
 import com.fjbg.weather.data.remote.WeatherResponse
-import com.fjbg.weather.ui.view.main.TimeOfTheDay
+import com.fjbg.weather.util.TimeOfTheDay
 
 // Weather
 fun weatherResponseToEntity(response: WeatherResponse): WeatherEntity = WeatherEntity(

@@ -15,12 +15,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.fjbg.weather.ui.view.main.TimeOfTheDay
-import com.fjbg.weather.ui.view.main.dynamicBackground
-import com.fjbg.weather.ui.view.main.dynamicFabColor
-import com.fjbg.weather.ui.view.main.dynamicFabContentColor
 import com.fjbg.weather.ui.viewmodel.WeatherViewModel
-import com.fjbg.weather.util.oneDecimal
+import com.fjbg.weather.util.*
 
 @ExperimentalFoundationApi
 @ExperimentalMaterialApi

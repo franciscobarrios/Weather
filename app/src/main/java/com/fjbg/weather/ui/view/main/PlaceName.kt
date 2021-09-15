@@ -13,6 +13,7 @@ import androidx.compose.ui.unit.dp
 import com.fjbg.weather.ui.theme.cityTextStyle
 import com.fjbg.weather.ui.theme.countryTextStyle
 import com.fjbg.weather.ui.theme.dateTextStyle
+import com.fjbg.weather.util.TimeOfTheDay
 
 @Composable
 fun PlaceName(
