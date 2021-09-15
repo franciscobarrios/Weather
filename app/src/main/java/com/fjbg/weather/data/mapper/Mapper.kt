@@ -11,6 +11,7 @@ import com.fjbg.weather.data.model.WeatherDto
 import com.fjbg.weather.data.remote.AqiResponse
 import com.fjbg.weather.data.remote.CityResponse
 import com.fjbg.weather.data.remote.WeatherResponse
+import com.fjbg.weather.ui.view.main.TimeOfTheDay
 
 // Weather
 fun weatherResponseToEntity(response: WeatherResponse): WeatherEntity = WeatherEntity(
@@ -136,7 +137,8 @@ fun cityWeatherDomainToEntity(cityWeather: CityWeatherDto): CityWeatherEntity {
         wind = cityWeather.wind,
         icon = cityWeather.icon,
         active = cityWeather.active,
-        isFavorite = cityWeather.isFavorite
+        isFavorite = cityWeather.isFavorite,
+        timeOfTheDay = 1
     )
 }
 
@@ -150,7 +152,8 @@ fun cityWeatherDtoToEntity(cityWeather: CityWeatherDto): CityWeatherEntity =
         wind = cityWeather.wind,
         icon = cityWeather.icon,
         active = cityWeather.active,
-        isFavorite = cityWeather.isFavorite
+        isFavorite = cityWeather.isFavorite,
+        timeOfTheDay = 1
     )
 
 fun cityWeatherEntityToDomain(entity: CityWeatherEntity): CityWeatherDto =
@@ -168,3 +171,15 @@ fun cityWeatherEntityToDomain(entity: CityWeatherEntity): CityWeatherDto =
 
 fun cityWeatherEntitiesToDomain(list: List<CityWeatherEntity>): List<CityWeatherDto> =
     list.map(::cityWeatherEntityToDomain)
+
+fun mapTimeOfTheDay(hour: Int): TimeOfTheDay {
+    return when {
+        (hour in 0..4) -> TimeOfTheDay.NIGHT
+        (hour in 5..8) -> TimeOfTheDay.DAWN
+        (hour in 9..17) -> TimeOfTheDay.DAY
+        (hour in 18..21) -> TimeOfTheDay.DUSK
+        (hour in 22..23) -> TimeOfTheDay.NIGHT
+        else -> TimeOfTheDay.NIGHT
+    }
+}
+

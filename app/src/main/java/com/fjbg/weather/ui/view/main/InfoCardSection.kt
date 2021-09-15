@@ -18,6 +18,7 @@ fun InfoCardSection(
     indexUv: String?,
     wind: String?,
     aqi: String?,
+    timeOfTheDay: TimeOfTheDay,
 ) {
     ConstraintLayout(
         modifier = Modifier.fillMaxWidth()
@@ -27,6 +28,7 @@ fun InfoCardSection(
             title = "Humidity",
             content = "$humidity%",
             icon = R.drawable.ic_humidity,
+            timeOfTheDay = timeOfTheDay,
             modifier = Modifier
                 .constrainAs(card1) {
                     top.linkTo(parent.top, margin = 16.dp)
@@ -40,6 +42,7 @@ fun InfoCardSection(
             title = "Index UV",
             content = indexUv.toString(),
             icon = R.drawable.ic_index_uv,
+            timeOfTheDay = timeOfTheDay,
             modifier = Modifier
                 .constrainAs(card2) {
                     top.linkTo(parent.top, margin = 16.dp)
@@ -53,6 +56,7 @@ fun InfoCardSection(
             title = "Wind",
             content = "$wind m/s",
             icon = R.drawable.ic_wind,
+            timeOfTheDay = timeOfTheDay,
             modifier = Modifier
                 .constrainAs(card3) {
                     top.linkTo(card1.bottom, margin = 16.dp)
@@ -67,6 +71,7 @@ fun InfoCardSection(
             title = "AQI",
             content = aqi.toString(),
             icon = R.drawable.ic_aqi,
+            timeOfTheDay = timeOfTheDay,
             modifier = Modifier
                 .constrainAs(card4) {
                     top.linkTo(card2.bottom, margin = 16.dp)
@@ -77,7 +82,6 @@ fun InfoCardSection(
                 .requiredWidth(158.dp)
         )
     }
-
 }
 
 @ExperimentalMaterialApi
@@ -89,5 +93,6 @@ fun InfoCardSectionPreview() {
         indexUv = "21",
         wind = "5.7",
         aqi = "23",
+        timeOfTheDay = TimeOfTheDay.DAY,
     )
 }

@@ -14,5 +14,6 @@ data class CityWeatherEntity(
     val wind: Double,
     val icon: Int,
     val active: Boolean,
-    val isFavorite: Boolean
+    val isFavorite: Boolean,
+    val timeOfTheDay: Int,
 )

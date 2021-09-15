@@ -1,6 +1,7 @@
 package com.fjbg.weather.ui.view.addlocation
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -19,145 +20,155 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.fjbg.weather.R
-import com.fjbg.weather.data.mapper.iconIdToIconWeather
-import com.fjbg.weather.data.mapper.owApiIconToIntResourceDay
+import com.fjbg.weather.data.CELSIUS
+import com.fjbg.weather.data.HUMIDITY
+import com.fjbg.weather.data.WIND_SPEED_MS
+import com.fjbg.weather.ui.view.main.TimeOfTheDay
+import com.fjbg.weather.ui.view.main.dynamicBackgroundWidget
+import com.fjbg.weather.ui.view.main.dynamicIconTint
+import com.fjbg.weather.ui.view.main.dynamicTextColor
+import com.fjbg.weather.util.getCountry
 import com.fjbg.weather.util.iconTint
-import com.fjbg.weather.util.textColor
-import java.util.*
 
 @ExperimentalMaterialApi
 @Composable
 fun CityWeatherWidget(
     temperature: String,
-    icon: Int,
     city: String,
     country: String,
     humidity: String,
-    wind: String
+    wind: String,
+    timeOfTheDay: TimeOfTheDay,
 ) {
     Card(
         onClick = {},
         elevation = 4.dp,
         shape = RoundedCornerShape(12.dp),
-        modifier = Modifier.padding(10.dp)
+        modifier = Modifier
+            .padding(10.dp)
     ) {
-        Column {
-            Row(verticalAlignment = Alignment.CenterVertically) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween,
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(dynamicBackgroundWidget(timeOfTheDay)),
+        ) {
+            Column(
+                verticalArrangement = Arrangement.SpaceEvenly,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
                 Text(
-                    text = "$temperature°c",
+                    text = "$temperature$CELSIUS",
                     style = TextStyle(
-                        color = textColor(isSystemInDarkTheme()),
-                        fontSize = 32.sp
+                        color = dynamicTextColor(timeOfTheDay),
+                        fontSize = 56.sp,
+                        fontWeight = FontWeight.Light
                     ),
-                    modifier = Modifier.padding(12.dp)
+                    modifier = Modifier.padding(8.dp)
                 )
-                Spacer(modifier = Modifier.padding(4.dp))
 
-                val iconWeather = iconIdToIconWeather(icon)
-                val currentTime = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
-
-                iconWeather?.let {
-                    val id = owApiIconToIntResourceDay(it, currentTime > 18)
+                Row(verticalAlignment = Alignment.CenterVertically) {
                     Image(
-                        painter = painterResource(id),
+                        painter = painterResource(R.drawable.ic_humidity),
                         contentDescription = "weather icon",
                         alignment = Alignment.Center,
+                        colorFilter = dynamicIconTint(timeOfTheDay),
                         modifier = Modifier
-                            .size(52.dp),
+                            .padding(
+                                start = 8.dp,
+                                bottom = 8.dp,
+                                top = 2.dp,
+                                end = 2.dp
+                            )
+                            .size(22.dp)
+                    )
+
+                    Text(
+                        text = "$humidity$HUMIDITY",
+                        style = TextStyle(
+                            color = dynamicTextColor(timeOfTheDay),
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight.Normal
+                        ),
+                        modifier = Modifier.padding(
+                            start = 2.dp,
+                            bottom = 12.dp,
+                            top = 2.dp,
+                            end = 6.dp
+                        )
+                    )
+
+                    Spacer(modifier = Modifier.padding(2.dp))
+
+                    Image(
+                        painter = painterResource(R.drawable.ic_wind),
+                        contentDescription = "weather icon",
+                        alignment = Alignment.Center,
+                        colorFilter = dynamicIconTint(timeOfTheDay),
+                        modifier = Modifier
+                            .padding(
+                                start = 12.dp,
+                                bottom = 8.dp,
+                                top = 2.dp,
+                                end = 2.dp
+                            )
+                            .size(22.dp)
+                    )
+
+                    Text(
+                        text = "$wind$WIND_SPEED_MS",
+                        style = TextStyle(
+                            color = dynamicTextColor(timeOfTheDay),
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight.Normal
+                        ),
+                        modifier = Modifier.padding(
+                            start = 2.dp,
+                            bottom = 12.dp,
+                            top = 2.dp,
+                            end = 8.dp
+                        )
                     )
                 }
             }
+
             Column {
                 Text(
                     text = city,
                     style = TextStyle(
-                        color = textColor(isSystemInDarkTheme()),
+                        color = dynamicTextColor(timeOfTheDay),
                         fontSize = 16.sp,
-                        fontWeight = FontWeight.SemiBold,
+                        fontWeight = FontWeight.Normal,
                     ),
-                    maxLines = 1,
+                    maxLines = 2,
                     overflow = TextOverflow.Ellipsis,
-                    modifier = Modifier.padding(
-                        start = 12.dp,
-                        bottom = 1.dp,
-                        top = 8.dp,
-                        end = 12.dp
-                    )
+                    modifier = Modifier
+                        .requiredWidth(160.dp)
+                        .padding(
+                            start = 12.dp,
+                            bottom = 1.dp,
+                            top = 8.dp,
+                            end = 12.dp
+                        )
                 )
                 Text(
-                    text = country,
+                    text = country.getCountry(),
                     style = TextStyle(
-                        color = textColor(isSystemInDarkTheme()),
+                        color = dynamicTextColor(timeOfTheDay),
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Light
                     ),
-                    maxLines = 1,
+                    maxLines = 2,
                     overflow = TextOverflow.Ellipsis,
-                    modifier = Modifier.padding(
-                        start = 12.dp,
-                        bottom = 8.dp,
-                        top = 1.dp,
-                        end = 12.dp
-                    )
-                )
-            }
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Image(
-                    painter = painterResource(R.drawable.ic_humidity),
-                    contentDescription = "weather icon",
-                    alignment = Alignment.Center,
-                    colorFilter = ColorFilter.tint(iconTint(isSystemInDarkTheme())),
                     modifier = Modifier
+                        .requiredWidth(120.dp)
                         .padding(
                             start = 12.dp,
                             bottom = 8.dp,
-                            top = 2.dp,
-                            end = 2.dp
+                            top = 1.dp,
+                            end = 12.dp
                         )
-                        .size(22.dp)
-                )
-                Text(
-                    text = "$humidity%",
-                    style = TextStyle(
-                        color = textColor(isSystemInDarkTheme()),
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.Normal
-                    ),
-                    modifier = Modifier.padding(
-                        start = 2.dp,
-                        bottom = 12.dp,
-                        top = 2.dp,
-                        end = 6.dp
-                    )
-                )
-                Spacer(modifier = Modifier.padding(2.dp))
-                Image(
-                    painter = painterResource(R.drawable.ic_wind),
-                    contentDescription = "weather icon",
-                    alignment = Alignment.Center,
-                    colorFilter = ColorFilter.tint(iconTint(isSystemInDarkTheme())),
-                    modifier = Modifier
-                        .padding(
-                            start = 12.dp,
-                            bottom = 8.dp,
-                            top = 2.dp,
-                            end = 2.dp
-                        )
-                        .size(22.dp)
-                )
-                Text(
-                    text = "$wind m/s",
-                    style = TextStyle(
-                        color = textColor(isSystemInDarkTheme()),
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.Normal
-                    ),
-                    modifier = Modifier.padding(
-                        start = 2.dp,
-                        bottom = 12.dp,
-                        top = 2.dp,
-                        end = 12.dp
-                    )
                 )
             }
         }
@@ -169,11 +180,11 @@ fun CityWeatherWidget(
 @Composable
 fun CityWeatherWidgetPreview() {
     CityWeatherWidget(
-        temperature = "28",
-        icon = R.drawable.shower2_night,
-        city = "Bangkok",
-        country = "Thailand",
-        humidity = "12",
-        wind = "7",
+        temperature = "-7",
+        city = "Tierra del Fuego",
+        country = "Chile",
+        humidity = "12.0",
+        wind = "12.0",
+        timeOfTheDay = TimeOfTheDay.DAY,
     )
 }

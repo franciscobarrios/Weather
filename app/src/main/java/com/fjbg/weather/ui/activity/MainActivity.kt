@@ -7,6 +7,7 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import com.fjbg.weather.WeatherComposeApp
+import com.fjbg.weather.navigation.Destination
 import com.fjbg.weather.ui.viewmodel.WeatherViewModel
 import com.google.firebase.analytics.FirebaseAnalytics
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,8 +23,11 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
         setContent {
-            WeatherComposeApp(viewModel = viewModel)
+            WeatherComposeApp(
+                viewModel = viewModel
+            )
         }
     }
 }

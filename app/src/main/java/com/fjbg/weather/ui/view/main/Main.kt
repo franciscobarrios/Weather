@@ -5,8 +5,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.fjbg.weather.ui.viewmodel.WeatherViewModel
@@ -15,7 +13,8 @@ import com.fjbg.weather.ui.viewmodel.WeatherViewModel
 @Composable
 fun MainView(
     viewModel: WeatherViewModel?,
-    actionAddLocation: () -> Unit,
+    location: () -> Unit,
+    timeOfTheDay: TimeOfTheDay,
 ) {
     val country = viewModel?.country?.value
     val city = viewModel?.cityName?.value
@@ -29,21 +28,8 @@ fun MainView(
 
     Box(
         modifier = Modifier
-            .background(
-                Brush.verticalGradient(
-                    colors = listOf(
-                        Color(0xFF071A22),
-                        Color(0xFF24263B),
-                        Color(0xFF272A41),
-                        Color(0xFF413D60),
-                        Color(0xFF7E5E79),
-                        Color(0xFFDE8A64),
-                        Color(0xFF6D2F24),
-                        Color(0xFF0C0B0E),
-                    )
-                )
-            )
-            .fillMaxSize(),
+            .fillMaxSize()
+            .background(dynamicBackground(timeOfTheDay)),
     ) {
         Column(
             modifier = Modifier
@@ -51,26 +37,60 @@ fun MainView(
                 .fillMaxSize(),
             verticalArrangement = Arrangement.Top,
         ) {
-            HeaderView(
+            CityWeatherContent(
                 city = city,
                 country = country,
                 date = date,
-                actionAddLocation = actionAddLocation,
-            )
-            WeatherInfo(
-                temp = "$currentTemp°c",
-                description = description ?: "Thunderstorm",
-                icon = icon
-            )
-            InfoCardSection(
-                humidity = humidity ?: "89%",
-                aqi = aqi ?: "46",
-                wind = windSpeed ?: "12",
-                indexUv = "12"
+                currentTemp = currentTemp,
+                description = description,
+                icon = icon,
+                humidity = humidity,
+                aqi = aqi,
+                windSpeed = windSpeed,
+                indexUv = "",
+                actionAddLocation = location
             )
         }
     }
 }
+
+@ExperimentalMaterialApi
+@Composable
+fun CityWeatherContent(
+    city: String?,
+    country: String?,
+    date: String?,
+    currentTemp: String?,
+    description: String?,
+    icon: Int?,
+    humidity: String?,
+    aqi: String?,
+    windSpeed: String?,
+    indexUv: String?,
+    actionAddLocation: () -> Unit,
+) {
+    HeaderView(
+        city = city,
+        country = country,
+        date = date,
+        timeOfTheDay = TimeOfTheDay.DAY,
+        actionAddLocation = actionAddLocation,
+    )
+    WeatherInfo(
+        temperature = currentTemp,
+        description = description,
+        icon = icon,
+        timeOfTheDay = TimeOfTheDay.DAY,
+    )
+    InfoCardSection(
+        humidity = humidity,
+        aqi = aqi,
+        wind = windSpeed,
+        indexUv = indexUv,
+        timeOfTheDay = TimeOfTheDay.DAY,
+    )
+}
+
 
 @ExperimentalMaterialApi
 @Preview
@@ -78,6 +98,7 @@ fun MainView(
 fun MainViewPreview() {
     MainView(
         viewModel = null,
-        actionAddLocation = { },
+        location = { },
+        timeOfTheDay = TimeOfTheDay.DAY
     )
 }

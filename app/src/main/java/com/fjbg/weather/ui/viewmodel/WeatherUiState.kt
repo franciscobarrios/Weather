@@ -7,3 +7,7 @@ sealed class WeatherUiState {
     data class Success(val data: WeatherDto) : WeatherUiState()
     data class Error(val error: Throwable) : WeatherUiState()
 }
+
+enum class CityListState {
+    EMPTY, NOT_EMPTY
+}
